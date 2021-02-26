@@ -422,6 +422,34 @@ countdown(minutes = 10, warn_when = 60)
 ```
 
 ---
+
+# Solution
+
+Research Question:
+
+> What is the Role of Occupational Emotional Labor Requirements on the Surface Acting–Job Satisfaction Relationship?
+
+Variables:
+
+- Job Satisfaction
+- Occupational Emotional Labor
+- Surface Acting
+
+Hypotheses:
+
+> Occupational EL requirements will be positively related to job satisfaction
+
+Job Satisfaction increases when Occupational Emotional Labor increases
+
+> Surface acting will be negatively related to job satisfaction.
+
+Job Satisfaction decreases when Surface Acting increases
+
+> The negative association between surface acting and job satisfaction will be moderated by occupational EL requirements such that the relationship will be stronger for employees who work in occupations with higher EL requirements.
+
+The effect Surface Acting on Job Satisfaction is higher for high Occupational Emotional Labor than for low Occupational Emotional Labor
+
+---
 class: inverse, mline, center, middle
 
 # 2. How to formulate hypotheses?
@@ -917,6 +945,26 @@ countdown(minutes = 3, warn_when = 60)
 ```
 
 ---
+
+# Solution
+
+Hypothesis 1:
+- Outcome = Excess weight
+- Predictor = The valuation of longevity (yes vs no)
+
+Hypothesis 2:
+- Outcome = Energy expended
+- Predictor = Animal size (larger vs smaller)
+
+Hypothesis 3:
+- Outcome = Suffering lice
+- Predictor = Trout type (rainbow vs other)
+
+Hypothesis 3:
+- Outcome = Rapport with graduate students
+- Predictor = Teaching method (student-centered vs teacher-centered)
+
+---
 class: title-slide, middle
 
 ## Exercise: Make your own Hypothesis
@@ -927,13 +975,28 @@ class: title-slide, middle
 |Work motivation|Gender(Female/Male)|Origin(French/Irish)|
 |Work motivation|Gender(Female/Male)|Origin(French/Irish/Italians)|
 |Job Satisfaction|Stress(from 0 to 10)||
-|Job Satisfaction|Stress(from 0 to 10)|Origin(French/Irish)|
 |Job Satisfaction|Stress(from 0 to 10)|Age(Millennials/Baby boomers)|
 |Job Satisfaction|Stress(from 0 to 10)|Age(in year)|
 
 ```{r}
 countdown(minutes = 5, warn_when = 60)
 ```
+
+---
+
+# Solution
+
+The work motivation of female employees is higher than the work motivation of male employees
+
+The effect of gender on work motivation is higher for Irish employees than French employees
+
+The effect of origin on work motivation is higher for female employees than male employees
+
+Job satisfaction decreases when stress increases
+
+The effect of stress on job satisfaction is higher for Millennials than for Baby boomers
+
+The effect of stress on job satisfaction is higher for less experienced employees than for more experienced employees
 
 ---
 class: inverse, mline, center, middle
@@ -1069,7 +1132,7 @@ The relation between two predictor variables and another outcome variable. An in
 
 .pull-left[
 classic representation:
-```{r eval=TRUE}
+```{r}
 DiagrammeR::grViz("
   digraph {
     graph [rankdir = LR]
@@ -1092,7 +1155,7 @@ DiagrammeR::grViz("
 
 .pull-right[
 is the same as:
-```{r eval=TRUE}
+```{r}
 DiagrammeR::grViz("
   digraph {
     graph [rankdir = LR]
@@ -1271,37 +1334,6 @@ digraph rmarkdown {
 Is it bad?
 
 ![](https://d3i71xaburhd42.cloudfront.net/2a3e4a3024bfc4df27db07a1d48f77a6f371b0c3/8-Figure1-1.png)
-
----
-class: title-slide, middle
-
-## Exercise: Draw the Model Used
-
-Draw the model corresponding to these equations:
-
-```{r out.width='80%'}
-knitr::include_graphics("img/ex1_hyp.png")
-```
-
-```{r}
-countdown(minutes = 5, warn_when = 60)
-```
-
----
-class: title-slide, middle
-
-## Exercise: Draw the Model Used
-
-Draw the model corresponding to these equations:
-
-```{r out.width='100%'}
-knitr::include_graphics("img/ex2_hyp1.png")
-knitr::include_graphics("img/ex2_hyp2.png")
-```
-
-```{r}
-countdown(minutes = 5, warn_when = 60)
-```
 
 ---
 class: inverse, mline, center, middle

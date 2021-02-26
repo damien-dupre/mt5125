@@ -612,18 +612,18 @@ knitr::include_graphics("https://memegenerator.net/img/instances/82194202/what-i
 # Example of Categorical Coding
 
 .pull-left[
-Imagine we decide to sample 3 males and 3 females from the classroom and we want to see if the difference between their math exams averages is due **to sampling luck or is reflecting a real difference in the population**.
+Imagine we decide to sample 3 male and 3 female employees and we want to see if the difference between their job satisfaction averages is due **to sampling luck or is reflecting a real difference in the population**.
 
-That is, **is the difference between male and female student statistically significant?**
+That is, **is the difference between male and female employees statistically significant?**
 ]
 
 .pull-right[
 ```{r}
 df2 <- 
   data.frame(
-    participant = c("ppt1", "ppt2", "ppt3", "ppt4", "ppt5", "ppt6"), 
+    employee = 1:6, 
     gender = c("Female", "Male", "Male", "Female", "Male", "Female"),
-    exam_mark = c(89, 64, 72, 77, 78, 69)
+    js_score = c(8.9, 6.4, 7.2, 7.7, 7.8, 6.9)
   ) %>% 
   dplyr::mutate(
     gender_c = case_when(gender == "Female" ~ 1, gender == "Male" ~ 2)
@@ -645,7 +645,7 @@ df2 %>%
 
 ```{r fig.height=5}
 df2 %>% 
-  ggplot(aes(x = gender, y = exam_mark)) +
+  ggplot(aes(x = gender, y = js_score)) +
   geom_point(color = "black", size = 5) +
   stat_summary(fun = "mean", colour = "blue", size = 6, geom = "point") +
   theme_bw() +
@@ -661,7 +661,7 @@ df2 %>%
 
 ```{r fig.height=5}
 df2 %>% 
-  ggplot(aes(x = gender_c, y = exam_mark)) +
+  ggplot(aes(x = gender_c, y = js_score)) +
   geom_point(color = "black", size = 5) +
   stat_summary(fun = "mean", colour = "blue", size = 6, geom = "point") +
   scale_x_continuous(breaks = c(1, 2), limits = c(0.5, 2.5)) +
@@ -686,7 +686,7 @@ However you can manually choose to recode the variable yourself by creating a ne
 
 ```{r fig.height=4}
 df2 %>% 
-  ggplot(aes(x = gender_c, y = exam_mark)) +
+  ggplot(aes(x = gender_c, y = js_score)) +
   geom_point(color = "black", size = 5) +
   stat_summary(fun = "mean", colour = "blue", size = 6, geom = "point") +
   scale_x_continuous(breaks = c(1, 2), limits = c(0.5, 2.5)) +
@@ -698,7 +698,7 @@ df2 %>%
 
 ```{r results='asis'}
 df2 %>% 
-  lm(data = ., formula = exam_mark ~ gender_c) %>% 
+  lm(data = ., formula = js_score ~ gender_c) %>% 
   broom::tidy() %>% 
   dplyr::mutate(p.value = format.pval(round(p.value, 3), eps = 0.001)) %>% 
   knitr::kable(digits = 2) %>%
@@ -716,7 +716,7 @@ df2  %>%
     gender == "Female" ~ 2,
     gender == "Male" ~ 1
   )) %>% 
-  ggplot(aes(x = gender_c, y = exam_mark)) +
+  ggplot(aes(x = gender_c, y = js_score)) +
   geom_point(color = "black", size = 5) +
   stat_summary(fun = "mean", colour = "blue", size = 6, geom = "point") +
   scale_x_continuous(breaks = c(1, 2), limits = c(0.5, 2.5)) +
@@ -732,7 +732,7 @@ df2 %>%
     gender == "Female" ~ 2,
     gender == "Male" ~ 1
   )) %>% 
-  lm(data = ., formula = exam_mark ~ gender_c) %>% 
+  lm(data = ., formula = js_score ~ gender_c) %>% 
   broom::tidy() %>% 
   dplyr::mutate(p.value = format.pval(round(p.value, 3), eps = 0.001)) %>% 
   knitr::kable(digits = 2) %>%
@@ -754,7 +754,7 @@ Instead of using $salary$ as a **continuous variable**, let's convert it as $sal
 
 ### Hypothesis
 
-The average $js\_score$ of employer having a **high** $salary\_c$ is higher than for those having a **low** $salary\_c$
+The average $js\_score$ of employer having a **high** $salary\_c$ is different than for those having a **low** $salary\_c$
 
 ### In mathematical terms
 
@@ -949,9 +949,9 @@ class: title-slide, middle
 
 With the "dnd.csv" data, test the following models and conclude on each effect:
 
-Model 1: $js\_score = \beta_{0} + \beta_{1}.perf\_c + \beta_{2}.gender + \beta_{3}.perf\_c*gender + \epsilon$
+Model 1: $js\_score = \beta_{0} + \beta_{1}.perf + \beta_{2}.gender + \beta_{3}.perf*gender + \epsilon$
 
-Model 2: $js\_score = \beta_{0} + \beta_{1}.perf\_c + \beta_{2}.location + \beta_{3}.perf\_c*location+ \epsilon$
+Model 2: $js\_score = \beta_{0} + \beta_{1}.perf + \beta_{2}.location + \beta_{3}.perf*location+ \epsilon$
 
 ```{r}
 countdown(minutes = 10, warn_when = 60)
@@ -976,8 +976,8 @@ knitr::include_graphics("img/jamovi_lm_main_c31.png")
 ```
 
 There is not 1 result for $location$ but 2!
-- Comparison of "France" vs. "Australia"
-- Comparison of "Ireland" vs. "Australia"
+- Comparison of "Australia" vs. "France"
+- Comparison of "Australia" vs. "Ireland"
 
 ### How can I test the effect of the full variable?
 
@@ -985,21 +985,21 @@ There is not 1 result for $location$ but 2!
 
 # Coding Predictors with 3+ categories
 
-Y/Outcome/DV = $exam\_mark$(Continuous variable from 0 to 100)
+Y/Outcome/DV = $js\_score$(Continuous variable from 0 to 100)
 
-X/Predictor/IV = $location$ (Categorical variable with 3 categories: *Ireland*, *France* and *Spain*)
+X/Predictor/IV = $location$ (Categorical variable with 3 categories: *Australia*, *France* and *Ireland*)
 
 .pull-left[
 ```{r}
 df4 <- data.frame(
-  participant = c("ppt1", "ppt2", "ppt3", "ppt4", "ppt5", "ppt6", "ppt7", "ppt8"), 
-  location = c("Ireland", "France", "Spain", "Spain", "Ireland", "France", "Spain", "Ireland"),
-  exam_mark = c(89, 64, 71, 77, 96, 69, 59, 99)
+  employee = 1:8, 
+  location = c("Ireland", "France", "Australia", "Australia", "Ireland", "France", "Australia", "Ireland"),
+  js_score = c(89, 64, 71, 77, 96, 69, 59, 99)
 ) %>% 
   dplyr::mutate(location_c = case_when(
-    location == "Ireland" ~ 1,
+    location == "Australia" ~ 1,
     location == "France" ~ 2,
-    location == "Spain" ~ 3
+    location == "Ireland" ~ 3
   ))
 
 knitr::kable(df4, format = "html") %>% 
@@ -1010,7 +1010,7 @@ knitr::kable(df4, format = "html") %>%
 .pull-right[
 ```{r fig.height=5}
 df4 %>% 
-  ggplot(aes(x = factor(location, level = c("Ireland", "France", "Spain")), y = exam_mark)) +
+  ggplot(aes(x = factor(location, level = c("Australia", "France", "Ireland")), y = js_score)) +
   geom_point(color = "black", size = 5) +
   stat_summary(fun = "mean", colour = "blue", size = 6, geom = "point") +
   scale_x_discrete("location") +
@@ -1027,18 +1027,18 @@ df4 %>%
 
 $t$-test can only compare 2 categories. Because Linear Regression Models are (kind of) $t$-test, categories will be compared 2-by-2 with one category as the reference to compare all the others.
 
-For example a linear regression of `location` on `exam_mark` will display not one effect for the `location` but the effect of the 2-by-2 comparison using a reference group by alphabetical order:
+For example a linear regression of `location` on `js_score` will display not one effect for the `location` but the effect of the 2-by-2 comparison using a reference group by alphabetical order:
 
 ```{r results='asis'}
 df4 %>% 
-  lm(data = ., formula = exam_mark ~ location) %>% 
+  lm(data = ., formula = js_score ~ location) %>% 
   broom::tidy() %>% 
   dplyr::mutate(p.value = format.pval(round(p.value, 3), eps = 0.001)) %>% 
   knitr::kable(digits = 2) %>%
   kable_styling(font_size = 16)
 ```
 
-In our case the reference is the group "France" (first letter).
+In our case the reference is the group "Australia" (first letter).
 
 Here is our problem: **How to test the overall effect of a variable with 3 or more Categories?**
 
@@ -1123,7 +1123,7 @@ knitr::include_graphics("img/jamovi_lm_main_c32.png")
 
 ### Results
 
-> The is a significant effect of employee's $location$ on their average $js\_score$ ( `r lm_c3$statistic$location`)
+> There is no significant effect of employee's $location$ on their average $js\_score$ ( `r lm_c3$statistic$location`)
 
 ---
 class: title-slide, middle
