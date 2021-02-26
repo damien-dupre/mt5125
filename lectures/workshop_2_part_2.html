@@ -8,6 +8,8 @@
     <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="libs/remark-css-0.0.1/metropolis.css" rel="stylesheet" />
     <link href="libs/remark-css-0.0.1/metropolis-fonts.css" rel="stylesheet" />
+    <link href="libs/countdown-0.3.5/countdown.css" rel="stylesheet" />
+    <script src="libs/countdown-0.3.5/countdown.js"></script>
     <link rel="stylesheet" href="css/custom_design.css" type="text/css" />
   </head>
   <body>
@@ -192,13 +194,21 @@ In an Academic Research Paper, once the latent variables are calculated, basic s
 
 ---
 
-# Describing the Distribution of Variables
+# Summary Tables in Jamovi
 
-The description is supported by either a table or some figures (avoid both)
+&lt;img src="img/jamovi_descr_table.png" width="100%" style="display: block; margin: auto;" /&gt;
 
-### Summary tables in Jamovi
+---
 
+# Summary Figures in Jamovi
 
+&lt;img src="img/jamovi_descr_figure_1.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Summary Figures in Jamovi
+
+&lt;img src="img/jamovi_descr_figure_2.png" width="100%" style="display: block; margin: auto;" /&gt;
 
 ---
 class: title-slide, middle
@@ -213,9 +223,15 @@ class: inverse, mline, center, middle
 
 ---
 
-# `\(p\)`-hacking in Correlation Tables
+# Correlation Matrix with Predictors
 
-The use of correlation tables is widespread in the literature, and they are a great tool for descriptive analysis but **do not test your hypotheses with correlation tables**. A good practice is to remove all `\(p\)`-values or `\(p\)`-stars from them.
+&lt;img src="img/jamovi_correlation_matrix.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+---
+
+# `\(p\)`-hacking in Correlation Matrices
+
+The use of correlation tables is widespread in the literature, and they are a great tool for descriptive analysis but **do not test your hypotheses with correlation matrices**. A good practice is to remove all `\(p\)`-values or `\(p\)`-stars from them.
 
 `\(p\)`-values should only be produced to test an hypothesis that has been already formulated, any other is use is called `\(p\)`**-hacking**.
 
@@ -225,6 +241,21 @@ The use of correlation tables is widespread in the literature, and they are a gr
 class: title-slide, middle
 
 ## Live Demo
+
+---
+class: title-slide, middle
+
+## Exercise: Descriptive Statistics
+
+Use the data file "manager_satisfaction_performance.csv" in Jamovi to:
+- Evaluate the reliability of the 3 scales
+- Calculate the score for each scale
+- Produce descriptive tables and figures from the latent variables according to the gender variable 
+- Produce the correlation matrix of the Predictors Monthly-contract-negociated, Stress and Turnover Intentions
+
+<div class="countdown" id="timer_6038d900" style="right:0;bottom:0;" data-warnwhen="60">
+<code class="countdown-time"><span class="countdown-digits minutes">15</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
 
 ---
 class: inverse, mline, left, middle

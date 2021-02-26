@@ -16,7 +16,10 @@ output:
 
 ```{r setup, include = FALSE}
 # general options --------------------------------------------------------------
-options(scipen = 999)
+options(
+  scipen = 999,
+  htmltools.preserve.raw = FALSE
+  )
 set.seed(123)
 # chunk options ----------------------------------------------------------------
 knitr::opts_chunk$set(
@@ -41,6 +44,7 @@ library(ggrepel)
 library(papaja)
 library(ggfortify)
 library(ggcorrplot)
+library(countdown)
 
 # data -------------------------------------------------------------------------
 dnd <- readr::read_csv(here::here("data/dnd.csv"))  
@@ -279,13 +283,27 @@ include_graphics("img/paper_descriptive.png")
 
 ---
 
-# Describing the Distribution of Variables
+# Summary Tables in Jamovi
 
-The description is supported by either a table or some figures (avoid both)
+```{r out.width='100%'}
+include_graphics("img/jamovi_descr_table.png")
+```
 
-### Summary tables in Jamovi
+---
 
+# Summary Figures in Jamovi
 
+```{r out.width='100%'}
+include_graphics("img/jamovi_descr_figure_1.png")
+```
+
+---
+
+# Summary Figures in Jamovi
+
+```{r out.width='100%'}
+include_graphics("img/jamovi_descr_figure_2.png")
+```
 
 ---
 class: title-slide, middle
@@ -300,9 +318,17 @@ class: inverse, mline, center, middle
 
 ---
 
-# $p$-hacking in Correlation Tables
+# Correlation Matrix with Predictors
 
-The use of correlation tables is widespread in the literature, and they are a great tool for descriptive analysis but **do not test your hypotheses with correlation tables**. A good practice is to remove all $p$-values or $p$-stars from them.
+```{r out.width='100%'}
+include_graphics("img/jamovi_correlation_matrix.png")
+```
+
+---
+
+# $p$-hacking in Correlation Matrices
+
+The use of correlation tables is widespread in the literature, and they are a great tool for descriptive analysis but **do not test your hypotheses with correlation matrices**. A good practice is to remove all $p$-values or $p$-stars from them.
 
 $p$-values should only be produced to test an hypothesis that has been already formulated, any other is use is called $p$**-hacking**.
 
@@ -314,6 +340,21 @@ knitr::include_graphics("https://media.makeameme.org/created/what-is-something-5
 class: title-slide, middle
 
 ## Live Demo
+
+---
+class: title-slide, middle
+
+## Exercise: Descriptive Statistics
+
+Use the data file "manager_satisfaction_performance.csv" in Jamovi to:
+- Evaluate the reliability of the 3 scales
+- Calculate the score for each scale
+- Produce descriptive tables and figures from the latent variables according to the gender variable 
+- Produce the correlation matrix of the Predictors Monthly-contract-negociated, Stress and Turnover Intentions
+
+```{r}
+countdown(minutes = 15, warn_when = 60)
+```
 
 ---
 class: inverse, mline, left, middle
