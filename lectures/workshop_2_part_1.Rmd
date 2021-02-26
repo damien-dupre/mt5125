@@ -422,27 +422,6 @@ countdown(minutes = 10, warn_when = 60)
 ```
 
 ---
-
-# Solution
-
-Research questions: All 4 presented page 6 of the document (137 of the academic paper)
-
-Variables: 
-- Online Learning Self-Efficacy (OLSE) = Predictor
-- Learner–Content Interaction (LCI) = Predictor
-- Learner–Instructor Interaction (LII) = Predictor
-- Learner-Learner Interaction (LLI) = Predictor
-- Student satisfaction within online learning environments = Outcome
-- Perceived learning within online learning environments = Outcome
-
-Hypotheses:
-- Student satisfaction increases when Online Learning Self-Efficacy (OLSE) increases
-- Perceived learning increases when Online Learning Self-Efficacy (OLSE) increases
-- Student satisfaction increases when Learner–Content Interaction (LCI) increases
-- Perceived learning increases when Learner–Content Interaction (LCI) increases
-...
-
----
 class: inverse, mline, center, middle
 
 # 2. How to formulate hypotheses?
