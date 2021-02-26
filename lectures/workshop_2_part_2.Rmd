@@ -1,0 +1,328 @@
+---
+title: "MT5125 - Data Analytics - Workshop 2 - Part 2"
+subtitle: "Introduction to Statistics for Business Leaders"
+author: "Damien Dupré"
+date: "Dublin City University"
+output:
+  xaringan::moon_reader:
+    css: ["default", "metropolis", "metropolis-fonts", "css/custom_design.css"]
+    lib_dir: libs
+    nature:
+      beforeInit: "libs/cols_macro.js"
+      highlightStyle: zenburn
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+```{r setup, include = FALSE}
+# general options --------------------------------------------------------------
+options(scipen = 999)
+set.seed(123)
+# chunk options ----------------------------------------------------------------
+knitr::opts_chunk$set(
+  cache.extra = knitr::rand_seed, 
+  message = FALSE, 
+  warning = FALSE, 
+  error = FALSE, 
+  echo = FALSE,
+  cache = FALSE,
+  comment = "", 
+  fig.align = "center", 
+  fig.retina = 3
+  )
+# libraries --------------------------------------------------------------------
+library(tidyverse)
+library(knitr)
+library(kableExtra)
+library(fontawesome)
+library(DiagrammeR)
+library(patchwork)
+library(ggrepel)
+library(papaja)
+library(ggfortify)
+library(ggcorrplot)
+
+# data -------------------------------------------------------------------------
+dnd <- readr::read_csv(here::here("data/dnd.csv"))  
+
+  # tibble::tibble(
+  #   gender = sample(c("male", "female"), 20, replace = TRUE),
+  #   location = sample(c("Ireland", "France", "Australia"), 20, replace = TRUE),
+  #   perf = rnorm(20, mean = 4, sd = 2),
+  #   salary = rnorm(20, mean = 30000, sd = 1000),
+  #   js_score = -55 + 0.002 * salary + rnorm(20, mean = 2, sd = 1)
+  # ) %>%
+  # tibble::rownames_to_column("employee") %>%
+  # dplyr::mutate(
+  #   js_score = case_when(
+  #     js_score > 10 ~ 10,
+  #     js_score < 0 ~ 0,
+  #     TRUE ~ js_score
+  #   ),
+  #   perf = case_when(
+  #     perf > 10 ~ 10,
+  #     perf < 0 ~ 0,
+  #     TRUE ~ perf
+  #   ),
+  #   salary_c = case_when(
+  #     salary >= mean(salary) ~ "high",
+  #     salary < mean(salary) ~ "low"
+  #   ),
+  #   perf_c = case_when(
+  #     perf >= mean(perf) + sd(perf) ~ "high",
+  #     perf < mean(perf) + sd(perf) & perf >= mean(perf) - sd(perf) ~ "medium",
+  #     perf < mean(perf) - sd(perf) ~ "low"
+  #   ),
+  # ) %>%
+  # readr::write_csv(here::here("data/dnd.csv"))
+  
+# analyses ---------------------------------------------------------------------
+m_js_high <- mean(dnd$js_score[dnd$salary_c == "high"])
+m_js_low <- mean(dnd$js_score[dnd$salary_c == "low"])
+lm_1 <- lm(js_score ~ salary, data = dnd) %>% apa_print
+lm_2 <- lm(js_score ~ salary*perf, data = dnd) %>% apa_print
+lm_c <- lm(js_score ~ salary_c, data = dnd) %>% apa_print
+lm_c2 <- dnd %>% 
+  dplyr::mutate(salary_c = factor(salary_c, level = c("low", "high"))) %>% 
+  lm(js_score ~ salary_c, data = .) %>% apa_print
+lm_c3 <- lm(js_score ~ location, data = dnd) %>% aov %>% apa_print
+
+```
+
+# JAMOVI: Stats. Open. Now.
+
+- Can be downloaded on https://www.jamovi.org/
+
+- Book "Learning Statistics with JAMOVI" free here: https://www.learnstatswithjamovi.com/
+
+```{r out.width = "100%"}
+knitr::include_graphics("img/jamovi_gui.png")
+```
+
+---
+
+# Anatomy of JAMOVI
+
+.pull-left[
+#### 1. Different symbols for **variable types**
+]
+.pull-right[
+```{r out.width = "50%"}
+knitr::include_graphics("img/jamovi_icons.png")
+```
+]
+
+#### 2. Expected variable type is displayed in bottom right corner of boxes
+
+Distinction between **Factors** and **Covariates**:
+  - A Factor is a predictor of type categorical (nominal or ordinal)
+  - A Covariate is a predictor of type continuous
+
+#### 3. Type of actions
+  - Drag and drop variables
+  - Selection arrow
+  - Unfolding boxes to reach options
+
+---
+
+class: inverse, mline, center, middle
+
+# 1. Latent Variables and Reliability Analysis
+
+---
+
+# Latent Variable
+
+In order to measure the theoretical constructs/concepts of your model, you will have to select the best measurement scale made of multiple items.
+
+Reliability assessment is performed every time a scale is used (Cronbach's alpha)
+
+Cronbach's alpha indicates the overall correlation between items
+
+Cronbach's alpha ranges from -1 to 1:
+
+- If its value is higher than 0.7, then the scale is reliable to measure the latent variable 
+- If its value is lower than 0.7, then proceed with caution or remove/modify the scale to obtain a value higher than 0.7
+
+---
+
+# Cronbach's alpha in JAMOVI
+
+In the Analysis Tab:
+1. Click Factor icon
+2. Select Reliability Analysis
+
+```{r out.width='100%'}
+include_graphics("img/cronbach_1.png")
+```
+
+In our example, alpha = -0.56: This is not enough and something is wrong
+---
+
+# Cronbach's alpha in JAMOVI - Solution 1
+
+Have a look at the Cronbach's alpha if item is dropped
+
+```{r out.width='100%'}
+include_graphics("img/cronbach_4.png")
+```
+
+---
+
+# Cronbach's alpha in JAMOVI - Solution 2
+
+Have a look at the correlation heatmap
+- If one item is negatively correlated with the others (values < 0 and red colour), this item is reversed and has to be recoded
+- Add the negatively correlated item to “Reverse Scaled Item" to observe the effect of changes
+
+```{r out.width='80%'}
+include_graphics("img/cronbach_2.png")
+```
+
+---
+
+# Cronbach's alpha in JAMOVI - Solution 2
+
+Have a look at the correlation heatmap
+- If one item is negatively correlated with the others (values < 0 and red colour), this item is reversed and has to be recoded
+- Add the negatively correlated item to “Reverse Scaled Item" to observe the effect of changes
+
+```{r out.width='80%'}
+include_graphics("img/cronbach_3.png")
+```
+
+---
+
+# Manually Recode Variable
+
+.pull-left[
+Some scales include negative formulation of some items to check that participants are reading the questions.
+
+For example in a Job Satisfaction scale:
+- It. 1: I love my job
+- It. 2: I like going to work everyday
+- It. 3: I hate what I'm doing at work
+
+If I answer high to the 2 first items, my answer to the 3rd item should be low.
+
+The values of an item from 0 to 10 has to be reversed:
+- 0 becomes 10
+- 1 becomes 9
+- ...
+- 10 becomes 0
+]
+
+.pull-right[
+```{r out.width='80%'}
+include_graphics("img/cronbach_5.png")
+```
+]
+
+---
+
+# Manually Recode Variable
+
+In Jamovi:
+- Data > Transform: edit
+```
+= (max scale + min scale) - variable
+```
+
+```{r out.width='80%'}
+include_graphics("img/cronbach_6.png")
+```
+
+---
+
+# Manually Recode Variable
+
+In Jamovi:
+- Data > Compute Variable
+```
+= (max scale + min scale) - variable
+```
+
+```{r out.width='80%'}
+include_graphics("img/cronbach_8.png")
+```
+
+---
+
+# Compute Latent Variable Score
+
+When Cronbach's alpha is satisfying enough, then calculate the latent variable score by averaging the items kept and reversed (don't include original items if they have been reversed)
+
+```{r out.width='50%'}
+include_graphics("https://www.memecreator.org/static/images/memes/3335270.jpg")
+```
+
+---
+class: title-slide, middle
+
+## Live Demo
+
+---
+
+class: inverse, mline, center, middle
+
+# 2. Describing the Distribution of Variables
+
+---
+
+# Describing the Distribution of Variables
+
+In an Academic Research Paper, once the latent variables are calculated, basic statistical summaries are calculated and presented in a text:
+
+```{r out.width='100%'}
+include_graphics("img/paper_descriptive.png")
+```
+
+---
+
+# Describing the Distribution of Variables
+
+The description is supported by either a table or some figures (avoid both)
+
+### Summary tables in Jamovi
+
+
+
+---
+class: title-slide, middle
+
+## Live Demo
+
+---
+
+class: inverse, mline, center, middle
+
+# 3. Describing the Relationship Between Predictor
+
+---
+
+# $p$-hacking in Correlation Tables
+
+The use of correlation tables is widespread in the literature, and they are a great tool for descriptive analysis but **do not test your hypotheses with correlation tables**. A good practice is to remove all $p$-values or $p$-stars from them.
+
+$p$-values should only be produced to test an hypothesis that has been already formulated, any other is use is called $p$**-hacking**.
+
+```{r out.width = "40%"}
+knitr::include_graphics("https://media.makeameme.org/created/what-is-something-5ea39c449c.jpg")
+```
+
+---
+class: title-slide, middle
+
+## Live Demo
+
+---
+class: inverse, mline, left, middle
+
+<img class="circle" src="https://github.com/damien-dupre.png" width="250px"/>
+
+# Thanks for your attention and don't hesitate if you have any question!
+
+[`r fa(name = "twitter")` @damien_dupre](http://twitter.com/damien_dupre)  
+[`r fa(name = "github")` @damien-dupre](http://github.com/damien-dupre)  
+[`r fa(name = "link")` damien-datasci-blog.netlify.app](https://damien-datasci-blog.netlify.app)  
+[`r fa(name = "paper-plane")` damien.dupre@dcu.ie](mailto:damien.dupre@dcu.ie)
