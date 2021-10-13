@@ -1,0 +1,935 @@
+---
+title: "MT5125 - Data Analytics"
+subtitle: "Variables and Hypotheses"
+author: "Damien Dupré"
+date: "Dublin City University"
+output:
+  xaringan::moon_reader:
+    css: ["default", "metropolis", "metropolis-fonts", "css/custom_design.css"]
+    lib_dir: libs
+    nature:
+      beforeInit: "libs/cols_macro.js"
+      highlightStyle: zenburn
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+```{r setup, include = FALSE}
+# general options --------------------------------------------------------------
+options(scipen = 999)
+options(htmltools.preserve.raw = FALSE)
+set.seed(42)
+# chunk options ----------------------------------------------------------------
+knitr::opts_chunk$set(
+  cache.extra = knitr::rand_seed, 
+  message = FALSE, 
+  warning = FALSE, 
+  error = FALSE, 
+  echo = FALSE,
+  cache = FALSE,
+  comment = "", 
+  fig.align = "center", 
+  fig.retina = 3
+  )
+# libraries --------------------------------------------------------------------
+library(tidyverse)
+library(knitr)
+library(nomnoml)
+library(emo)
+library(DiagrammeR)
+library(widgetframe)
+library(kableExtra)
+library(ggrepel)
+library(fontawesome)
+library(tweetrmd)
+library(plotly)
+library(gapminder)
+library(patchwork)
+library(webshot2)
+library(VennDiagram)
+library(countdown)
+```
+
+# Essential Concepts to Master
+
+In Academic Reports, all sections are linked:
+
+.center[**Introduction `r ji("right_arrow")` Literature Review `r ji("right_arrow")` Method `r ji("right_arrow")` Results `r ji("right_arrow")` Discussion & Conclusion**]
+
+--
+
+To understand the statistics in the results section it is essential to identify the concepts presented in each section:
+
+```{nomnoml, fig.width=12, fig.height=3}
+#stroke: black
+#direction: right
+#align: center
+[Introduction | Variables]->[Literature Review | Hypotheses]
+[Literature Review | Hypotheses]->[Method | Model & Equation]
+[Method | Model & Equation]->[Results | Statistical Test]
+[Results | Statistical Test]->[Discussion & Conclusion | Interpretation]
+```
+
+---
+class: inverse, mline, center, middle
+
+# 1. Declare your Variables in the Introduction
+
+---
+
+# What is a Variable?
+
+A variable itself is a subtle concept, but basically it comes down to finding some way of assigning *numbers or characters* to **labels**.
+
+For example:
+
+- My **height** is *183 cm*
+- This morning, I had a *large* **coffee**
+- My **gender** is *male*
+
+The **bold part is "the thing that varies"** and the *italicised part is "the value of the variable"*.
+
+> Let's collect more data about MBA1's classmates on these three variables: height, coffee and gender!
+
+Each variable has a **Role** and a **Type**, it is essential to learn how to identify them.
+
+---
+class: title-slide, middle
+
+## Type of Variables
+
+---
+
+# Type of Variables
+
+Variables can have different types:
+
+- **Categorical**: If the variable's possibilities are words or sentences (character string)
+
+  - if the possibilities cannot be ordered: Categorical Nominal (*e.g.*, $gender$ male, female, other)
+  
+  - if the possibilities can be ordered: Categorical Ordinal (*e.g.*, $size$ S, M, L)
+  
+- **Continuous**: If the variable's possibilities are numbers (*e.g.*, $age$, $temperature$, ...) 
+
+> Warning: Variables can be converted to either Categorical and Continuous but it is always better to keep them in their correct scale.
+
+```{r out.width='30%'}
+knitr::include_graphics("img/jamovi_icons.png")
+```
+
+---
+
+# Latent Variables
+
+A questionnaire/survey is made of multiple questions (also called items)
+
+All items that are related to the measurement of a same theoretical construct are constituting a scale.
+
+#### The theoretical construct measured by the scale is called Latent Variable.
+
+To be analysed a scale has some requirements:
+
+1. All the items must have the same range of possibilities/modalities
+2. All the items must correlate together (scale reliability)
+3. A unique theoretical construct score has to be calculated from all the items even if it contains subscales.
+
+There are two way to obtain the score of a Latent Variable: 
+
+- Average of all items (reversed if necessary)
+- Factor/Component analysis
+
+---
+
+# Latent Variables
+
+Scale to measure the "Perceived Ease-of-use" of Data Analytics in 4 items were measured from 1 "totally disagree" to 7 "totally agree":
+
+.pull-left[
+- q1. I think learning Data Analytics is easy
+- q2. Understanding Data Analytics is easy
+- q3. I am good at using Data Analytics
+- q4. I think using Data Analytics is easy
+]
+
+.pull-right[
+```{r}
+DiagrammeR::grViz("
+digraph rmarkdown {
+  graph [rankdir = RL]
+  
+  node [shape = oval]
+  'Perceived Ease-of-use
+  of Data Analytics'
+  
+  node [shape = box]
+  q1; q2; q3; q4
+  
+  'Perceived Ease-of-use
+  of Data Analytics'-> {q1 q2 q3 q4}   
+
+}
+", height = 200)
+```
+]
+
+--
+
+Here are the results with 3 students. The score of the "Perceived Ease-of-use of Data Analytics" latent variable is calculated using the average of all items.
+
+```{r}
+tribble(
+  ~employee, ~q1, ~q2, ~q3, ~q4,
+  "Sinead",   7,  5,   7,   7,
+  "Patrick",   5,  4,   6,   6, 
+  "Damien",   3,  1,   2,   3
+) %>% 
+  rowwise() %>% 
+  mutate(peo_score = mean(c(q1, q2, q3, q4))) %>% 
+  kable()
+```
+
+---
+
+# Validity and Reliability
+
+**Validity = is my variable measuring the construct that I think I am measuring?**
+- Does the measurement make sense? 
+- Would the results be reproduced with another scale measuring the same latent variable?
+- Are the results correlated to latent variables that are related?
+
+Validity test is only performed when a scale is created (no need for existing scales)
+
+**Reliability = consistency of items inside a measurement**
+- Test-retest reliability
+- Inter-rater reliability
+- Correlation inter-item (Cronbach's alpha)
+
+Reliability test is performed every time a scale is used but only using Cronbach's alpha
+
+---
+
+# Validity and Reliability
+
+```{r out.width = "50%"}
+knitr::include_graphics("https://www.publichealthnotes.com/wp-content/uploads/2018/08/560px-Reliability_and_validity.svg_.png")
+```
+
+---
+class: title-slide, middle
+
+## Role of Variables
+
+---
+
+# Predictors, Outcomes and Controls
+
+It's important to keep the two roles "variable doing the explaining" and "variable being explained" distinct.
+
+Let's denote the:
+ - **Outcome**: "to be explained" variable as Y (also called Dependent Variable or DV)
+ - **Predictor**: "doing the explaining" as X (also called Independent Variable or IV)
+
+Statistics is only about identifying relationship between variables also called **effect**
+
+> An effect between 2 variables mean that the changes in the values of a predictor variable are related to changes in the values of an outcome variable
+
+---
+
+# Predictors, Outcomes and Controls
+
+An effect between a predictor variable $X$ and an outcome variable $Y$ corresponds to the following model:
+
+```{nomnoml, fig.width=12, fig.height=3}
+#stroke: black
+#direction: right
+#align: center
+
+[X]->[Y]
+```
+
+To prove this effect, an hypothesis should be formulated and tested:
+- "the variable $X$ is explaining the variable $Y$"
+- "the variable $X$ influences the variable $Y$"
+- "the variable $Y$ is explained by the variable $X$"
+- "there is an effect/ a relationship between $X$ and $Y$"
+
+Note, despite having different formulation these hypotheses are all about the same effect suggesting a correlation which is not causation.
+
+---
+
+# Predictors, Outcomes and Controls
+
+## Correlation not Causation
+
+Hypothesis testing evaluates how two or more variable are related or correlated, there is no assumption of one causing the other:
+
+* An "effect" is reciprocal and does not involves causality
+* Causality analysis is an other kind of test that involves:
+  1. To be sure that 2 variables are correlated
+  2. That one variable is the antecedent of the other
+  3. That no other variable is explaining this relationship
+
+## Control Variables
+
+They are included in the statistical test but there is no hypothesis about their effect.
+
+They are used to remove an irrelevant explanation of the variable changes.
+
+---
+class: title-slide, middle
+
+## Applied Example
+
+---
+
+# Applied Example
+
+I'm the CEO of the IT company D&D which has 1000 employee on 3 different locations. I see many employees who are dissatisfied with their job and I want to understand why. I think it's related to their salary.
+
+My research question is: Does employee's salary have an effect on employee's job satisfaction?
+
+To me this is the case and I'm formulating the following hypothesis: Employee's job satisfaction increases when their salary increases.
+
+In this example:
+- Salary is the predictor
+- Job Satisfaction is the outcome
+- I'm predicting an effect of Salary on Job Satisfaction
+
+```{nomnoml, fig.width=12, fig.height=2}
+#stroke: black
+#direction: right
+#align: center
+
+[Salary]->[Job Satisfaction]
+```
+
+---
+
+# Applied Example
+
+To test my hypothesis, I asked as sample of employee to fill out the questionnaire which contains a job satisfaction scale made of 4 items (from 0 to 10) and their salary.
+
+First I need to calculate the score of the job satisfaction latent variable by calculating the average of all questions, then I need to check if salary and job satisfaction share some part of variance and finally if this relationship is reliable enough to be generalised to all employees.
+
+```{r}
+tribble(
+  ~employee, ~salary, ~q1, ~q2, ~q3, ~q4,
+  1,         45000,   1,   5,   3,   2, 
+  2,         55000,   5,   4,   6,   6,
+  3,         70000,   3,   1,   2,   3,
+  4,         80000,   8,   5,   2,   7, 
+  5,         95000,   8,   9,   6,   5,
+  6,         75000,   3,   1,   2,   1,
+  7,         50000,   5,   2,   7,   7, 
+  8,         45000,   1,   4,   6,   9,
+  9,         65000,   3,   1,   2,   3
+) %>% 
+  rowwise() %>% 
+  mutate(js_score = mean(c(q1, q2, q3, q4))) %>% 
+  kable() %>%
+  kable_styling(bootstrap_options = "striped", font_size = 15)
+```
+
+---
+class: title-slide, middle
+
+## Exercise: Inspecting an Academic Research Paper
+
+On the module's Loop page, in the "Additional Content and Links" tile, open the academic research paper "The Role of Occupational Emotional Labor Requirements on the Surface Acting–Job Satisfaction Relationship" by Bhave and Glomb (2013) and:
+
+1. Identify the research question
+2. Identify the predictor and outcome variables
+3. Identify the hypotheses
+
+```{r}
+countdown(minutes = 10, warn_when = 60)
+```
+
+---
+
+# Solution
+
+Research Question:
+
+> What is the Role of Occupational Emotional Labor Requirements on the Surface Acting–Job Satisfaction Relationship?
+
+Variables:
+
+- Job Satisfaction
+- Occupational Emotional Labor
+- Surface Acting
+
+Hypotheses:
+
+> Occupational EL requirements will be positively related to job satisfaction
+
+Job Satisfaction increases when Occupational Emotional Labor increases
+
+> Surface acting will be negatively related to job satisfaction.
+
+Job Satisfaction decreases when Surface Acting increases
+
+> The negative association between surface acting and job satisfaction will be moderated by occupational EL requirements such that the relationship will be stronger for employees who work in occupations with higher EL requirements.
+
+The effect Surface Acting on Job Satisfaction is higher for high Occupational Emotional Labor than for low Occupational Emotional Labor
+
+---
+class: inverse, mline, center, middle
+
+# 2. Formulate your Hypotheses from your Literature Review
+
+---
+
+# Alternative vs. Null Hypotheses
+
+Every hypothesis has to state relationship between variables also called $H_a$ (for alternative hypothesis) or $H_1$
+
+Every hypothesis has a null hypothesis counterpart (no relationship between variables) also called $H_0$ (pronounce H naught or H zero)
+
+$H_a$ is viewed as a “challenger” hypothesis to the null hypothesis $H_0$.
+  
+**Statistics are used to test the probability of obtaining your results if the Null Hypothesis is true. If this probability is low, then we reject the Null Hypothesis (and consider the Alternative Hypothesis as credible).**
+
+Warning: Hypothesis cannot test equality between groups or modalities, they can only test differences
+
+---
+
+# Hypotheses in a Nutshell
+
+Hypotheses are:
+
+1. Predictions supported by theory/literature
+2. Affirmations designed to precisely describe the relationships between variables 
+
+> *“Hypothesis statements contain two or more variables that are measurable or potentially measurable and that specify how the variables are related”* (Kerlinger, 1986)
+
+Hypotheses include:
+
+- Predictor(s) / Independent Variable(s)
+- Outcome / Dependent Variable (DV)
+- Direction of the outcome if the predictor increases
+
+But there is only two kind of hypotheses: **Main Effect Hypotheses** and **Interaction Effect Hypotheses**
+
+---
+
+# Main Effect Hypothesis
+
+Is the predicted relationship between one predictor and one outcome variable
+
+Effect representation:
+
+```{r eval=TRUE, fig.align="left"}
+DiagrammeR::grViz("
+  digraph {
+    graph [rankdir = LR]
+    
+    'Predictor' -> 'Outcome'
+  }", height = 200)
+```
+
+Warning: The direction of the arrow does not involve causality, only correlation.
+
+---
+
+# Main Effect Hypothesis Templates
+
+The **Outcome has to be Continuous** but ...
+
+- #### Case 1: Predictor is Continuous 
+
+.small[The {**outcome**} increases when {**predictor**} {*increases/decreases/changes*}]
+
+> Example: **Job satisfaction** *increases* when **salary** increases
+
+--
+
+- #### Case 2: Predictor is Categorical (2 Categories)
+
+.small[The {**outcome**} of {**predictor category 1**} is {*higher/lower/different*} than the {**outcome**} of {**predictor category 2**}]
+
+> Example: **Job satisfaction** of **EU employees** is *higher* than **job satisfaction** of **Non-EU employees**
+
+--
+
+- #### Case 3: Predictor is Categorical (3 or more Categories)
+
+.small[The {**outcome**} of at least one {**predictor**} category is {*higher/lower/different*} than the other {**predictor**} categories]
+
+> Example: **Job satisfaction** of at least one of the **company's departments** is *higher* than the other **company's departments**
+
+---
+
+# Main Effect Hypothesis Examples
+
+Variables:
+
+- Outcome = exam results (continuous from 0 to 100)
+- Predictor = sleep time (continuous from 0h to 24h)
+
+Effect representation:
+
+```{r eval=TRUE, fig.align="left"}
+DiagrammeR::grViz("
+  digraph {
+    graph [rankdir = LR]
+    
+    'sleep time' -> 'math exam results'
+  }", height = 200)
+```
+
+Hypothesis: The **exam results** *increases* when students’ **sleep time** increases
+
+---
+
+# Main Effect Hypothesis Examples
+
+Variables:
+- Outcome = exam results (continuous from 0 to 100)
+- Predictor = breakfast (categorical *yes* or *no*)
+
+Effect representation:
+
+```{r eval=TRUE, fig.align="left"}
+DiagrammeR::grViz("
+  digraph {
+    graph [rankdir = LR]
+    
+    'breakfast' -> 'exam results'
+  }", height = 200)
+```
+
+Hypothesis: **Exam results** of students **who eat breakfast** will be *higher* than **exam results** of students **who do not eat breakfast** 
+
+---
+
+# Main Effect Hypothesis Examples
+
+Variables:
+- Outcome = driving errors (continuous from 0 to Inf.)
+- Predictor = motorists talking on the phone (categorical *yes* or *no*)
+
+Effect representation:
+
+```{r eval=TRUE, fig.align="left"}
+DiagrammeR::grViz("
+  digraph {
+    graph [rankdir = LR]
+    
+    'motorists talking on the phone' -> 'driving errors'
+  }", height = 200)
+```
+
+Hypothesis: **Driving errors** of **motorists who do not talk on the phone while driving** will be *less important* than **driving errors** of **motorists who do not talk on the phone while driving**
+
+---
+
+# Interaction Effect Hypothesis
+
+It predicts the influence of a second predictor on the relationship between a first predictor and an outcome variable
+
+Notes:
+
+- The second predictor is also called moderator.
+- The role of first and second predictors can be inverted with the exact same statistical results
+
+.pull-left[
+Effects representation:
+
+```{r}
+DiagrammeR::grViz("
+  digraph {
+    graph [rankdir = LR]
+  
+    node []
+    'Predictor 1'; 'Predictor 2'; Outcome
+    node [shape = point, width = 0, height = 0]
+    ''
+    
+    'Predictor 2' -> ''
+    'Predictor 1' -> '' [arrowhead = none]
+    ''-> Outcome
+    
+    subgraph {
+      rank = same; 'Predictor 2'; '';
+    }
+  }", height = 200, width = 400)
+```
+]
+
+.pull-right[
+
+Exactly the same results:
+```{r}
+DiagrammeR::grViz("
+  digraph {
+    graph [rankdir = LR]
+  
+    node []
+    'Predictor 1'; 'Predictor 2'; Outcome
+    node [shape = point, width = 0, height = 0]
+    ''
+    
+    'Predictor 1' -> ''
+    'Predictor 2' -> '' [arrowhead = none]
+    ''-> Outcome
+    
+    subgraph {
+      rank = same; 'Predictor 1'; '';
+    }
+  }", height = 200, width = 400)
+```
+]
+
+---
+
+# Interaction Effect Hypothesis
+
+.pull-left[
+Imagine a first effect where Job Satisfaction increases when Salary increases
+
+```{r fig.height=3.5, fig.width=5}
+tribble(
+  ~employee, ~salary, ~q1, ~q2, ~q3, ~q4,
+  1,         45000,   1,   5,   3,   2, 
+  2,         55000,   5,   4,   6,   6,
+  3,         70000,   3,   1,   2,   3,
+  4,         80000,   8,   5,   2,   7, 
+  5,         95000,   8,   9,   6,   5,
+  6,         75000,   3,   1,   2,   1,
+  7,         50000,   5,   2,   7,   7, 
+  8,         45000,   1,   4,   6,   9,
+  9,         65000,   3,   1,   2,   3
+) %>% 
+  rowwise() %>% 
+  mutate(js_score = mean(q1, q2, q3, q4)) %>% 
+  ggplot(aes(salary, js_score)) +
+  geom_point(size = 3) +
+  geom_smooth(method = "lm", se = FALSE) +
+  scale_y_continuous(limits = c(0, 10)) +
+  theme_bw() +
+  theme(text = element_text(size = 20))
+```
+]
+
+.pull-right[
+This effect can change according to the values of a second predictor
+
+```{r fig.height=4, fig.width=5}
+tribble(
+  ~employee, ~salary, ~q1, ~q2, ~q3, ~q4, ~origin,
+  1,         45000,   1,   5,   3,   2,   "Irish",
+  2,         55000,   5,   4,   6,   6,   "Irish",
+  3,         70000,   3,   1,   2,   3,   "Irish",
+  4,         80000,   8,   5,   2,   7,   "Irish",
+  5,         95000,   8,   9,   6,   5,   "French",
+  6,         75000,   3,   1,   2,   1,   "French",
+  7,         50000,   5,   2,   7,   7,   "French",
+  8,         45000,   1,   4,   6,   9,   "French",
+  9,         65000,   3,   1,   2,   3,   "French"
+) %>% 
+  rowwise() %>% 
+  mutate(js_score = mean(q1, q2, q3, q4)) %>% 
+  ggplot(aes(salary, js_score, color = origin)) +
+  geom_point(size = 3) +
+  geom_smooth(method = "lm", se = FALSE, fullrange = TRUE) +
+  scale_y_continuous(limits = c(0, 10)) +
+  theme_bw() +
+  theme(
+    text = element_text(size = 20),
+    legend.position = "bottom"
+    )
+```
+
+]
+
+---
+
+# Interaction Effect Hypothesis Templates
+
+The **Outcome has to be Continuous** and **whatever the Predictor 1 is** ...
+
+- #### Case 1: Predictor 2 is Continuous
+
+.small[The effect of {**predictor 1**} on {**outcome**} is {*higher/lower/different*} when {**predictor 2**} increases]
+
+--
+
+- #### Case 2: Predictor 2 is Categorical (2 Categories)
+
+.small[The effect of {**predictor 1**} on {**outcome**} is {*higher/lower/different*} for {**predictor 2 category 1**} than for {**category 2**}]
+
+--
+
+- #### Case 3: Predictor 2 is Categorical (3 or more Categories)
+
+.small[The effect of {**predictor 1**} on {**outcome**} is {*higher/lower/different*} for at least one of {**predictor 2**}]
+
+--
+
+Examples: 
+
+> The effect of **Salary** on **Job Satisfaction** is *higher* for **Irish employees** than for **French employees**
+
+> The effect of **Salary** on **Job Satisfaction** is *higher* when **age** increases
+
+---
+
+# Interaction Effect Hypothesis Examples
+
+Variables:
+
+- Outcome = exam results (continuous from 0 to 100)
+- Predictor 1 = sleep deprivation (categorical low, medium, high)
+- Predictor 2 = gender (categorical male vs. female)
+
+Effects representation:
+
+```{r}
+DiagrammeR::grViz("
+  digraph {
+    graph [rankdir = LR]
+  
+    node []
+    'sleep deprivation'; 'exam results'; gender
+    node [shape = point, width = 0, height = 0]
+    ''
+    
+    gender -> ''
+    'sleep deprivation' -> '' [arrowhead = none]
+    ''-> 'exam results'
+    
+    subgraph {
+      rank = same; gender; '';
+    }
+  }", height = 200)
+```
+
+Hypothesis: The effect of sleep deprivation on exam results is higher for Males than for Females
+
+---
+
+# Interaction Effect Hypothesis Examples
+
+Variables:
+- Outcome = road accidents (continuous from 0 to Inf.)
+- Predictor 1 = alcohol consumption (continuous from 0 to Inf.)
+- Predictor 2 = driving experience (categorical low, high)
+
+Effects representation:
+
+```{r eval=TRUE, fig.align="left"}
+DiagrammeR::grViz("
+  digraph {
+    graph [rankdir = LR]
+  
+    node []
+    'alcohol consumption'; 'road accidents'; 'driving experience'
+    node [shape = point, width = 0, height = 0]
+    ''
+    
+    'driving experience' -> ''
+    'alcohol consumption' -> '' [arrowhead = none]
+    ''-> 'road accidents'
+    
+    subgraph {
+      rank = same; 'driving experience' ; '';
+    }
+  }", height = 200)
+```
+
+Hypothesis: The effect of alcohol consumption on road accidents is lower for experienced drivers than for inexperienced drivers
+
+---
+
+# Example of Hypotheses in Research Papers
+
+```{r out.width = "50%"}
+knitr::include_graphics("img/ex1_title.png")
+```
+
+```{r out.width = "50%"}
+knitr::include_graphics("img/ex1_hyp.png")
+```
+
+---
+
+# Example of Hypotheses in Research Papers
+
+```{r out.width = "50%"}
+knitr::include_graphics("img/ex2_title.png")
+```
+
+```{r out.width = "50%"}
+knitr::include_graphics("img/ex2_hyp1.png")
+```
+
+```{r out.width = "50%"}
+knitr::include_graphics("img/ex2_hyp2.png")
+```
+
+---
+
+# The Hypothesis Checklist
+
+- Does your hypothesis focus on something that you can actually test?
+- Does your hypothesis include both Predictor and Outcome variables?
+- Can you manipulate the variables?
+- Don't trust research papers, most of them have incorrect formulations
+
+---
+
+# Special Case: Mediation Hypothesis
+
+States that the predicted relationship between a first predictor and an outcome variable is in fact explained by a second predictor
+
+Note: the second predictor is also called mediator
+
+Effect representation:
+
+```{r eval=TRUE}
+DiagrammeR::grViz("
+  digraph {
+    graph [rankdir = LR]
+  
+    node [shape = circle]
+    'Predictor 1'; 'Predictor 2'; Outcome
+    
+    'Predictor 1' -> {'Predictor 2' Outcome}
+    'Predictor 2' -> Outcome
+
+  }", height = 200)
+```
+
+---
+
+# Special Case: Mediation Hypothesis
+
+Formulation structure:
+
+.center[The effect of {**predictor 1**} on {**outcome**} is explained by the {**predictor 2**}]
+
+Warning: A mediation effect involves 3 requirements:
+1. Predictor 1 needs to have a main effect on the Outcome
+2. Predictor 1 needs to have a main effect on the Predictor 2
+3. The main effect of Predictor 1 on the Outcome needs to disappear when Predictor 2 is taken into account
+
+> Example: 
+- The effect of **employee's age** on **job satisfaction** is explained by their **salary**
+
+> Here, the requirements are:
+1. Employee's age needs to have a main effect on job satisfaction
+2. Employee's age needs to have a main effect on their salary
+3. The main effect of Employee's age on the job satisfaction needs to disappear when salary is taken into account
+
+---
+
+# Mediation Effect Hypothesis Example
+
+Variables:
+- Outcome = happiness (continuous from 0 to 7)
+- Predictor 1 = grades (continuous from 0 to 100)
+- Predictor 2 = self-esteem (continuous from 0 to 7)
+
+```{r eval=TRUE, fig.align="left"}
+DiagrammeR::grViz("
+  digraph {
+    graph [rankdir = LR]
+  
+    node []
+    'self-esteem'; 'grades'; happiness
+    
+    'grades' -> {happiness 'self-esteem'}
+    'self-esteem' -> happiness
+
+  }", height = 200)
+```
+
+Hypothesis: the effect of **grades** on **happiness** is explained by **self-esteem**
+
+---
+class: title-slide, middle
+
+## Exercise: Find the variables in these hypotheses
+
+In the following hypotheses, find the outcome variable and the predictor(s):
+
+1. Overweight adults who value longevity are more likely than other overweight adults to lose their excess weight
+
+2. Larger animals of the same species expend more energy than smaller animals of the same type.
+
+3. Rainbow trout suffer more lice when water levels are low than other trout.
+
+4. Professors who use a student-centered teaching method will have a greater positive rapport with their graduate students than professors who use a teacher-centered teaching method.
+
+```{r}
+countdown(minutes = 3, warn_when = 60)
+```
+
+---
+
+# Solution
+
+Hypothesis 1:
+- Outcome = Excess weight
+- Predictor = The valuation of longevity (yes vs no)
+
+Hypothesis 2:
+- Outcome = Energy expended
+- Predictor = Animal size (larger vs smaller)
+
+Hypothesis 3:
+- Outcome = Suffering lice
+- Predictor = Trout type (rainbow vs other)
+
+Hypothesis 3:
+- Outcome = Rapport with graduate students
+- Predictor = Teaching method (student-centered vs teacher-centered)
+
+---
+class: title-slide, middle
+
+## Exercise: Make your own Hypothesis
+
+|Outcome|Predictor 1|Predictor 2|
+|--|---|---|
+|Work motivation|Gender(Female/Male)||
+|Work motivation|Gender(Female/Male)|Origin(French/Irish)|
+|Work motivation|Gender(Female/Male)|Origin(French/Irish/Italians)|
+|Job Satisfaction|Stress(from 0 to 10)||
+|Job Satisfaction|Stress(from 0 to 10)|Age(Millennials/Baby boomers)|
+|Job Satisfaction|Stress(from 0 to 10)|Age(in year)|
+
+```{r}
+countdown(minutes = 5, warn_when = 60)
+```
+
+---
+
+# Solution
+
+The work motivation of female employees is higher than the work motivation of male employees
+
+The effect of gender on work motivation is higher for Irish employees than French employees
+
+The effect of origin on work motivation is higher for female employees than male employees
+
+Job satisfaction decreases when stress increases
+
+The effect of stress on job satisfaction is higher for Millennials than for Baby boomers
+
+The effect of stress on job satisfaction is higher for less experienced employees than for more experienced employees
+
+
+---
+class: inverse, mline, left, middle
+
+<img class="circle" src="https://github.com/damien-dupre.png" width="250px"/>
+
+# Thanks for your attention and don't hesitate to ask if you have any question!
+
+[`r fontawesome::fa(name = "twitter")` @damien_dupre](http://twitter.com/damien_dupre)  
+[`r fontawesome::fa(name = "github")` @damien-dupre](http://github.com/damien-dupre)  
+[`r fontawesome::fa(name = "link")` damien-datasci-blog.netlify.app](https://damien-datasci-blog.netlify.app)  
+[`r fontawesome::fa(name = "paper-plane")` damien.dupre@dcu.ie](mailto:damien.dupre@dcu.ie)

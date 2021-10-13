@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>MT5125 - Data Analytics</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Damien Dupré" />
+    <script src="libs/header-attrs-2.11/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/metropolis.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/metropolis-fonts.css" rel="stylesheet" />
+    <script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+    <script src="libs/es6shim-0.35.6/es6shim.js"></script>
+    <script src="libs/es7shim-6.0.0/es7shim.js"></script>
+    <script src="libs/graphre-0.1.3/graphre.js"></script>
+    <script src="libs/nomnoml-1.3.1/nomnoml.js"></script>
+    <script src="libs/nomnoml-binding-0.2.3/nomnoml.js"></script>
+    <script src="libs/viz-1.8.2/viz.js"></script>
+    <link href="libs/DiagrammeR-styles-0.2/styles.css" rel="stylesheet" />
+    <script src="libs/grViz-binding-1.0.6.1/grViz.js"></script>
+    <script src="libs/kePrint-0.0.1/kePrint.js"></script>
+    <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+    <link href="libs/countdown-0.3.5/countdown.css" rel="stylesheet" />
+    <script src="libs/countdown-0.3.5/countdown.js"></script>
+    <link rel="stylesheet" href="css/custom_design.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# MT5125 - Data Analytics
+## Variables and Hypotheses
+### Damien Dupré
+### Dublin City University
+
+---
+
+
+
+
+# Essential Concepts to Master
+
+In Academic Reports, all sections are linked:
+
+.center[**Introduction ➡️ Literature Review ➡️ Method ➡️ Results ➡️ Discussion &amp; Conclusion**]
+
+--
+
+To understand the statistics in the results section it is essential to identify the concepts presented in each section:
+
+<div id="htmlwidget-aada1ab0903d5076195d" style="width:864px;height:216px;" class="nomnoml html-widget"></div>
+<script type="application/json" data-for="htmlwidget-aada1ab0903d5076195d">{"x":{"code":"\n#fill: #FEFEFF\n#lineWidth: 1\n#zoom: 4\n#direction: right\n\n#stroke: black\n#direction: right\n#align: center\n[Introduction | Variables]->[Literature Review | Hypotheses]\n[Literature Review | Hypotheses]->[Method | Model & Equation]\n[Method | Model & Equation]->[Results | Statistical Test]\n[Results | Statistical Test]->[Discussion & Conclusion | Interpretation]","svg":false},"evals":[],"jsHooks":[]}</script>
+
+---
+class: inverse, mline, center, middle
+
+# 1. Declare your Variables in the Introduction
+
+---
+
+# What is a Variable?
+
+A variable itself is a subtle concept, but basically it comes down to finding some way of assigning *numbers or characters* to **labels**.
+
+For example:
+
+- My **height** is *183 cm*
+- This morning, I had a *large* **coffee**
+- My **gender** is *male*
+
+The **bold part is "the thing that varies"** and the *italicised part is "the value of the variable"*.
+
+&gt; Let's collect more data about MBA1's classmates on these three variables: height, coffee and gender!
+
+Each variable has a **Role** and a **Type**, it is essential to learn how to identify them.
+
+---
+class: title-slide, middle
+
+## Type of Variables
+
+---
+
+# Type of Variables
+
+Variables can have different types:
+
+- **Categorical**: If the variable's possibilities are words or sentences (character string)
+
+  - if the possibilities cannot be ordered: Categorical Nominal (*e.g.*, `\(gender\)` male, female, other)
+  
+  - if the possibilities can be ordered: Categorical Ordinal (*e.g.*, `\(size\)` S, M, L)
+  
+- **Continuous**: If the variable's possibilities are numbers (*e.g.*, `\(age\)`, `\(temperature\)`, ...) 
+
+&gt; Warning: Variables can be converted to either Categorical and Continuous but it is always better to keep them in their correct scale.
+
+&lt;img src="img/jamovi_icons.png" width="30%" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Latent Variables
+
+A questionnaire/survey is made of multiple questions (also called items)
+
+All items that are related to the measurement of a same theoretical construct are constituting a scale.
+
+#### The theoretical construct measured by the scale is called Latent Variable.
+
+To be analysed a scale has some requirements:
+
+1. All the items must have the same range of possibilities/modalities
+2. All the items must correlate together (scale reliability)
+3. A unique theoretical construct score has to be calculated from all the items even if it contains subscales.
+
+There are two way to obtain the score of a Latent Variable: 
+
+- Average of all items (reversed if necessary)
+- Factor/Component analysis
+
+---
+
+# Latent Variables
+
+Scale to measure the "Perceived Ease-of-use" of Data Analytics in 4 items were measured from 1 "totally disagree" to 7 "totally agree":
+
+.pull-left[
+- q1. I think learning Data Analytics is easy
+- q2. Understanding Data Analytics is easy
+- q3. I am good at using Data Analytics
+- q4. I think using Data Analytics is easy
+]
+
+.pull-right[
+<div id="htmlwidget-387ff81ad24c51c98270" style="width:504px;height:200px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-387ff81ad24c51c98270">{"x":{"diagram":"\ndigraph rmarkdown {\n  graph [rankdir = RL]\n  \n  node [shape = oval]\n  \"Perceived Ease-of-use\n  of Data Analytics\"\n  \n  node [shape = box]\n  q1; q2; q3; q4\n  \n  \"Perceived Ease-of-use\n  of Data Analytics\"-> {q1 q2 q3 q4}   \n\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+]
+
+--
+
+Here are the results with 3 students. The score of the "Perceived Ease-of-use of Data Analytics" latent variable is calculated using the average of all items.
+
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; employee &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; q1 &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; q2 &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; q3 &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; q4 &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; peo_score &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Sinead &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 7 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 7 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 7 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 6.50 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Patrick &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 6 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 6 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5.25 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Damien &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2.25 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+---
+
+# Validity and Reliability
+
+**Validity = is my variable measuring the construct that I think I am measuring?**
+- Does the measurement make sense? 
+- Would the results be reproduced with another scale measuring the same latent variable?
+- Are the results correlated to latent variables that are related?
+
+Validity test is only performed when a scale is created (no need for existing scales)
+
+**Reliability = consistency of items inside a measurement**
+- Test-retest reliability
+- Inter-rater reliability
+- Correlation inter-item (Cronbach's alpha)
+
+Reliability test is performed every time a scale is used but only using Cronbach's alpha
+
+---
+
+# Validity and Reliability
+
+&lt;img src="https://www.publichealthnotes.com/wp-content/uploads/2018/08/560px-Reliability_and_validity.svg_.png" width="50%" style="display: block; margin: auto;" /&gt;
+
+---
+class: title-slide, middle
+
+## Role of Variables
+
+---
+
+# Predictors, Outcomes and Controls
+
+It's important to keep the two roles "variable doing the explaining" and "variable being explained" distinct.
+
+Let's denote the:
+ - **Outcome**: "to be explained" variable as Y (also called Dependent Variable or DV)
+ - **Predictor**: "doing the explaining" as X (also called Independent Variable or IV)
+
+Statistics is only about identifying relationship between variables also called **effect**
+
+&gt; An effect between 2 variables mean that the changes in the values of a predictor variable are related to changes in the values of an outcome variable
+
+---
+
+# Predictors, Outcomes and Controls
+
+An effect between a predictor variable `\(X\)` and an outcome variable `\(Y\)` corresponds to the following model:
+
+<div id="htmlwidget-dbd449a00a0cad6cc6e7" style="width:864px;height:216px;" class="nomnoml html-widget"></div>
+<script type="application/json" data-for="htmlwidget-dbd449a00a0cad6cc6e7">{"x":{"code":"\n#fill: #FEFEFF\n#lineWidth: 1\n#zoom: 4\n#direction: right\n\n#stroke: black\n#direction: right\n#align: center\n\n[X]->[Y]","svg":false},"evals":[],"jsHooks":[]}</script>
+
+To prove this effect, an hypothesis should be formulated and tested:
+- "the variable `\(X\)` is explaining the variable `\(Y\)`"
+- "the variable `\(X\)` influences the variable `\(Y\)`"
+- "the variable `\(Y\)` is explained by the variable `\(X\)`"
+- "there is an effect/ a relationship between `\(X\)` and `\(Y\)`"
+
+Note, despite having different formulation these hypotheses are all about the same effect suggesting a correlation which is not causation.
+
+---
+
+# Predictors, Outcomes and Controls
+
+## Correlation not Causation
+
+Hypothesis testing evaluates how two or more variable are related or correlated, there is no assumption of one causing the other:
+
+* An "effect" is reciprocal and does not involves causality
+* Causality analysis is an other kind of test that involves:
+  1. To be sure that 2 variables are correlated
+  2. That one variable is the antecedent of the other
+  3. That no other variable is explaining this relationship
+
+## Control Variables
+
+They are included in the statistical test but there is no hypothesis about their effect.
+
+They are used to remove an irrelevant explanation of the variable changes.
+
+---
+class: title-slide, middle
+
+## Applied Example
+
+---
+
+# Applied Example
+
+I'm the CEO of the IT company D&amp;D which has 1000 employee on 3 different locations. I see many employees who are dissatisfied with their job and I want to understand why. I think it's related to their salary.
+
+My research question is: Does employee's salary have an effect on employee's job satisfaction?
+
+To me this is the case and I'm formulating the following hypothesis: Employee's job satisfaction increases when their salary increases.
+
+In this example:
+- Salary is the predictor
+- Job Satisfaction is the outcome
+- I'm predicting an effect of Salary on Job Satisfaction
+
+<div id="htmlwidget-230d44b853f2d62d12ae" style="width:864px;height:144px;" class="nomnoml html-widget"></div>
+<script type="application/json" data-for="htmlwidget-230d44b853f2d62d12ae">{"x":{"code":"\n#fill: #FEFEFF\n#lineWidth: 1\n#zoom: 4\n#direction: right\n\n#stroke: black\n#direction: right\n#align: center\n\n[Salary]->[Job Satisfaction]","svg":false},"evals":[],"jsHooks":[]}</script>
+
+---
+
+# Applied Example
+
+To test my hypothesis, I asked as sample of employee to fill out the questionnaire which contains a job satisfaction scale made of 4 items (from 0 to 10) and their salary.
+
+First I need to calculate the score of the job satisfaction latent variable by calculating the average of all questions, then I need to check if salary and job satisfaction share some part of variance and finally if this relationship is reliable enough to be generalised to all employees.
+
+&lt;table class="table table-striped" style="font-size: 15px; margin-left: auto; margin-right: auto;"&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:right;"&gt; employee &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; salary &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; q1 &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; q2 &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; q3 &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; q4 &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; js_score &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 45000 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2.75 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 55000 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 6 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 6 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5.25 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 70000 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2.25 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 80000 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 8 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 7 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5.50 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 5 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 95000 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 8 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 9 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 6 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 7.00 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 6 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 75000 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.75 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 7 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 50000 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 7 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 7 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5.25 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 8 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 45000 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 6 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 9 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5.00 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 9 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 65000 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2.25 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+---
+class: title-slide, middle
+
+## Exercise: Inspecting an Academic Research Paper
+
+On the module's Loop page, in the "Additional Content and Links" tile, open the academic research paper "The Role of Occupational Emotional Labor Requirements on the Surface Acting–Job Satisfaction Relationship" by Bhave and Glomb (2013) and:
+
+1. Identify the research question
+2. Identify the predictor and outcome variables
+3. Identify the hypotheses
+
+<div class="countdown" id="timer_6165d608" style="right:0;bottom:0;" data-warnwhen="60">
+<code class="countdown-time"><span class="countdown-digits minutes">10</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+
+---
+
+# Solution
+
+Research Question:
+
+&gt; What is the Role of Occupational Emotional Labor Requirements on the Surface Acting–Job Satisfaction Relationship?
+
+Variables:
+
+- Job Satisfaction
+- Occupational Emotional Labor
+- Surface Acting
+
+Hypotheses:
+
+&gt; Occupational EL requirements will be positively related to job satisfaction
+
+Job Satisfaction increases when Occupational Emotional Labor increases
+
+&gt; Surface acting will be negatively related to job satisfaction.
+
+Job Satisfaction decreases when Surface Acting increases
+
+&gt; The negative association between surface acting and job satisfaction will be moderated by occupational EL requirements such that the relationship will be stronger for employees who work in occupations with higher EL requirements.
+
+The effect Surface Acting on Job Satisfaction is higher for high Occupational Emotional Labor than for low Occupational Emotional Labor
+
+---
+class: inverse, mline, center, middle
+
+# 2. Formulate your Hypotheses from your Literature Review
+
+---
+
+# Alternative vs. Null Hypotheses
+
+Every hypothesis has to state relationship between variables also called `\(H_a\)` (for alternative hypothesis) or `\(H_1\)`
+
+Every hypothesis has a null hypothesis counterpart (no relationship between variables) also called `\(H_0\)` (pronounce H naught or H zero)
+
+`\(H_a\)` is viewed as a “challenger” hypothesis to the null hypothesis `\(H_0\)`.
+  
+**Statistics are used to test the probability of obtaining your results if the Null Hypothesis is true. If this probability is low, then we reject the Null Hypothesis (and consider the Alternative Hypothesis as credible).**
+
+Warning: Hypothesis cannot test equality between groups or modalities, they can only test differences
+
+---
+
+# Hypotheses in a Nutshell
+
+Hypotheses are:
+
+1. Predictions supported by theory/literature
+2. Affirmations designed to precisely describe the relationships between variables 
+
+&gt; *“Hypothesis statements contain two or more variables that are measurable or potentially measurable and that specify how the variables are related”* (Kerlinger, 1986)
+
+Hypotheses include:
+
+- Predictor(s) / Independent Variable(s)
+- Outcome / Dependent Variable (DV)
+- Direction of the outcome if the predictor increases
+
+But there is only two kind of hypotheses: **Main Effect Hypotheses** and **Interaction Effect Hypotheses**
+
+---
+
+# Main Effect Hypothesis
+
+Is the predicted relationship between one predictor and one outcome variable
+
+Effect representation:
+
+<div id="htmlwidget-f8efc2c165bd66896ca9" style="width:504px;height:200px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-f8efc2c165bd66896ca9">{"x":{"diagram":"\n  digraph {\n    graph [rankdir = LR]\n    \n    \"Predictor\" -> \"Outcome\"\n  }","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+
+Warning: The direction of the arrow does not involve causality, only correlation.
+
+---
+
+# Main Effect Hypothesis Templates
+
+The **Outcome has to be Continuous** but ...
+
+- #### Case 1: Predictor is Continuous 
+
+.small[The {**outcome**} increases when {**predictor**} {*increases/decreases/changes*}]
+
+&gt; Example: **Job satisfaction** *increases* when **salary** increases
+
+--
+
+- #### Case 2: Predictor is Categorical (2 Categories)
+
+.small[The {**outcome**} of {**predictor category 1**} is {*higher/lower/different*} than the {**outcome**} of {**predictor category 2**}]
+
+&gt; Example: **Job satisfaction** of **EU employees** is *higher* than **job satisfaction** of **Non-EU employees**
+
+--
+
+- #### Case 3: Predictor is Categorical (3 or more Categories)
+
+.small[The {**outcome**} of at least one {**predictor**} category is {*higher/lower/different*} than the other {**predictor**} categories]
+
+&gt; Example: **Job satisfaction** of at least one of the **company's departments** is *higher* than the other **company's departments**
+
+---
+
+# Main Effect Hypothesis Examples
+
+Variables:
+
+- Outcome = exam results (continuous from 0 to 100)
+- Predictor = sleep time (continuous from 0h to 24h)
+
+Effect representation:
+
+<div id="htmlwidget-299b225738f330b15089" style="width:504px;height:200px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-299b225738f330b15089">{"x":{"diagram":"\n  digraph {\n    graph [rankdir = LR]\n    \n    \"sleep time\" -> \"math exam results\"\n  }","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+
+Hypothesis: The **exam results** *increases* when students’ **sleep time** increases
+
+---
+
+# Main Effect Hypothesis Examples
+
+Variables:
+- Outcome = exam results (continuous from 0 to 100)
+- Predictor = breakfast (categorical *yes* or *no*)
+
+Effect representation:
+
+<div id="htmlwidget-69a79896bf8c675a73a4" style="width:504px;height:200px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-69a79896bf8c675a73a4">{"x":{"diagram":"\n  digraph {\n    graph [rankdir = LR]\n    \n    \"breakfast\" -> \"exam results\"\n  }","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+
+Hypothesis: **Exam results** of students **who eat breakfast** will be *higher* than **exam results** of students **who do not eat breakfast** 
+
+---
+
+# Main Effect Hypothesis Examples
+
+Variables:
+- Outcome = driving errors (continuous from 0 to Inf.)
+- Predictor = motorists talking on the phone (categorical *yes* or *no*)
+
+Effect representation:
+
+<div id="htmlwidget-5078d888a7db928c608b" style="width:504px;height:200px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-5078d888a7db928c608b">{"x":{"diagram":"\n  digraph {\n    graph [rankdir = LR]\n    \n    \"motorists talking on the phone\" -> \"driving errors\"\n  }","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+
+Hypothesis: **Driving errors** of **motorists who do not talk on the phone while driving** will be *less important* than **driving errors** of **motorists who do not talk on the phone while driving**
+
+---
+
+# Interaction Effect Hypothesis
+
+It predicts the influence of a second predictor on the relationship between a first predictor and an outcome variable
+
+Notes:
+
+- The second predictor is also called moderator.
+- The role of first and second predictors can be inverted with the exact same statistical results
+
+.pull-left[
+Effects representation:
+
+<div id="htmlwidget-0025d26c1224963e1a9e" style="width:400px;height:200px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-0025d26c1224963e1a9e">{"x":{"diagram":"\n  digraph {\n    graph [rankdir = LR]\n  \n    node []\n    \"Predictor 1\"; \"Predictor 2\"; Outcome\n    node [shape = point, width = 0, height = 0]\n    \"\"\n    \n    \"Predictor 2\" -> \"\"\n    \"Predictor 1\" -> \"\" [arrowhead = none]\n    \"\"-> Outcome\n    \n    subgraph {\n      rank = same; \"Predictor 2\"; \"\";\n    }\n  }","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+]
+
+.pull-right[
+
+Exactly the same results:
+<div id="htmlwidget-154c0d6d35332b9307ea" style="width:400px;height:200px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-154c0d6d35332b9307ea">{"x":{"diagram":"\n  digraph {\n    graph [rankdir = LR]\n  \n    node []\n    \"Predictor 1\"; \"Predictor 2\"; Outcome\n    node [shape = point, width = 0, height = 0]\n    \"\"\n    \n    \"Predictor 1\" -> \"\"\n    \"Predictor 2\" -> \"\" [arrowhead = none]\n    \"\"-> Outcome\n    \n    subgraph {\n      rank = same; \"Predictor 1\"; \"\";\n    }\n  }","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+]
+
+---
+
+# Interaction Effect Hypothesis
+
+.pull-left[
+Imagine a first effect where Job Satisfaction increases when Salary increases
+
+&lt;img src="lecture_2_files/figure-html/unnamed-chunk-16-1.png" width="360" style="display: block; margin: auto;" /&gt;
+]
+
+.pull-right[
+This effect can change according to the values of a second predictor
+
+&lt;img src="lecture_2_files/figure-html/unnamed-chunk-17-1.png" width="360" style="display: block; margin: auto;" /&gt;
+
+]
+
+---
+
+# Interaction Effect Hypothesis Templates
+
+The **Outcome has to be Continuous** and **whatever the Predictor 1 is** ...
+
+- #### Case 1: Predictor 2 is Continuous
+
+.small[The effect of {**predictor 1**} on {**outcome**} is {*higher/lower/different*} when {**predictor 2**} increases]
+
+--
+
+- #### Case 2: Predictor 2 is Categorical (2 Categories)
+
+.small[The effect of {**predictor 1**} on {**outcome**} is {*higher/lower/different*} for {**predictor 2 category 1**} than for {**category 2**}]
+
+--
+
+- #### Case 3: Predictor 2 is Categorical (3 or more Categories)
+
+.small[The effect of {**predictor 1**} on {**outcome**} is {*higher/lower/different*} for at least one of {**predictor 2**}]
+
+--
+
+Examples: 
+
+&gt; The effect of **Salary** on **Job Satisfaction** is *higher* for **Irish employees** than for **French employees**
+
+&gt; The effect of **Salary** on **Job Satisfaction** is *higher* when **age** increases
+
+---
+
+# Interaction Effect Hypothesis Examples
+
+Variables:
+
+- Outcome = exam results (continuous from 0 to 100)
+- Predictor 1 = sleep deprivation (categorical low, medium, high)
+- Predictor 2 = gender (categorical male vs. female)
+
+Effects representation:
+
+<div id="htmlwidget-cd818db7ddc9c1b4e9df" style="width:504px;height:200px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-cd818db7ddc9c1b4e9df">{"x":{"diagram":"\n  digraph {\n    graph [rankdir = LR]\n  \n    node []\n    \"sleep deprivation\"; \"exam results\"; gender\n    node [shape = point, width = 0, height = 0]\n    \"\"\n    \n    gender -> \"\"\n    \"sleep deprivation\" -> \"\" [arrowhead = none]\n    \"\"-> \"exam results\"\n    \n    subgraph {\n      rank = same; gender; \"\";\n    }\n  }","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+
+Hypothesis: The effect of sleep deprivation on exam results is higher for Males than for Females
+
+---
+
+# Interaction Effect Hypothesis Examples
+
+Variables:
+- Outcome = road accidents (continuous from 0 to Inf.)
+- Predictor 1 = alcohol consumption (continuous from 0 to Inf.)
+- Predictor 2 = driving experience (categorical low, high)
+
+Effects representation:
+
+<div id="htmlwidget-4237e19bfcdbbf5dc9d8" style="width:504px;height:200px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-4237e19bfcdbbf5dc9d8">{"x":{"diagram":"\n  digraph {\n    graph [rankdir = LR]\n  \n    node []\n    \"alcohol consumption\"; \"road accidents\"; \"driving experience\"\n    node [shape = point, width = 0, height = 0]\n    \"\"\n    \n    \"driving experience\" -> \"\"\n    \"alcohol consumption\" -> \"\" [arrowhead = none]\n    \"\"-> \"road accidents\"\n    \n    subgraph {\n      rank = same; \"driving experience\" ; \"\";\n    }\n  }","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+
+Hypothesis: The effect of alcohol consumption on road accidents is lower for experienced drivers than for inexperienced drivers
+
+---
+
+# Example of Hypotheses in Research Papers
+
+&lt;img src="img/ex1_title.png" width="50%" style="display: block; margin: auto;" /&gt;
+
+&lt;img src="img/ex1_hyp.png" width="50%" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Example of Hypotheses in Research Papers
+
+&lt;img src="img/ex2_title.png" width="50%" style="display: block; margin: auto;" /&gt;
+
+&lt;img src="img/ex2_hyp1.png" width="50%" style="display: block; margin: auto;" /&gt;
+
+&lt;img src="img/ex2_hyp2.png" width="50%" style="display: block; margin: auto;" /&gt;
+
+---
+
+# The Hypothesis Checklist
+
+- Does your hypothesis focus on something that you can actually test?
+- Does your hypothesis include both Predictor and Outcome variables?
+- Can you manipulate the variables?
+- Don't trust research papers, most of them have incorrect formulations
+
+---
+
+# Special Case: Mediation Hypothesis
+
+States that the predicted relationship between a first predictor and an outcome variable is in fact explained by a second predictor
+
+Note: the second predictor is also called mediator
+
+Effect representation:
+
+<div id="htmlwidget-2e920b11deb5d12a887c" style="width:504px;height:200px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-2e920b11deb5d12a887c">{"x":{"diagram":"\n  digraph {\n    graph [rankdir = LR]\n  \n    node [shape = circle]\n    \"Predictor 1\"; \"Predictor 2\"; Outcome\n    \n    \"Predictor 1\" -> {\"Predictor 2\" Outcome}\n    \"Predictor 2\" -> Outcome\n\n  }","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+
+---
+
+# Special Case: Mediation Hypothesis
+
+Formulation structure:
+
+.center[The effect of {**predictor 1**} on {**outcome**} is explained by the {**predictor 2**}]
+
+Warning: A mediation effect involves 3 requirements:
+1. Predictor 1 needs to have a main effect on the Outcome
+2. Predictor 1 needs to have a main effect on the Predictor 2
+3. The main effect of Predictor 1 on the Outcome needs to disappear when Predictor 2 is taken into account
+
+&gt; Example: 
+- The effect of **employee's age** on **job satisfaction** is explained by their **salary**
+
+&gt; Here, the requirements are:
+1. Employee's age needs to have a main effect on job satisfaction
+2. Employee's age needs to have a main effect on their salary
+3. The main effect of Employee's age on the job satisfaction needs to disappear when salary is taken into account
+
+---
+
+# Mediation Effect Hypothesis Example
+
+Variables:
+- Outcome = happiness (continuous from 0 to 7)
+- Predictor 1 = grades (continuous from 0 to 100)
+- Predictor 2 = self-esteem (continuous from 0 to 7)
+
+<div id="htmlwidget-472807e2870949a1caf4" style="width:504px;height:200px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-472807e2870949a1caf4">{"x":{"diagram":"\n  digraph {\n    graph [rankdir = LR]\n  \n    node []\n    \"self-esteem\"; \"grades\"; happiness\n    \n    \"grades\" -> {happiness \"self-esteem\"}\n    \"self-esteem\" -> happiness\n\n  }","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+
+Hypothesis: the effect of **grades** on **happiness** is explained by **self-esteem**
+
+---
+class: title-slide, middle
+
+## Exercise: Find the variables in these hypotheses
+
+In the following hypotheses, find the outcome variable and the predictor(s):
+
+1. Overweight adults who value longevity are more likely than other overweight adults to lose their excess weight
+
+2. Larger animals of the same species expend more energy than smaller animals of the same type.
+
+3. Rainbow trout suffer more lice when water levels are low than other trout.
+
+4. Professors who use a student-centered teaching method will have a greater positive rapport with their graduate students than professors who use a teacher-centered teaching method.
+
+<div class="countdown" id="timer_6165d752" style="right:0;bottom:0;" data-warnwhen="60">
+<code class="countdown-time"><span class="countdown-digits minutes">03</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+
+---
+
+# Solution
+
+Hypothesis 1:
+- Outcome = Excess weight
+- Predictor = The valuation of longevity (yes vs no)
+
+Hypothesis 2:
+- Outcome = Energy expended
+- Predictor = Animal size (larger vs smaller)
+
+Hypothesis 3:
+- Outcome = Suffering lice
+- Predictor = Trout type (rainbow vs other)
+
+Hypothesis 3:
+- Outcome = Rapport with graduate students
+- Predictor = Teaching method (student-centered vs teacher-centered)
+
+---
+class: title-slide, middle
+
+## Exercise: Make your own Hypothesis
+
+|Outcome|Predictor 1|Predictor 2|
+|--|---|---|
+|Work motivation|Gender(Female/Male)||
+|Work motivation|Gender(Female/Male)|Origin(French/Irish)|
+|Work motivation|Gender(Female/Male)|Origin(French/Irish/Italians)|
+|Job Satisfaction|Stress(from 0 to 10)||
+|Job Satisfaction|Stress(from 0 to 10)|Age(Millennials/Baby boomers)|
+|Job Satisfaction|Stress(from 0 to 10)|Age(in year)|
+
+<div class="countdown" id="timer_6165d647" style="right:0;bottom:0;" data-warnwhen="60">
+<code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+
+---
+
+# Solution
+
+The work motivation of female employees is higher than the work motivation of male employees
+
+The effect of gender on work motivation is higher for Irish employees than French employees
+
+The effect of origin on work motivation is higher for female employees than male employees
+
+Job satisfaction decreases when stress increases
+
+The effect of stress on job satisfaction is higher for Millennials than for Baby boomers
+
+The effect of stress on job satisfaction is higher for less experienced employees than for more experienced employees
+
+
+---
+class: inverse, mline, left, middle
+
+&lt;img class="circle" src="https://github.com/damien-dupre.png" width="250px"/&gt;
+
+# Thanks for your attention and don't hesitate to ask if you have any question!
+
+[<svg aria-hidden="true" role="img" viewBox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg> @damien_dupre](http://twitter.com/damien_dupre)  
+[<svg aria-hidden="true" role="img" viewBox="0 0 496 512" style="height:1em;width:0.97em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg> @damien-dupre](http://github.com/damien-dupre)  
+[<svg aria-hidden="true" role="img" viewBox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96 0-59.27-59.26-59.27-155.7 0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757 0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037 0 0 1-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482 0 0 1 20.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96 0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454 0 0 0 20.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037 0 0 0-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639 0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"/></svg> damien-datasci-blog.netlify.app](https://damien-datasci-blog.netlify.app)  
+[<svg aria-hidden="true" role="img" viewBox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M476 3.2L12.5 270.6c-18.1 10.4-15.8 35.6 2.2 43.2L121 358.4l287.3-253.2c5.5-4.9 13.3 2.6 8.6 8.3L176 407v80.5c0 23.6 28.5 32.9 42.5 15.8L282 426l124.6 52.2c14.2 6 30.4-2.9 33-18.2l72-432C515 7.8 493.3-6.8 476 3.2z"/></svg> damien.dupre@dcu.ie](mailto:damien.dupre@dcu.ie)
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="libs/cols_macro.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "zenburn",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
