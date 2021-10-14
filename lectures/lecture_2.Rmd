@@ -250,8 +250,8 @@ class: title-slide, middle
 It's important to keep the two roles "variable doing the explaining" and "variable being explained" distinct.
 
 Let's denote the:
- - **Outcome**: "to be explained" variable as Y (also called Dependent Variable or DV)
- - **Predictor**: "doing the explaining" as X (also called Independent Variable or IV)
+ - **Outcome**: "variable to be explained" (also called $Y$, Dependent Variable, or DV)
+ - **Predictor**: "variable doing the explaining" (also called $X$, Independent Variable, or IV)
  
 --
 
