@@ -47,13 +47,29 @@ In Academic Reports, all sections are linked:
 
 To understand the statistics in the results section it is essential to identify the concepts presented in each section:
 
-<div id="htmlwidget-aada1ab0903d5076195d" style="width:864px;height:216px;" class="nomnoml html-widget"></div>
-<script type="application/json" data-for="htmlwidget-aada1ab0903d5076195d">{"x":{"code":"\n#fill: #FEFEFF\n#lineWidth: 1\n#zoom: 4\n#direction: right\n\n#stroke: black\n#direction: right\n#align: center\n[Introduction | Variables]->[Literature Review | Hypotheses]\n[Literature Review | Hypotheses]->[Method | Model & Equation]\n[Method | Model & Equation]->[Results | Statistical Test]\n[Results | Statistical Test]->[Discussion & Conclusion | Interpretation]","svg":false},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-53d1b2b253f7a2735949" style="width:864px;height:216px;" class="nomnoml html-widget"></div>
+<script type="application/json" data-for="htmlwidget-53d1b2b253f7a2735949">{"x":{"code":"\n#fill: #FEFEFF\n#lineWidth: 1\n#zoom: 4\n#direction: right\n\n#stroke: black\n#direction: right\n#align: center\n[Introduction | Variables]->[Literature Review | Hypotheses]\n[Literature Review | Hypotheses]->[Method | Model & Equation]\n[Method | Model & Equation]->[Results | Statistical Test]\n[Results | Statistical Test]->[Discussion & Conclusion | Interpretation]","svg":false},"evals":[],"jsHooks":[]}</script>
 
 ---
 class: inverse, mline, center, middle
 
 # 1. Declare your Variables in the Introduction
+
+---
+
+# Academic Reports' Introduction
+
+An introduction is a section **presenting your variables and why you investigate them**.
+
+There is little reference to previous academic research, just a description of actual facts.
+
+It should end with your **Research Question**, a question that includes all the main variables investigated which wonders about a potential relationship between them.
+
+For example:
+- "What is the relationship between Job Satisfaction, Salary and Gender?"
+- "How does sales experience influence the performance of sales managers and sales representatives?"
+
+&lt;img src="https://memegenerator.net/img/instances/65219961/there-will-come-a-day-i-easily-write-an-introduction-to-a-paper-but-it-is-not-this-day.jpg" width="25%" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -71,7 +87,12 @@ The **bold part is "the thing that varies"** and the *italicised part is "the va
 
 &gt; Let's collect more data about MBA1's classmates on these three variables: height, coffee and gender!
 
-Each variable has a **Role** and a **Type**, it is essential to learn how to identify them.
+--
+
+### Important!
+
+- The variable **variability** corresponds to how numbers or characters according each observation.
+- Each variable has a **Role** and a **Type**, it is essential to learn how to identify them.
 
 ---
 class: title-slide, middle
@@ -131,8 +152,8 @@ Scale to measure the "Perceived Ease-of-use" of Data Analytics in 4 items were m
 ]
 
 .pull-right[
-<div id="htmlwidget-387ff81ad24c51c98270" style="width:504px;height:200px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-387ff81ad24c51c98270">{"x":{"diagram":"\ndigraph rmarkdown {\n  graph [rankdir = RL]\n  \n  node [shape = oval]\n  \"Perceived Ease-of-use\n  of Data Analytics\"\n  \n  node [shape = box]\n  q1; q2; q3; q4\n  \n  \"Perceived Ease-of-use\n  of Data Analytics\"-> {q1 q2 q3 q4}   \n\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-56ed1cd88d8c404afcfa" style="width:504px;height:200px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-56ed1cd88d8c404afcfa">{"x":{"diagram":"\ndigraph rmarkdown {\n  graph [rankdir = RL]\n  \n  node [shape = oval]\n  \"Perceived Ease-of-use\n  of Data Analytics\"\n  \n  node [shape = box]\n  q1; q2; q3; q4\n  \n  \"Perceived Ease-of-use\n  of Data Analytics\"-> {q1 q2 q3 q4}   \n\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 ]
 
 --
@@ -216,47 +237,80 @@ It's important to keep the two roles "variable doing the explaining" and "variab
 Let's denote the:
  - **Outcome**: "to be explained" variable as Y (also called Dependent Variable or DV)
  - **Predictor**: "doing the explaining" as X (also called Independent Variable or IV)
+ 
+--
 
 Statistics is only about identifying relationship between variables also called **effect**
 
-&gt; An effect between 2 variables mean that the changes in the values of a predictor variable are related to changes in the values of an outcome variable
+&gt; An effect between 2 variables means that the changes in the values of a predictor variable are related to changes in the values of an outcome variable
 
 ---
 
 # Predictors, Outcomes and Controls
 
-An effect between a predictor variable `\(X\)` and an outcome variable `\(Y\)` corresponds to the following model:
+&gt; The aim of an Academic Report is to investigate if the **Variability of the Outcome Variable** is related to the variability of Predictor Variables.
 
-<div id="htmlwidget-dbd449a00a0cad6cc6e7" style="width:864px;height:216px;" class="nomnoml html-widget"></div>
-<script type="application/json" data-for="htmlwidget-dbd449a00a0cad6cc6e7">{"x":{"code":"\n#fill: #FEFEFF\n#lineWidth: 1\n#zoom: 4\n#direction: right\n\n#stroke: black\n#direction: right\n#align: center\n\n[X]->[Y]","svg":false},"evals":[],"jsHooks":[]}</script>
+--
 
-To prove this effect, an hypothesis should be formulated and tested:
-- "the variable `\(X\)` is explaining the variable `\(Y\)`"
-- "the variable `\(X\)` influences the variable `\(Y\)`"
-- "the variable `\(Y\)` is explained by the variable `\(X\)`"
-- "there is an effect/ a relationship between `\(X\)` and `\(Y\)`"
+Imagine a the Outcome Variable is a birthday cake, the full cake represent the variable's variability. Now, imagine each predictor is a guest:
 
-Note, despite having different formulation these hypotheses are all about the same effect suggesting a correlation which is not causation.
+- If there is only one guest eating all the cake, then the predictor explains all the variability of the outcome variable. However it never happens, when there is one guest, there is always some cake remaining or variability unexplained.
+- If there is more than one guest, they will take their slices of the cake which can be small or big. Each predictor will explains more or less variability of the outcome. However, the more guest there is, the smaller the slices are.
 
 ---
 
 # Predictors, Outcomes and Controls
 
-## Correlation not Causation
+An effect between a predictor variable and an outcome variable corresponds to the following model:
 
-Hypothesis testing evaluates how two or more variable are related or correlated, there is no assumption of one causing the other:
+<div id="htmlwidget-a28d3bd7a97f7b2ad9a4" style="width:864px;height:216px;" class="nomnoml html-widget"></div>
+<script type="application/json" data-for="htmlwidget-a28d3bd7a97f7b2ad9a4">{"x":{"code":"\n#fill: #FEFEFF\n#lineWidth: 1\n#zoom: 4\n#direction: right\n\n#stroke: black\n#direction: right\n#align: center\n\n[Predictor]->[Outcome]","svg":false},"evals":[],"jsHooks":[]}</script>
 
-* An "effect" is reciprocal and does not involves causality
-* Causality analysis is an other kind of test that involves:
-  1. To be sure that 2 variables are correlated
-  2. That one variable is the antecedent of the other
-  3. That no other variable is explaining this relationship
+This arrow does not suggest causation but indicate correlation between `\(Predictor\)` and `\(Outcome\)`, there is no assumption of one causing the other. **An "effect" is reciprocal and does not involves causality**.
 
-## Control Variables
+Causality analysis is an other kind of test that involves:
+- To be sure that 2 variables are correlated
+- That one variable is the antecedent of the other
+- That no other variable is explaining this relationship
 
-They are included in the statistical test but there is no hypothesis about their effect.
+---
 
-They are used to remove an irrelevant explanation of the variable changes.
+# Predictors, Outcomes and Controls
+
+A significant effect of a predictor on an outcome variable means that a predictor is explaining enough variance of the outcome variable to show a significant relationship.
+
+.pull-left[
+
+If there is no effect between the variables, they are not sharing enough of their variability
+
+&lt;img src="lecture_2_files/figure-html/unnamed-chunk-8-1.png" width="504" style="display: block; margin: auto;" /&gt;
+
+]
+
+.pull-right[
+
+If there is an effect between the variables, they are sharing a big part of their variability
+
+&lt;img src="lecture_2_files/figure-html/unnamed-chunk-9-1.png" width="504" style="display: block; margin: auto;" /&gt;
+]
+
+---
+
+# Predictors, Outcomes and Controls
+
+To decide, if the part of the shared variability is big enough to state that effect between the variables can be generalised to the overall population, a statistical test is required.
+
+The statistical test produces a *p-value* which is between 0% and 100% which corresponds to a value between 0.0 and 1.0
+
+**If the *p-value* is lower to 5% or 0.05, then the probability to obtain your results knowing that there is no effect between the variables is low enough to say ...**
+
+.center[**... "There MUST be an effect between these variables!"**]
+  
+Note about Control Variables:
+
+- They are included in the statistical test but there is no hypothesis about their effect.
+
+- They are used to remove an irrelevant explanation of the variable changes.
 
 ---
 class: title-slide, middle
@@ -278,8 +332,8 @@ In this example:
 - Job Satisfaction is the outcome
 - I'm predicting an effect of Salary on Job Satisfaction
 
-<div id="htmlwidget-230d44b853f2d62d12ae" style="width:864px;height:144px;" class="nomnoml html-widget"></div>
-<script type="application/json" data-for="htmlwidget-230d44b853f2d62d12ae">{"x":{"code":"\n#fill: #FEFEFF\n#lineWidth: 1\n#zoom: 4\n#direction: right\n\n#stroke: black\n#direction: right\n#align: center\n\n[Salary]->[Job Satisfaction]","svg":false},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-33dc17125c1046d8da27" style="width:864px;height:144px;" class="nomnoml html-widget"></div>
+<script type="application/json" data-for="htmlwidget-33dc17125c1046d8da27">{"x":{"code":"\n#fill: #FEFEFF\n#lineWidth: 1\n#zoom: 4\n#direction: right\n\n#stroke: black\n#direction: right\n#align: center\n\n[Salary]->[Job Satisfaction]","svg":false},"evals":[],"jsHooks":[]}</script>
 
 ---
 
@@ -397,7 +451,7 @@ On the module's Loop page, in the "Additional Content and Links" tile, open the 
 2. Identify the predictor and outcome variables
 3. Identify the hypotheses
 
-<div class="countdown" id="timer_6165d608" style="right:0;bottom:0;" data-warnwhen="60">
+<div class="countdown" id="timer_61672393" style="right:0;bottom:0;" data-warnwhen="60">
 <code class="countdown-time"><span class="countdown-digits minutes">10</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
@@ -475,8 +529,8 @@ Is the predicted relationship between one predictor and one outcome variable
 
 Effect representation:
 
-<div id="htmlwidget-f8efc2c165bd66896ca9" style="width:504px;height:200px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-f8efc2c165bd66896ca9">{"x":{"diagram":"\n  digraph {\n    graph [rankdir = LR]\n    \n    \"Predictor\" -> \"Outcome\"\n  }","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-79b7c71daf914056e538" style="width:504px;height:200px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-79b7c71daf914056e538">{"x":{"diagram":"\n  digraph {\n    graph [rankdir = LR]\n    \n    \"Predictor\" -> \"Outcome\"\n  }","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 
 Warning: The direction of the arrow does not involve causality, only correlation.
 
@@ -519,8 +573,8 @@ Variables:
 
 Effect representation:
 
-<div id="htmlwidget-299b225738f330b15089" style="width:504px;height:200px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-299b225738f330b15089">{"x":{"diagram":"\n  digraph {\n    graph [rankdir = LR]\n    \n    \"sleep time\" -> \"math exam results\"\n  }","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-35bf9746db9ee7d3effc" style="width:504px;height:200px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-35bf9746db9ee7d3effc">{"x":{"diagram":"\n  digraph {\n    graph [rankdir = LR]\n    \n    \"sleep time\" -> \"math exam results\"\n  }","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 
 Hypothesis: The **exam results** *increases* when students’ **sleep time** increases
 
@@ -534,8 +588,8 @@ Variables:
 
 Effect representation:
 
-<div id="htmlwidget-69a79896bf8c675a73a4" style="width:504px;height:200px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-69a79896bf8c675a73a4">{"x":{"diagram":"\n  digraph {\n    graph [rankdir = LR]\n    \n    \"breakfast\" -> \"exam results\"\n  }","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-95332acffba0c2e61d6f" style="width:504px;height:200px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-95332acffba0c2e61d6f">{"x":{"diagram":"\n  digraph {\n    graph [rankdir = LR]\n    \n    \"breakfast\" -> \"exam results\"\n  }","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 
 Hypothesis: **Exam results** of students **who eat breakfast** will be *higher* than **exam results** of students **who do not eat breakfast** 
 
@@ -549,8 +603,8 @@ Variables:
 
 Effect representation:
 
-<div id="htmlwidget-5078d888a7db928c608b" style="width:504px;height:200px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-5078d888a7db928c608b">{"x":{"diagram":"\n  digraph {\n    graph [rankdir = LR]\n    \n    \"motorists talking on the phone\" -> \"driving errors\"\n  }","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-3e0375ad4ac388834c50" style="width:504px;height:200px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-3e0375ad4ac388834c50">{"x":{"diagram":"\n  digraph {\n    graph [rankdir = LR]\n    \n    \"motorists talking on the phone\" -> \"driving errors\"\n  }","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 
 Hypothesis: **Driving errors** of **motorists who do not talk on the phone while driving** will be *less important* than **driving errors** of **motorists who do not talk on the phone while driving**
 
@@ -568,15 +622,15 @@ Notes:
 .pull-left[
 Effects representation:
 
-<div id="htmlwidget-0025d26c1224963e1a9e" style="width:400px;height:200px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-0025d26c1224963e1a9e">{"x":{"diagram":"\n  digraph {\n    graph [rankdir = LR]\n  \n    node []\n    \"Predictor 1\"; \"Predictor 2\"; Outcome\n    node [shape = point, width = 0, height = 0]\n    \"\"\n    \n    \"Predictor 2\" -> \"\"\n    \"Predictor 1\" -> \"\" [arrowhead = none]\n    \"\"-> Outcome\n    \n    subgraph {\n      rank = same; \"Predictor 2\"; \"\";\n    }\n  }","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-a4328df3e201d6b92f08" style="width:400px;height:200px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-a4328df3e201d6b92f08">{"x":{"diagram":"\n  digraph {\n    graph [rankdir = LR]\n  \n    node []\n    \"Predictor 1\"; \"Predictor 2\"; Outcome\n    node [shape = point, width = 0, height = 0]\n    \"\"\n    \n    \"Predictor 2\" -> \"\"\n    \"Predictor 1\" -> \"\" [arrowhead = none]\n    \"\"-> Outcome\n    \n    subgraph {\n      rank = same; \"Predictor 2\"; \"\";\n    }\n  }","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 ]
 
 .pull-right[
 
 Exactly the same results:
-<div id="htmlwidget-154c0d6d35332b9307ea" style="width:400px;height:200px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-154c0d6d35332b9307ea">{"x":{"diagram":"\n  digraph {\n    graph [rankdir = LR]\n  \n    node []\n    \"Predictor 1\"; \"Predictor 2\"; Outcome\n    node [shape = point, width = 0, height = 0]\n    \"\"\n    \n    \"Predictor 1\" -> \"\"\n    \"Predictor 2\" -> \"\" [arrowhead = none]\n    \"\"-> Outcome\n    \n    subgraph {\n      rank = same; \"Predictor 1\"; \"\";\n    }\n  }","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-56c6d3953a44f6d5eba1" style="width:400px;height:200px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-56c6d3953a44f6d5eba1">{"x":{"diagram":"\n  digraph {\n    graph [rankdir = LR]\n  \n    node []\n    \"Predictor 1\"; \"Predictor 2\"; Outcome\n    node [shape = point, width = 0, height = 0]\n    \"\"\n    \n    \"Predictor 1\" -> \"\"\n    \"Predictor 2\" -> \"\" [arrowhead = none]\n    \"\"-> Outcome\n    \n    subgraph {\n      rank = same; \"Predictor 1\"; \"\";\n    }\n  }","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 ]
 
 ---
@@ -586,13 +640,13 @@ Exactly the same results:
 .pull-left[
 Imagine a first effect where Job Satisfaction increases when Salary increases
 
-&lt;img src="lecture_2_files/figure-html/unnamed-chunk-16-1.png" width="360" style="display: block; margin: auto;" /&gt;
+&lt;img src="lecture_2_files/figure-html/unnamed-chunk-19-1.png" width="360" style="display: block; margin: auto;" /&gt;
 ]
 
 .pull-right[
 This effect can change according to the values of a second predictor
 
-&lt;img src="lecture_2_files/figure-html/unnamed-chunk-17-1.png" width="360" style="display: block; margin: auto;" /&gt;
+&lt;img src="lecture_2_files/figure-html/unnamed-chunk-20-1.png" width="360" style="display: block; margin: auto;" /&gt;
 
 ]
 
@@ -601,6 +655,8 @@ This effect can change according to the values of a second predictor
 # Interaction Effect Hypothesis Templates
 
 The **Outcome has to be Continuous** and **whatever the Predictor 1 is** ...
+
+--
 
 - #### Case 1: Predictor 2 is Continuous
 
@@ -620,11 +676,10 @@ The **Outcome has to be Continuous** and **whatever the Predictor 1 is** ...
 
 --
 
-Examples: 
-
-&gt; The effect of **Salary** on **Job Satisfaction** is *higher* for **Irish employees** than for **French employees**
-
-&gt; The effect of **Salary** on **Job Satisfaction** is *higher* when **age** increases
+#### Notes:
+1. Predictor 1 and 2 are commutable (can be inverted and produce the same hypothesis)
+2. An interaction effect hypothesis is also called moderation effect
+3. By default, an interaction effect involves the test of the main effect hypotheses of all Predictors involved
 
 ---
 
@@ -638,8 +693,8 @@ Variables:
 
 Effects representation:
 
-<div id="htmlwidget-cd818db7ddc9c1b4e9df" style="width:504px;height:200px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-cd818db7ddc9c1b4e9df">{"x":{"diagram":"\n  digraph {\n    graph [rankdir = LR]\n  \n    node []\n    \"sleep deprivation\"; \"exam results\"; gender\n    node [shape = point, width = 0, height = 0]\n    \"\"\n    \n    gender -> \"\"\n    \"sleep deprivation\" -> \"\" [arrowhead = none]\n    \"\"-> \"exam results\"\n    \n    subgraph {\n      rank = same; gender; \"\";\n    }\n  }","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-4bb12633e5f573bb513d" style="width:504px;height:200px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-4bb12633e5f573bb513d">{"x":{"diagram":"\n  digraph {\n    graph [rankdir = LR]\n  \n    node []\n    \"sleep deprivation\"; \"exam results\"; gender\n    node [shape = point, width = 0, height = 0]\n    \"\"\n    \n    gender -> \"\"\n    \"sleep deprivation\" -> \"\" [arrowhead = none]\n    \"\"-> \"exam results\"\n    \n    subgraph {\n      rank = same; gender; \"\";\n    }\n  }","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 
 Hypothesis: The effect of sleep deprivation on exam results is higher for Males than for Females
 
@@ -654,8 +709,8 @@ Variables:
 
 Effects representation:
 
-<div id="htmlwidget-4237e19bfcdbbf5dc9d8" style="width:504px;height:200px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-4237e19bfcdbbf5dc9d8">{"x":{"diagram":"\n  digraph {\n    graph [rankdir = LR]\n  \n    node []\n    \"alcohol consumption\"; \"road accidents\"; \"driving experience\"\n    node [shape = point, width = 0, height = 0]\n    \"\"\n    \n    \"driving experience\" -> \"\"\n    \"alcohol consumption\" -> \"\" [arrowhead = none]\n    \"\"-> \"road accidents\"\n    \n    subgraph {\n      rank = same; \"driving experience\" ; \"\";\n    }\n  }","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-d03aba3d9c8a2f30b945" style="width:504px;height:200px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-d03aba3d9c8a2f30b945">{"x":{"diagram":"\n  digraph {\n    graph [rankdir = LR]\n  \n    node []\n    \"alcohol consumption\"; \"road accidents\"; \"driving experience\"\n    node [shape = point, width = 0, height = 0]\n    \"\"\n    \n    \"driving experience\" -> \"\"\n    \"alcohol consumption\" -> \"\" [arrowhead = none]\n    \"\"-> \"road accidents\"\n    \n    subgraph {\n      rank = same; \"driving experience\" ; \"\";\n    }\n  }","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 
 Hypothesis: The effect of alcohol consumption on road accidents is lower for experienced drivers than for inexperienced drivers
 
@@ -696,8 +751,8 @@ Note: the second predictor is also called mediator
 
 Effect representation:
 
-<div id="htmlwidget-2e920b11deb5d12a887c" style="width:504px;height:200px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-2e920b11deb5d12a887c">{"x":{"diagram":"\n  digraph {\n    graph [rankdir = LR]\n  \n    node [shape = circle]\n    \"Predictor 1\"; \"Predictor 2\"; Outcome\n    \n    \"Predictor 1\" -> {\"Predictor 2\" Outcome}\n    \"Predictor 2\" -> Outcome\n\n  }","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-806a6b66b7d54253e2c5" style="width:504px;height:200px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-806a6b66b7d54253e2c5">{"x":{"diagram":"\n  digraph {\n    graph [rankdir = LR]\n  \n    node [shape = circle]\n    \"Predictor 1\"; \"Predictor 2\"; Outcome\n    \n    \"Predictor 1\" -> {\"Predictor 2\" Outcome}\n    \"Predictor 2\" -> Outcome\n\n  }","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 
 ---
 
@@ -729,8 +784,8 @@ Variables:
 - Predictor 1 = grades (continuous from 0 to 100)
 - Predictor 2 = self-esteem (continuous from 0 to 7)
 
-<div id="htmlwidget-472807e2870949a1caf4" style="width:504px;height:200px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-472807e2870949a1caf4">{"x":{"diagram":"\n  digraph {\n    graph [rankdir = LR]\n  \n    node []\n    \"self-esteem\"; \"grades\"; happiness\n    \n    \"grades\" -> {happiness \"self-esteem\"}\n    \"self-esteem\" -> happiness\n\n  }","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-7acf523d39d169a1faab" style="width:504px;height:200px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-7acf523d39d169a1faab">{"x":{"diagram":"\n  digraph {\n    graph [rankdir = LR]\n  \n    node []\n    \"self-esteem\"; \"grades\"; happiness\n    \n    \"grades\" -> {happiness \"self-esteem\"}\n    \"self-esteem\" -> happiness\n\n  }","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 
 Hypothesis: the effect of **grades** on **happiness** is explained by **self-esteem**
 
@@ -749,7 +804,7 @@ In the following hypotheses, find the outcome variable and the predictor(s):
 
 4. Professors who use a student-centered teaching method will have a greater positive rapport with their graduate students than professors who use a teacher-centered teaching method.
 
-<div class="countdown" id="timer_6165d752" style="right:0;bottom:0;" data-warnwhen="60">
+<div class="countdown" id="timer_61672363" style="right:0;bottom:0;" data-warnwhen="60">
 <code class="countdown-time"><span class="countdown-digits minutes">03</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
@@ -787,7 +842,7 @@ class: title-slide, middle
 |Job Satisfaction|Stress(from 0 to 10)|Age(Millennials/Baby boomers)|
 |Job Satisfaction|Stress(from 0 to 10)|Age(in year)|
 
-<div class="countdown" id="timer_6165d647" style="right:0;bottom:0;" data-warnwhen="60">
+<div class="countdown" id="timer_61672421" style="right:0;bottom:0;" data-warnwhen="60">
 <code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 

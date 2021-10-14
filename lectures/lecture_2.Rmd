@@ -77,6 +77,24 @@ class: inverse, mline, center, middle
 
 ---
 
+# Academic Reports' Introduction
+
+An introduction is a section **presenting your variables and why you investigate them**.
+
+There is little reference to previous academic research, just a description of actual facts.
+
+It should end with your **Research Question**, a question that includes all the main variables investigated which wonders about a potential relationship between them.
+
+For example:
+- "What is the relationship between Job Satisfaction, Salary and Gender?"
+- "How does sales experience influence the performance of sales managers and sales representatives?"
+
+```{r out.width='25%'}
+knitr::include_graphics("https://memegenerator.net/img/instances/65219961/there-will-come-a-day-i-easily-write-an-introduction-to-a-paper-but-it-is-not-this-day.jpg")
+```
+
+---
+
 # What is a Variable?
 
 A variable itself is a subtle concept, but basically it comes down to finding some way of assigning *numbers or characters* to **labels**.
@@ -91,7 +109,12 @@ The **bold part is "the thing that varies"** and the *italicised part is "the va
 
 > Let's collect more data about MBA1's classmates on these three variables: height, coffee and gender!
 
-Each variable has a **Role** and a **Type**, it is essential to learn how to identify them.
+--
+
+### Important!
+
+- The variable **variability** corresponds to how numbers or characters according each observation.
+- Each variable has a **Role** and a **Type**, it is essential to learn how to identify them.
 
 ---
 class: title-slide, middle
@@ -229,52 +252,95 @@ It's important to keep the two roles "variable doing the explaining" and "variab
 Let's denote the:
  - **Outcome**: "to be explained" variable as Y (also called Dependent Variable or DV)
  - **Predictor**: "doing the explaining" as X (also called Independent Variable or IV)
+ 
+--
 
 Statistics is only about identifying relationship between variables also called **effect**
 
-> An effect between 2 variables mean that the changes in the values of a predictor variable are related to changes in the values of an outcome variable
+> An effect between 2 variables means that the changes in the values of a predictor variable are related to changes in the values of an outcome variable
 
 ---
 
 # Predictors, Outcomes and Controls
 
-An effect between a predictor variable $X$ and an outcome variable $Y$ corresponds to the following model:
+> The aim of an Academic Report is to investigate if the **Variability of the Outcome Variable** is related to the variability of Predictor Variables.
+
+--
+
+Imagine a the Outcome Variable is a birthday cake, the full cake represent the variable's variability. Now, imagine each predictor is a guest:
+
+- If there is only one guest eating all the cake, then the predictor explains all the variability of the outcome variable. However it never happens, when there is one guest, there is always some cake remaining or variability unexplained.
+- If there is more than one guest, they will take their slices of the cake which can be small or big. Each predictor will explains more or less variability of the outcome. However, the more guest there is, the smaller the slices are.
+
+---
+
+# Predictors, Outcomes and Controls
+
+An effect between a predictor variable and an outcome variable corresponds to the following model:
 
 ```{nomnoml, fig.width=12, fig.height=3}
 #stroke: black
 #direction: right
 #align: center
 
-[X]->[Y]
+[Predictor]->[Outcome]
 ```
 
-To prove this effect, an hypothesis should be formulated and tested:
-- "the variable $X$ is explaining the variable $Y$"
-- "the variable $X$ influences the variable $Y$"
-- "the variable $Y$ is explained by the variable $X$"
-- "there is an effect/ a relationship between $X$ and $Y$"
+This arrow does not suggest causation but indicate correlation between $Predictor$ and $Outcome$, there is no assumption of one causing the other. **An "effect" is reciprocal and does not involves causality**.
 
-Note, despite having different formulation these hypotheses are all about the same effect suggesting a correlation which is not causation.
+Causality analysis is an other kind of test that involves:
+- To be sure that 2 variables are correlated
+- That one variable is the antecedent of the other
+- That no other variable is explaining this relationship
 
 ---
 
 # Predictors, Outcomes and Controls
 
-## Correlation not Causation
+A significant effect of a predictor on an outcome variable means that a predictor is explaining enough variance of the outcome variable to show a significant relationship.
 
-Hypothesis testing evaluates how two or more variable are related or correlated, there is no assumption of one causing the other:
+.pull-left[
 
-* An "effect" is reciprocal and does not involves causality
-* Causality analysis is an other kind of test that involves:
-  1. To be sure that 2 variables are correlated
-  2. That one variable is the antecedent of the other
-  3. That no other variable is explaining this relationship
+If there is no effect between the variables, they are not sharing enough of their variability
 
-## Control Variables
+```{r}
+venn.plot <- draw.pairwise.venn(
+  100, 100, 10, c("Predictor", "Outcome"), ind = FALSE, cex = 5, cat.cex	= 2, cat.pos	
+= c(0,0))
+grid.draw(venn.plot)
+```
 
-They are included in the statistical test but there is no hypothesis about their effect.
+]
 
-They are used to remove an irrelevant explanation of the variable changes.
+.pull-right[
+
+If there is an effect between the variables, they are sharing a big part of their variability
+
+```{r}
+venn.plot <- draw.pairwise.venn(
+  100, 100, 40, c("Predictor", "Outcome"), ind = FALSE, cex = 5, cat.cex	= 2, cat.pos	
+= c(0,0))
+grid.draw(venn.plot)
+```
+]
+
+---
+
+# Predictors, Outcomes and Controls
+
+To decide, if the part of the shared variability is big enough to state that effect between the variables can be generalised to the overall population, a statistical test is required.
+
+The statistical test produces a *p-value* which is between 0% and 100% which corresponds to a value between 0.0 and 1.0
+
+**If the *p-value* is lower to 5% or 0.05, then the probability to obtain your results knowing that there is no effect between the variables is low enough to say ...**
+
+.center[**... "There MUST be an effect between these variables!"**]
+  
+Note about Control Variables:
+
+- They are included in the statistical test but there is no hypothesis about their effect.
+
+- They are used to remove an irrelevant explanation of the variable changes.
 
 ---
 class: title-slide, middle
@@ -650,6 +716,8 @@ tribble(
 
 The **Outcome has to be Continuous** and **whatever the Predictor 1 is** ...
 
+--
+
 - #### Case 1: Predictor 2 is Continuous
 
 .small[The effect of {**predictor 1**} on {**outcome**} is {*higher/lower/different*} when {**predictor 2**} increases]
@@ -668,11 +736,10 @@ The **Outcome has to be Continuous** and **whatever the Predictor 1 is** ...
 
 --
 
-Examples: 
-
-> The effect of **Salary** on **Job Satisfaction** is *higher* for **Irish employees** than for **French employees**
-
-> The effect of **Salary** on **Job Satisfaction** is *higher* when **age** increases
+#### Notes:
+1. Predictor 1 and 2 are commutable (can be inverted and produce the same hypothesis)
+2. An interaction effect hypothesis is also called moderation effect
+3. By default, an interaction effect involves the test of the main effect hypotheses of all Predictors involved
 
 ---
 
