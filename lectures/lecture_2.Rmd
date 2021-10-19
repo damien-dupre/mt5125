@@ -255,22 +255,31 @@ Let's denote the:
  
 --
 
-Statistics is only about identifying relationship between variables also called **effect**
+Statistics is only about identifying relationship between Predictor and Outcome variables also called **effect**
 
-> An effect between 2 variables means that the changes in the values of a predictor variable are related to changes in the values of an outcome variable
+> An effect between 2 variables means that the changes in the values of a predictor variable are related to changes in the values of an outcome variable.
+
+> The aim of an Academic Report is to investigate if the **Variability of the Outcome Variable** is related to the variability of Predictor Variables.
 
 ---
 
 # Predictors, Outcomes and Controls
 
-> The aim of an Academic Report is to investigate if the **Variability of the Outcome Variable** is related to the variability of Predictor Variables.
+Imagine a the variability of the Outcome Variable is a birthday cake. 
 
---
+Now, imagine each predictor is a guest having a slice of the cake:
 
-Imagine a the Outcome Variable is a birthday cake, the full cake represent the variable's variability. Now, imagine each predictor is a guest:
+- **Case 1:** There is only one guest eating all the cake.
 
-- If there is only one guest eating all the cake, then the predictor explains all the variability of the outcome variable. However it never happens, when there is one guest, there is always some cake remaining or variability unexplained.
-- If there is more than one guest, they will take their slices of the cake which can be small or big. Each predictor will explains more or less variability of the outcome. However, the more guest there is, the smaller the slices are.
+  - Then the predictor explains all the variability of the outcome variable. 
+
+- **Case 2:** There is only one guest eating a slice which is not the all cake.
+
+  - The predictor explains some of the outcome's variability. A statistical test is required to know if the predictor explains a significant part of the outcome's variability.
+  
+- **Case 3:** There is more than one guest, they will take their slices of the cake which can be small or big. 
+
+   - Each predictor will explains more or less variability of the outcome. However, the more guest there is, the smaller the slices.
 
 ---
 
@@ -328,13 +337,7 @@ grid.draw(venn.plot)
 
 # Predictors, Outcomes and Controls
 
-To decide, if the part of the shared variability is big enough to state that effect between the variables can be generalised to the overall population, a statistical test is required.
-
-The statistical test produces a *p-value* which is between 0% and 100% which corresponds to a value between 0.0 and 1.0
-
-**If the *p-value* is lower to 5% or 0.05, then the probability to obtain your results knowing that there is no effect between the variables is low enough to say ...**
-
-.center[**... "There MUST be an effect between these variables!"**]
+To decide, if the part of the shared variability is big enough, a statistical test is required.
   
 Note about Control Variables:
 
@@ -353,9 +356,9 @@ class: title-slide, middle
 
 I'm the CEO of the IT company D&D which has 1000 employee on 3 different locations. I see many employees who are dissatisfied with their job and I want to understand why. I think it's related to their salary.
 
-My research question is: Does employee's salary have an effect on employee's job satisfaction?
+My research question is: **Does employee's salary have an effect on employee's job satisfaction?**
 
-To me this is the case and I'm formulating the following hypothesis: Employee's job satisfaction increases when their salary increases.
+To me this is the case and I'm formulating the following hypothesis: **Employee's job satisfaction increases when their salary increases**.
 
 In this example:
 - Salary is the predictor
@@ -402,14 +405,14 @@ class: title-slide, middle
 
 ## Exercise: Inspecting an Academic Research Paper
 
-On the module's Loop page, in the "Additional Content and Links" tile, open the academic research paper "The Role of Occupational Emotional Labor Requirements on the Surface Acting–Job Satisfaction Relationship" by Bhave and Glomb (2013) and:
+On the module's Loop page, in the "Data Analytics Supplementary Documents" tile, open the academic research paper **"The Role of Occupational Emotional Labor Requirements on the Surface Acting–Job Satisfaction Relationship"** by Bhave and Glomb (2013) and:
 
-1. Identify the research question
-2. Identify the predictor and outcome variables
-3. Identify the hypotheses
+1. **Identify the research question**
+2. **Identify the predictor and outcome variables**
+3. **Identify the hypotheses**
 
 ```{r}
-countdown(minutes = 10, warn_when = 60)
+countdown(minutes = 15, warn_when = 60)
 ```
 
 ---
@@ -430,15 +433,27 @@ Hypotheses:
 
 > Occupational EL requirements will be positively related to job satisfaction
 
-Job Satisfaction increases when Occupational Emotional Labor increases
-
 > Surface acting will be negatively related to job satisfaction.
-
-Job Satisfaction decreases when Surface Acting increases
 
 > The negative association between surface acting and job satisfaction will be moderated by occupational EL requirements such that the relationship will be stronger for employees who work in occupations with higher EL requirements.
 
-The effect Surface Acting on Job Satisfaction is higher for high Occupational Emotional Labor than for low Occupational Emotional Labor
+---
+
+# Solution
+
+While these hypotheses are not incorrect, there is a far better way to formulate them. For example:
+
+> Occupational EL requirements will be positively related to job satisfaction
+
+- Becomes: **Job Satisfaction increases when Occupational Emotional Labor increases**
+
+> Surface acting will be negatively related to job satisfaction.
+
+- Becomes: **Job Satisfaction decreases when Surface Acting increases**
+
+> The negative association between surface acting and job satisfaction will be moderated by occupational EL requirements such that the relationship will be stronger for employees who work in occupations with higher EL requirements.
+
+- Becomes: **The effect Surface Acting on Job Satisfaction is higher for high Occupational Emotional Labor than it is for low Occupational Emotional Labor**
 
 ---
 class: inverse, mline, center, middle
@@ -449,15 +464,16 @@ class: inverse, mline, center, middle
 
 # Alternative vs. Null Hypotheses
 
-Every hypothesis has to state relationship between variables also called $H_a$ (for alternative hypothesis) or $H_1$
+Every hypothesis has to state relationship between variables 
 
-Every hypothesis has a null hypothesis counterpart (no relationship between variables) also called $H_0$ (pronounce H naught or H zero)
+- Called $H_a$ (for alternative hypothesis) or $H_1$
+- Has a null hypothesis counterpart (no relationship between variables) called $H_0$ (pronounce H naught or H zero)
 
 $H_a$ is viewed as a “challenger” hypothesis to the null hypothesis $H_0$.
   
-**Statistics are used to test the probability of obtaining your results if the Null Hypothesis is true. If this probability is low, then we reject the Null Hypothesis (and consider the Alternative Hypothesis as credible).**
+> **Statistics are used to test the probability of obtaining your results if the Null Hypothesis is true. If this probability is low, then we reject the Null Hypothesis (and consider the Alternative Hypothesis as credible).**
 
-Warning: Hypothesis cannot test equality between groups or modalities, they can only test differences
+**Warning:** Hypothesis cannot test equality between groups or modalities, they can only test differences or effects
 
 ---
 
@@ -484,18 +500,21 @@ But there is only two kind of hypotheses: **Main Effect Hypotheses** and **Inter
 
 Is the predicted relationship between one predictor and one outcome variable
 
-Effect representation:
+- Effect representation:
 
 ```{r eval=TRUE, fig.align="left"}
 DiagrammeR::grViz("
   digraph {
     graph [rankdir = LR]
+    node [shape = box]
     
     'Predictor' -> 'Outcome'
   }", height = 200)
 ```
 
-Warning: The direction of the arrow does not involve causality, only correlation.
+- Warning: 
+
+> The direction of the arrow does not involve causality, only correlation.
 
 ---
 
@@ -505,7 +524,7 @@ The **Outcome has to be Continuous** but ...
 
 - #### Case 1: Predictor is Continuous 
 
-.small[The {**outcome**} increases when {**predictor**} {*increases/decreases/changes*}]
+.small[{**outcome**} {*increases/decreases/changes*} when {**predictor**} increases]
 
 > Example: **Job satisfaction** *increases* when **salary** increases
 
@@ -515,15 +534,15 @@ The **Outcome has to be Continuous** but ...
 
 .small[The {**outcome**} of {**predictor category 1**} is {*higher/lower/different*} than the {**outcome**} of {**predictor category 2**}]
 
-> Example: **Job satisfaction** of **EU employees** is *higher* than **job satisfaction** of **Non-EU employees**
+> Example: The **Job satisfaction** of **EU employees** is *higher* than the **job satisfaction** of **Non-EU employees**
 
 --
 
 - #### Case 3: Predictor is Categorical (3 or more Categories)
 
-.small[The {**outcome**} of at least one {**predictor**} category is {*higher/lower/different*} than the other {**predictor**} categories]
+.small[The {**outcome**} of at least one of the {**predictor**} is {*higher/lower/different*} than the {**outcome**} of the other {**predictor**}]
 
-> Example: **Job satisfaction** of at least one of the **company's departments** is *higher* than the other **company's departments**
+> Example: The **Job satisfaction** of at least one of the **company's departments** is *higher* than the **Job satisfaction** of the other **company's departments**
 
 ---
 
@@ -531,8 +550,8 @@ The **Outcome has to be Continuous** but ...
 
 Variables:
 
-- Outcome = exam results (continuous from 0 to 100)
-- Predictor = sleep time (continuous from 0h to 24h)
+- Outcome = Exam Results (continuous from 0 to 100)
+- Predictor = Sleep Time (continuous from 0h to 24h)
 
 Effect representation:
 
@@ -540,20 +559,23 @@ Effect representation:
 DiagrammeR::grViz("
   digraph {
     graph [rankdir = LR]
-    
-    'sleep time' -> 'math exam results'
+    node [shape = box]
+  
+    'Sleep Time' -> 'Exam Results'
   }", height = 200)
 ```
 
-Hypothesis: The **exam results** *increases* when students’ **sleep time** increases
+Hypothesis: 
+
+- **Exam results** *increase* when students’ **sleep time** increases
 
 ---
 
 # Main Effect Hypothesis Examples
 
 Variables:
-- Outcome = exam results (continuous from 0 to 100)
-- Predictor = breakfast (categorical *yes* or *no*)
+- Outcome = Exam Results (continuous from 0 to 100)
+- Predictor = Breakfast (categorical *yes* or *no*)
 
 Effect representation:
 
@@ -561,20 +583,23 @@ Effect representation:
 DiagrammeR::grViz("
   digraph {
     graph [rankdir = LR]
+    node [shape = box]
     
-    'breakfast' -> 'exam results'
+    'Breakfast' -> 'Exam Results'
   }", height = 200)
 ```
 
-Hypothesis: **Exam results** of students **who eat breakfast** will be *higher* than **exam results** of students **who do not eat breakfast** 
+Hypothesis: 
+
+- **Exam results** of students **who eat breakfast** will be *higher* than **exam results** of students **who do not eat breakfast** 
 
 ---
 
 # Main Effect Hypothesis Examples
 
 Variables:
-- Outcome = driving errors (continuous from 0 to Inf.)
-- Predictor = motorists talking on the phone (categorical *yes* or *no*)
+- Outcome = Driving Errors (continuous from 0 to Inf.)
+- Predictor = Talking on the Phone while Driving (categorical *yes* or *no*)
 
 Effect representation:
 
@@ -582,12 +607,15 @@ Effect representation:
 DiagrammeR::grViz("
   digraph {
     graph [rankdir = LR]
+    node [shape = box]
     
-    'motorists talking on the phone' -> 'driving errors'
+    'Talking on the Phone while Driving' -> 'Driving Errors'
   }", height = 200)
 ```
 
-Hypothesis: **Driving errors** of **motorists who do not talk on the phone while driving** will be *less important* than **driving errors** of **motorists who do not talk on the phone while driving**
+Hypothesis: 
+
+- **Driving errors** of **motorists who do not talk on the phone while driving** will be *lower* than **driving errors** of **motorists who do not talk on the phone while driving**
 
 ---
 
@@ -608,7 +636,7 @@ DiagrammeR::grViz("
   digraph {
     graph [rankdir = LR]
   
-    node []
+    node [shape = box]
     'Predictor 1'; 'Predictor 2'; Outcome
     node [shape = point, width = 0, height = 0]
     ''
@@ -632,7 +660,7 @@ DiagrammeR::grViz("
   digraph {
     graph [rankdir = LR]
   
-    node []
+    node [shape = box]
     'Predictor 1'; 'Predictor 2'; Outcome
     node [shape = point, width = 0, height = 0]
     ''
@@ -758,7 +786,7 @@ DiagrammeR::grViz("
   digraph {
     graph [rankdir = LR]
   
-    node []
+    node [shape = box]
     'sleep deprivation'; 'exam results'; gender
     node [shape = point, width = 0, height = 0]
     ''
@@ -791,7 +819,7 @@ DiagrammeR::grViz("
   digraph {
     graph [rankdir = LR]
   
-    node []
+    node [shape = box]
     'alcohol consumption'; 'road accidents'; 'driving experience'
     node [shape = point, width = 0, height = 0]
     ''
@@ -860,7 +888,7 @@ DiagrammeR::grViz("
   digraph {
     graph [rankdir = LR]
   
-    node [shape = circle]
+    node [shape = box]
     'Predictor 1'; 'Predictor 2'; Outcome
     
     'Predictor 1' -> {'Predictor 2' Outcome}
@@ -904,7 +932,7 @@ DiagrammeR::grViz("
   digraph {
     graph [rankdir = LR]
   
-    node []
+    node [shape = box]
     'self-esteem'; 'grades'; happiness
     
     'grades' -> {happiness 'self-esteem'}
