@@ -306,13 +306,13 @@ Causality analysis is an other kind of test that involves:
 
 # Predictors, Outcomes and Controls
 
-A significant effect of a predictor on an outcome variable means that a predictor is explaining enough variance of the outcome variable to show a significant relationship.
+A significant effect of a $Predictor$ on an $Outcome$ variable means that **a predictor is explaining enough variance of the outcome** variable to show a significant relationship.
 
 .pull-left[
 
-If there is no effect between the variables, they are not sharing enough of their variability
+- If there is no effect between the variables, they are not sharing enough of their variability
 
-```{r}
+```{r, fig.height=5}
 venn.plot <- draw.pairwise.venn(
   100, 100, 10, c("Predictor", "Outcome"), ind = FALSE, cex = 5, cat.cex	= 2, cat.pos	
 = c(0,0))
@@ -323,9 +323,9 @@ grid.draw(venn.plot)
 
 .pull-right[
 
-If there is an effect between the variables, they are sharing a big part of their variability
+- If there is an effect between the variables, they are sharing a big part of their variability
 
-```{r}
+```{r, fig.height=5}
 venn.plot <- draw.pairwise.venn(
   100, 100, 40, c("Predictor", "Outcome"), ind = FALSE, cex = 5, cat.cex	= 2, cat.pos	
 = c(0,0))
@@ -333,17 +333,7 @@ grid.draw(venn.plot)
 ```
 ]
 
----
-
-# Predictors, Outcomes and Controls
-
 To decide, if the part of the shared variability is big enough, a statistical test is required.
-  
-Note about Control Variables:
-
-- They are included in the statistical test but there is no hypothesis about their effect.
-
-- They are used to remove an irrelevant explanation of the variable changes.
 
 ---
 class: title-slide, middle
@@ -377,9 +367,9 @@ In this example:
 
 # Applied Example
 
-To test my hypothesis, I asked as sample of employee to fill out the questionnaire which contains a job satisfaction scale made of 4 items (from 0 to 10) and their salary.
+**To test my hypothesis**, I asked as sample of employee to fill out the questionnaire which contains a job satisfaction scale made of 4 items (from 0 to 10) and their salary.
 
-First I need to calculate the score of the job satisfaction latent variable by calculating the average of all questions, then I need to check if salary and job satisfaction share some part of variance and finally if this relationship is reliable enough to be generalised to all employees.
+First I need to **calculate the score of the job satisfaction latent variable** by calculating the average of all questions, then I need to **check if salary and job satisfaction share some part of variability** and finally **if this relationship is reliable enough to be generalised to all employees**.
 
 ```{r}
 tribble(
@@ -398,6 +388,35 @@ tribble(
   mutate(js_score = mean(c(q1, q2, q3, q4))) %>% 
   kable() %>%
   kable_styling(bootstrap_options = "striped", font_size = 15)
+```
+
+---
+
+# Applied Example
+
+The way how to formulate and test hypotheses will be presented later in the module but let's have a first look at the results:
+
+```{r, fig.height=6, fig.width=6}
+#| fig.cap: "Relationship between Salary and Job Satisfaction among employees of the Company X"
+  tribble(
+    ~employee, ~salary, ~q1, ~q2, ~q3, ~q4,
+    1,         45000,   1,   5,   3,   2, 
+    2,         55000,   5,   4,   6,   6,
+    3,         70000,   3,   1,   2,   3,
+    4,         80000,   8,   5,   2,   7, 
+    5,         95000,   8,   9,   6,   5,
+    6,         75000,   3,   1,   2,   1,
+    7,         50000,   5,   2,   7,   7, 
+    8,         45000,   1,   4,   6,   9,
+    9,         65000,   3,   1,   2,   3
+  ) |> 
+  rowwise() |> 
+  mutate(js_score = mean(c(q1, q2, q3, q4))) |> 
+  ggplot(aes(salary, js_score)) +
+  geom_point(size = 5) +
+  geom_smooth(method = "lm", se = FALSE) +
+  theme_classic(base_size = 18)
+  
 ```
 
 ---
@@ -431,11 +450,11 @@ Variables:
 
 Hypotheses:
 
-> Occupational EL requirements will be positively related to job satisfaction
+> $H_{a_1}$: Occupational EL requirements will be positively related to job satisfaction
 
-> Surface acting will be negatively related to job satisfaction.
+> $H_{a_2}$: Surface acting will be negatively related to job satisfaction.
 
-> The negative association between surface acting and job satisfaction will be moderated by occupational EL requirements such that the relationship will be stronger for employees who work in occupations with higher EL requirements.
+> $H_{a_3}$: The negative association between surface acting and job satisfaction will be moderated by occupational EL requirements such that the relationship will be stronger for employees who work in occupations with higher EL requirements.
 
 ---
 
@@ -443,15 +462,15 @@ Hypotheses:
 
 While these hypotheses are not incorrect, there is a far better way to formulate them. For example:
 
-> Occupational EL requirements will be positively related to job satisfaction
+> $H_{a_1}$: Occupational EL requirements will be positively related to job satisfaction
 
 - Becomes: **Job Satisfaction increases when Occupational Emotional Labor increases**
 
-> Surface acting will be negatively related to job satisfaction.
+> $H_{a_2}$: Surface acting will be negatively related to job satisfaction.
 
 - Becomes: **Job Satisfaction decreases when Surface Acting increases**
 
-> The negative association between surface acting and job satisfaction will be moderated by occupational EL requirements such that the relationship will be stronger for employees who work in occupations with higher EL requirements.
+> $H_{a_3}$: The negative association between surface acting and job satisfaction will be moderated by occupational EL requirements such that the relationship will be stronger for employees who work in occupations with higher EL requirements.
 
 - Becomes: **The effect Surface Acting on Job Satisfaction is higher for high Occupational Emotional Labor than it is for low Occupational Emotional Labor**
 
@@ -462,7 +481,7 @@ class: inverse, mline, center, middle
 
 ---
 
-# Alternative vs. Null Hypotheses
+# Alternative *vs.* Null Hypotheses
 
 Every hypothesis has to state relationship between variables 
 
@@ -498,7 +517,11 @@ But there is only two kind of hypotheses: **Main Effect Hypotheses** and **Inter
 
 # Main Effect Hypothesis
 
-Is the predicted relationship between one predictor and one outcome variable
+Is the **predicted relationship between one $Predictor$ and one $Outcome$ variable**
+
+The $Outcome$ needs to be Continuous (but some model can use a Categorical Outcome)
+
+The $Predictor$ can be either Continuous or Categorical but the hypothesis formulation will change with its type
 
 - Effect representation:
 
@@ -520,13 +543,13 @@ DiagrammeR::grViz("
 
 # Main Effect Hypothesis Templates
 
-The **Outcome has to be Continuous** but ...
+In the following formulation templates, **replace the variable names with yours** and *select the direction of the effect expected* ...
 
 - #### Case 1: Predictor is Continuous 
 
 .small[{**outcome**} {*increases/decreases/changes*} when {**predictor**} increases]
 
-> Example: **Job satisfaction** *increases* when **salary** increases
+> .small[**Job satisfaction** *increases* when **salary** increases]
 
 --
 
@@ -534,7 +557,7 @@ The **Outcome has to be Continuous** but ...
 
 .small[The {**outcome**} of {**predictor category 1**} is {*higher/lower/different*} than the {**outcome**} of {**predictor category 2**}]
 
-> Example: The **Job satisfaction** of **EU employees** is *higher* than the **job satisfaction** of **Non-EU employees**
+> .small[The **Job satisfaction** of **EU employees** is *higher* than the **job satisfaction** of **Non-EU employees**]
 
 --
 
@@ -542,7 +565,7 @@ The **Outcome has to be Continuous** but ...
 
 .small[The {**outcome**} of at least one of the {**predictor**} is {*higher/lower/different*} than the {**outcome**} of the other {**predictor**}]
 
-> Example: The **Job satisfaction** of at least one of the **company's departments** is *higher* than the **Job satisfaction** of the other **company's departments**
+> .small[The **Job satisfaction** of at least one of the **company's departments** is *higher* than the **Job satisfaction** of the other **company's departments**]
 
 ---
 
@@ -567,7 +590,7 @@ DiagrammeR::grViz("
 
 Hypothesis: 
 
-- **Exam results** *increase* when students’ **sleep time** increases
+- $H_a$: **Exam results** *increase* when students’ **sleep time** increases
 
 ---
 
@@ -591,7 +614,7 @@ DiagrammeR::grViz("
 
 Hypothesis: 
 
-- **Exam results** of students **who eat breakfast** will be *higher* than **exam results** of students **who do not eat breakfast** 
+- $H_a$: **Exam results** of students **who eat breakfast** will be *higher* than **exam results** of students **who do not eat breakfast** 
 
 ---
 
@@ -615,17 +638,18 @@ DiagrammeR::grViz("
 
 Hypothesis: 
 
-- **Driving errors** of **motorists who do not talk on the phone while driving** will be *lower* than **driving errors** of **motorists who do not talk on the phone while driving**
+- $H_a$: **Driving errors** of **motorists who do not talk on the phone while driving** will be *lower* than **driving errors** of **motorists who do not talk on the phone while driving**
 
 ---
 
 # Interaction Effect Hypothesis
 
-It predicts the influence of a second predictor on the relationship between a first predictor and an outcome variable
+**It predicts the influence of a second predictor on the relationship between a first predictor and an outcome variable**
 
 Notes:
 
 - The second predictor is also called moderator.
+- The main effect of each predictor must be hypothesised as well
 - The role of first and second predictors can be inverted with the exact same statistical results
 
 .pull-left[
@@ -659,19 +683,12 @@ Exactly the same results:
 DiagrammeR::grViz("
   digraph {
     graph [rankdir = LR]
-  
     node [shape = box]
-    'Predictor 1'; 'Predictor 2'; Outcome
-    node [shape = point, width = 0, height = 0]
-    ''
+
     
-    'Predictor 1' -> ''
-    'Predictor 2' -> '' [arrowhead = none]
-    ''-> Outcome
-    
-    subgraph {
-      rank = same; 'Predictor 1'; '';
-    }
+    'Predictor 1' -> Outcome
+    'Predictor 2' -> Outcome
+    'Predictor 1 X Predictor 2' -> Outcome
   }", height = 200, width = 400)
 ```
 ]
@@ -738,11 +755,13 @@ tribble(
 
 ]
 
+Here, the effect of **Salary** on **Job Satisfaction** is *higher* for **Irish employees** than it is for **French employees** because their line is steeper.
+
 ---
 
 # Interaction Effect Hypothesis Templates
 
-The **Outcome has to be Continuous** and **whatever the Predictor 1 is** ...
+In the following formulation templates, **replace the variable names with yours** and *select the direction of the effect expected* ...
 
 --
 
@@ -754,7 +773,7 @@ The **Outcome has to be Continuous** and **whatever the Predictor 1 is** ...
 
 - #### Case 2: Predictor 2 is Categorical (2 Categories)
 
-.small[The effect of {**predictor 1**} on {**outcome**} is {*higher/lower/different*} for {**predictor 2 category 1**} than for {**category 2**}]
+.small[The effect of {**predictor 1**} on {**outcome**} is {*higher/lower/different*} for {**predictor 2 category 1**} than for {***predictor 2 category 2**}]
 
 --
 
@@ -765,9 +784,9 @@ The **Outcome has to be Continuous** and **whatever the Predictor 1 is** ...
 --
 
 #### Notes:
-1. Predictor 1 and 2 are commutable (can be inverted and produce the same hypothesis)
-2. An interaction effect hypothesis is also called moderation effect
-3. By default, an interaction effect involves the test of the main effect hypotheses of all Predictors involved
+1. An interaction effect hypothesis is also called moderation effect
+2. By default, an interaction effect involves the test of the main effect hypotheses of all Predictors involved
+3. Predictor 1 and 2 are commutable (can be inverted and produce the same hypothesis)
 
 ---
 
@@ -775,9 +794,9 @@ The **Outcome has to be Continuous** and **whatever the Predictor 1 is** ...
 
 Variables:
 
-- Outcome = exam results (continuous from 0 to 100)
-- Predictor 1 = sleep deprivation (categorical low, medium, high)
-- Predictor 2 = gender (categorical male vs. female)
+- Outcome = Exam Results (continuous from 0 to 100)
+- Predictor 1 = Sleep Deprivation (categorical low, medium, high)
+- Predictor 2 = Gender (categorical male vs. female)
 
 Effects representation:
 
@@ -787,54 +806,56 @@ DiagrammeR::grViz("
     graph [rankdir = LR]
   
     node [shape = box]
-    'sleep deprivation'; 'exam results'; gender
+    'Sleep Deprivation'; 'Exam Results'; Gender
     node [shape = point, width = 0, height = 0]
     ''
     
-    gender -> ''
-    'sleep deprivation' -> '' [arrowhead = none]
-    ''-> 'exam results'
+    Gender -> ''
+    'Sleep Deprivation' -> '' [arrowhead = none]
+    ''-> 'Exam Results'
     
     subgraph {
-      rank = same; gender; '';
+      rank = same; Gender; '';
     }
   }", height = 200)
 ```
 
-Hypothesis: The effect of sleep deprivation on exam results is higher for Males than for Females
+Hypothesis: 
+- $H_a$: The effect of **sleep deprivation** on **exam results** is *higher* for **Males students** than it is for **Females students**
 
 ---
 
 # Interaction Effect Hypothesis Examples
 
 Variables:
-- Outcome = road accidents (continuous from 0 to Inf.)
-- Predictor 1 = alcohol consumption (continuous from 0 to Inf.)
-- Predictor 2 = driving experience (categorical low, high)
+- Outcome = Road Accidents (continuous from 0 to Inf.)
+- Predictor 1 = Alcohol Consumption (continuous from 0 to Inf.)
+- Predictor 2 = Driving Experience (categorical low, high)
 
 Effects representation:
 
-```{r eval=TRUE, fig.align="left"}
+```{r fig.align="left"}
 DiagrammeR::grViz("
   digraph {
     graph [rankdir = LR]
   
     node [shape = box]
-    'alcohol consumption'; 'road accidents'; 'driving experience'
+    'Alcohol Consumption'; 'Road Accidents'; 'Driving Experience'
     node [shape = point, width = 0, height = 0]
     ''
     
-    'driving experience' -> ''
-    'alcohol consumption' -> '' [arrowhead = none]
-    ''-> 'road accidents'
+    'Driving Experience' -> ''
+    'Alcohol Consumption' -> '' [arrowhead = none]
+    ''-> 'Road Accidents'
     
     subgraph {
-      rank = same; 'driving experience' ; '';
+      rank = same; 'Driving Experience' ; '';
     }
   }", height = 200)
 ```
 
-Hypothesis: The effect of alcohol consumption on road accidents is lower for experienced drivers than for inexperienced drivers
+Hypothesis: 
+- $H_a$: The effect of **alcohol consumption** on **road accidents** is *lower* for **experienced drivers** than it is for **inexperienced drivers**
 
 ---
 
@@ -868,18 +889,26 @@ knitr::include_graphics("img/ex2_hyp2.png")
 
 # The Hypothesis Checklist
 
-- Does your hypothesis focus on something that you can actually test?
+When formulating an hypothesis:
+
+- Is your hypothesis a prediction and not a question?
 - Does your hypothesis include both Predictor and Outcome variables?
-- Can you manipulate the variables?
-- Don't trust research papers, most of them have incorrect formulations
+- Are these variables included in your dataset?
+
+Note about hypotheses in academic papers:
+
+- Don't trust research papers, most of them have incorrect formulations.
+- Use the template shown previously.
 
 ---
 
 # Special Case: Mediation Hypothesis
 
-States that the predicted relationship between a first predictor and an outcome variable is in fact explained by a second predictor
+Remember the birthday cake metaphor: it symbolise the variability of the outcome variable to be explained by the predictors.
 
-Note: the second predictor is also called mediator
+Now imagine one guest take a slice, but the birthday person arrives and take the slice from the guest to eat it.
+
+**A mediation is when a Predictor called mediator, explains part of the variability of the outcome already explained by a first predictor.** It is usually used to highlight the influence of psychological features. 
 
 Effect representation:
 
@@ -923,9 +952,9 @@ Warning: A mediation effect involves 3 requirements:
 # Mediation Effect Hypothesis Example
 
 Variables:
-- Outcome = happiness (continuous from 0 to 7)
-- Predictor 1 = grades (continuous from 0 to 100)
-- Predictor 2 = self-esteem (continuous from 0 to 7)
+- Outcome = Happiness (continuous from 0 to 7)
+- Predictor 1 = Exam Results (continuous from 0 to 100)
+- Predictor 2 = Self-Esteem (continuous from 0 to 7)
 
 ```{r eval=TRUE, fig.align="left"}
 DiagrammeR::grViz("
@@ -933,15 +962,17 @@ DiagrammeR::grViz("
     graph [rankdir = LR]
   
     node [shape = box]
-    'self-esteem'; 'grades'; happiness
+    'Self-Esteem'; 'Exam Results'; Happiness
     
-    'grades' -> {happiness 'self-esteem'}
-    'self-esteem' -> happiness
+    'Exam Results' -> {Happiness 'Self-Esteem'}
+    'Self-Esteem' -> Happiness
 
   }", height = 200)
 ```
 
-Hypothesis: the effect of **grades** on **happiness** is explained by **self-esteem**
+Hypothesis: 
+
+- $H_a$: The effect of **grades** on **happiness** is explained by **self-esteem**
 
 ---
 class: title-slide, middle
@@ -959,7 +990,7 @@ In the following hypotheses, find the outcome variable and the predictor(s):
 4. Professors who use a student-centered teaching method will have a greater positive rapport with their graduate students than professors who use a teacher-centered teaching method.
 
 ```{r}
-countdown(minutes = 3, warn_when = 60)
+countdown(minutes = 5, warn_when = 60)
 ```
 
 ---

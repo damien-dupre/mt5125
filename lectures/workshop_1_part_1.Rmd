@@ -1,0 +1,130 @@
+---
+title: "MT5125 - Data Analytics - Workshop 1 - Part 1"
+subtitle: "Models and Equations"
+author: "Damien Dupré"
+date: "Dublin City University"
+output:
+  xaringan::moon_reader:
+    css: ["default", "metropolis", "metropolis-fonts", "css/custom_design.css"]
+    lib_dir: libs
+    nature:
+      beforeInit: "libs/cols_macro.js"
+      highlightStyle: zenburn
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+```{r setup, include = FALSE}
+# general options --------------------------------------------------------------
+options(
+  scipen = 999,
+  htmltools.preserve.raw = FALSE,
+  knitr.kable.NA = " - "
+  )
+set.seed(42)
+# chunk options ----------------------------------------------------------------
+knitr::opts_chunk$set(
+  cache.extra = knitr::rand_seed, 
+  message = FALSE, 
+  warning = FALSE, 
+  error = FALSE, 
+  echo = FALSE,
+  cache = FALSE,
+  comment = "", 
+  fig.align = "center", 
+  fig.retina = 3
+  )
+# libraries --------------------------------------------------------------------
+library(tidyverse)
+library(knitr)
+library(kableExtra)
+library(nomnoml)
+library(DiagrammeR)
+library(ggrepel)
+library(fontawesome)
+library(tweetrmd)
+library(plotly)
+library(gapminder)
+library(patchwork)
+library(webshot2)
+library(VennDiagram)
+library(countdown)
+```
+
+# Previoulsy ...
+
+We have seen how to structure an Academic Report introduction:
+- By declaring the variables you want to investigate (they have specific types and roles)
+- By ending it with a research question that include these variables
+
+We have seen how to structure an Academic Report literature review:
+- It consists in summarising the research that has already been conducted using these variables
+- It has to explicitly end with your hypotheses (even if in some academic report are more implicit)
+
+Now it is time to represent the model that will be statistically tested and to deduce its corresponding equation
+---
+
+# Model & Equation
+
+A graphic representation of the model's hypothesised effects can be done:
+- All the arrows correspond to an hypothesis to be tested
+- All the tested hypotheses have to be represented with an arrow
+
+.pull-left[
+.center[**A simple arrow is a main effect**]
+
+```{r eval=TRUE}
+DiagrammeR::grViz("
+digraph rmarkdown {
+  graph [rankdir = LR]
+  
+  node [shape = box]
+  Predictor; Outcome
+        
+  Predictor -> Outcome [label= b1]
+}
+", width = 400, height = 200)
+```
+
+]
+
+.pull-right[
+
+.center[**A crossing arrow is an interaction effect**]
+
+```{r}
+DiagrammeR::grViz("
+  digraph {
+    graph [rankdir = LR]
+  
+    node [shape = box]
+    'Predictor 1'; Outcome; 'Predictor 2'
+    node [shape = point, width = 0, height = 0]
+    ''
+    
+    'Predictor 2' -> '' [label= b2]
+    'Predictor 1' -> '' [arrowhead = none] [label= b1]
+    ''-> Outcome [label= b3]
+    
+    subgraph {
+      rank = same; 'Predictor 2'; '';
+    }
+  }", height = 200, width = 400)
+```
+
+.center[Note: By default, an interaction effect involves the test of the main effect hypotheses of all Predictors involved]
+
+]
+
+
+---
+class: inverse, mline, left, middle
+
+<img class="circle" src="https://github.com/damien-dupre.png" width="250px"/>
+
+# Thanks for your attention and don't hesitate to ask if you have any question!
+
+[`r fontawesome::fa(name = "twitter")` @damien_dupre](http://twitter.com/damien_dupre)  
+[`r fontawesome::fa(name = "github")` @damien-dupre](http://github.com/damien-dupre)  
+[`r fontawesome::fa(name = "link")` damien-datasci-blog.netlify.app](https://damien-datasci-blog.netlify.app)  
+[`r fontawesome::fa(name = "paper-plane")` damien.dupre@dcu.ie](mailto:damien.dupre@dcu.ie)
