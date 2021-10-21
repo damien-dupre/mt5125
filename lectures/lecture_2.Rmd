@@ -999,19 +999,19 @@ countdown(minutes = 5, warn_when = 60)
 
 Hypothesis 1:
 - Outcome = Excess weight
-- Predictor = The valuation of longevity (yes vs no)
+- Predictor = The valuation of longevity (yes *vs* no)
 
 Hypothesis 2:
 - Outcome = Energy expended
-- Predictor = Animal size (larger vs smaller)
+- Predictor = Animal size (larger *vs* smaller)
 
 Hypothesis 3:
 - Outcome = Suffering lice
-- Predictor = Trout type (rainbow vs other)
+- Predictor = Trout type (rainbow *vs* other)
 
 Hypothesis 3:
 - Outcome = Rapport with graduate students
-- Predictor = Teaching method (student-centered vs teacher-centered)
+- Predictor = Teaching method (student-centered *vs* teacher-centered)
 
 ---
 class: title-slide, middle
