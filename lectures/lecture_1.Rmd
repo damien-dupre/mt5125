@@ -17,7 +17,6 @@ output:
 ```{r setup, include = FALSE}
 # libraries --------------------------------------------------------------------
 library(tidyverse)
-library(here)
 library(knitr)
 library(nomnoml)
 library(emo)
@@ -39,8 +38,6 @@ opts_chunk$set(
   fig.align = "center", 
   fig.retina = 3
   )
-# medias -----------------------------------------------------------------------
-media_path <- file.path(dirname(dirname(here())), "Media", "lectures")
 ```
 
 # Module Contact Details
@@ -104,9 +101,7 @@ include_graphics("https://img.rasset.ie/00166efb-300.jpg")
 **Sinéad**
 
 ```{r}
-#include_graphics(file.path(media_path, "persona_sinead.png"))
-
-include_graphics("/Users/damienhome/OneDrive/Media/lectures/persona_sinead.png")
+include_graphics("img/persona_sinead.png")
 ```
 
 Product Manager in a Multinational Company
