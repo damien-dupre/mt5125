@@ -51,6 +51,105 @@ library(VennDiagram)
 library(countdown)
 ```
 
+---
+
+# Type of Variables
+
+Variables can have different types:
+
+- **Categorical**: If the variable's possibilities are words or sentences (character string)
+
+  - if the possibilities cannot be ordered: Categorical Nominal (*e.g.*, $gender$ male, female, other)
+  
+  - if the possibilities can be ordered: Categorical Ordinal (*e.g.*, $size$ S, M, L)
+  
+- **Continuous**: If the variable's possibilities are numbers (*e.g.*, $age$, $temperature$, ...) 
+
+> Warning: Variables can be converted to either Categorical and Continuous but it is always better to keep them in their correct scale.
+
+```{r out.width='30%'}
+knitr::include_graphics("img/jamovi_icons.png")
+```
+
+---
+
+# Role of Variables
+
+It's important to keep the two roles "variable doing the explaining" and "variable being explained" distinct.
+
+Let's denote the:
+ - **Outcome**: "variable to be explained" (also called $Y$, Dependent Variable, or DV)
+ - **Predictor**: "variable doing the explaining" (also called $X$, Independent Variable, or IV)
+ 
+--
+
+Statistics is only about identifying relationship between Predictor and Outcome variables also called **effect**
+
+> An effect between 2 variables means that the changes in the values of a predictor variable are related to changes in the values of an outcome variable.
+
+> The aim of an Academic Report is to investigate if the **Variability of the Outcome Variable** is related to the variability of Predictor Variables.
+
+---
+
+# Main Effect Hypothesis Templates
+
+In the following formulation templates, **replace the variable names with yours** and *select the direction of the effect expected* ...
+
+- #### Case 1: Predictor is Continuous 
+
+.small[{**outcome**} {*increases/decreases/changes*} when {**predictor**} increases]
+
+> .small[**Job satisfaction** *increases* when **salary** increases]
+
+--
+
+- #### Case 2: Predictor is Categorical (2 Categories)
+
+.small[The {**outcome**} of {**predictor category 1**} is {*higher/lower/different*} than the {**outcome**} of {**predictor category 2**}]
+
+> .small[The **Job satisfaction** of **EU employees** is *higher* than the **job satisfaction** of **Non-EU employees**]
+
+--
+
+- #### Case 3: Predictor is Categorical (3 or more Categories)
+
+.small[The {**outcome**} of at least one of the {**predictor**} is {*higher/lower/different*} than the {**outcome**} of the other {**predictor**}]
+
+> .small[The **Job satisfaction** of at least one of the **company's departments** is *higher* than the **Job satisfaction** of the other **company's departments**]
+
+---
+
+# Interaction Effect Hypothesis Templates
+
+In the following formulation templates, **replace the variable names with yours** and *select the direction of the effect expected* ...
+
+--
+
+- #### Case 1: Predictor 2 is Continuous
+
+.small[The effect of {**predictor 1**} on {**outcome**} is {*higher/lower/different*} when {**predictor 2**} increases]
+
+--
+
+- #### Case 2: Predictor 2 is Categorical (2 Categories)
+
+.small[The effect of {**predictor 1**} on {**outcome**} is {*higher/lower/different*} for {**predictor 2 category 1**} than for {***predictor 2 category 2**}]
+
+--
+
+- #### Case 3: Predictor 2 is Categorical (3 or more Categories)
+
+.small[The effect of {**predictor 1**} on {**outcome**} is {*higher/lower/different*} for at least one of {**predictor 2**}]
+
+--
+
+#### Notes:
+1. An interaction effect hypothesis is also called moderation effect
+2. By default, an interaction effect involves the test of the main effect hypotheses of all Predictors involved
+3. Predictor 1 and 2 are commutable (can be inverted and produce the same hypothesis)
+
+---
+
 # Previoulsy ...
 
 We have seen how to structure an Academic Report introduction:
@@ -65,7 +164,7 @@ Now, it is time to have a closer look at the method section ...
 
 ---
 
-# Method in Academic Reports
+# Method Section in Academic Papers
 
 The method section is always structured in the same way:
 
@@ -90,16 +189,23 @@ The method section is always structured in the same way:
 ---
 class: inverse, mline, center, middle
 
-# 1. Model Representation in the Method Section of Academic Reports
+# Model Representation in the Method Section of Academic Reseach Paper
 
 ---
 
 # Model Representation
 
-A graphic representation of the model's hypothesised effects can be done:
-- All the arrows correspond to an hypothesis to be tested
-- All the tested hypotheses have to be represented with an arrow
-- Hypotheses using the same Outcome variable should be included in the same model
+Models are an overview of the predicted relationship between variables stated in the hypotheses
+
+You must follow these rules:
+- Rule 1: All the arrows correspond to an hypothesis to be tested
+- Rule 2: All the tested hypotheses have to be represented with an arrow
+- Rule 3: Hypotheses using the same Outcome variable should be included in the same model
+- Rule 4: Only one Outcome variable is included in each model (except for SEM model)
+
+---
+
+# Model Representation
 
 .pull-left[
 .center[**A simple arrow is a main effect**]
@@ -160,6 +266,10 @@ Example:
 - $Job\,Satisfaction$ is a latent variable with several questions so it's a circle.
 
 Items used for latent variables can be omitted in a model, variables are the most important.
+
+We can distinguish 2 types of relationship in a model:
+- Main effect relationship
+- Interaction effect relationship
 
 ---
 
@@ -429,41 +539,7 @@ Is it bad?
 ---
 class: inverse, mline, center, middle
 
-# 2. Understanding the Equation used to Test Hypotheses
-
----
-
-# Relationship between Variables
-
-Relationship between a $Predictor$ and an $Outcome$ variable (stated in a main effect hypothesis or in an interaction effect hypothesis) is analysed in terms of:
-
-.center[**"How many units of the Outcome variable increases/decreases/changes when the Predictor increases by 1 unit?"**]
-
-For example:
-> How much Job Satisfaction increases when the Salary increases by €1?
-
-The value of how much of the Outcome variable changes:
-- Is called the **Estimate** (also called Unstandardised Estimate)
-- Uses the letter $b$ in equations (e.g., $b_1$, $b_2$, $b_3$, ...)
-
-For example:
-> If Job Satisfaction increases by 0.1 on a scale from 0 to 5 when the Salary increases by €1, then *b* associated to Salary is 0.1
-
----
-
-# Significance of Relationships
-
-To evaluate if the strength of the relationship $b$ between a Predictor and an Outcome variable is significant, an equation is statistically tested using all the predictors related to the same Outcome.
-
-The basic equation of a statistical model is:
-
-$$Outcome = Model + Error$$
-
-where the $Model$ is a series of predictors that are expressed in hypotheses.
-
-This expresses the idea that:
-- The Outcome can be described by a statistical model, which expresses what we expect to occur in the Outcome according to each Predictor.
-- The remaining part of the Outcome's variability that is not explained by the model is call the Error.
+# Understanding the Equation used to Test Hypotheses
 
 ---
 
@@ -507,7 +583,7 @@ df %>%
 
 # A Basic Equation
 
-In the equation $Outcome = Predictor$, three coefficients are hidden because they are unused:
+In the equation $Outcome = Predictor$, **three coefficients are hidden** because they are unused:
 - the **intercept coefficient** $b_{0}$ (i.e., the value of the Outcome when the Predictor = 0) which is 0 in our case
 - the **estimate coefficient** $b_{1}$  (i.e., how much the Outcome increases when the Predictor increases by 1) which is 1 in our case
 - the **error coefficient** $e$ (i.e., how far from the prediction line the values of the Outcome are) which is 0 in our case
@@ -543,6 +619,40 @@ plot0 <- data.frame(Predictor = 0:10, Outcome = 0:10) %>%
 
 plotly::ggplotly(plot0)
 ```
+
+---
+
+# Relationship between Variables
+
+Relationship between a $Predictor$ and an $Outcome$ variable (stated in a main effect hypothesis or in an interaction effect hypothesis) is analysed in terms of:
+
+.center[**"How many units of the Outcome variable increases/decreases/changes when the Predictor increases by 1 unit?"**]
+
+For example:
+> How much Job Satisfaction increases when the Salary increases by €1?
+
+The value of how much of the Outcome variable changes:
+- Is called the **Estimate** (also called Unstandardised Estimate)
+- Uses the letter $b$ in equations (e.g., $b_1$, $b_2$, $b_3$, ...)
+
+For example:
+> If Job Satisfaction increases by 0.1 on a scale from 0 to 5 when the Salary increases by €1, then *b* associated to Salary is 0.1
+
+---
+
+# Significance of Relationships
+
+To evaluate if the strength of the relationship $b$ between a Predictor and an Outcome variable is significant, an equation is statistically tested using all the predictors related to the same Outcome.
+
+The basic equation of a statistical model is:
+
+$$Outcome = b_0 + b_n \,Predictors + Error$$
+
+where the $Predictors$ includes all the $n$ variables used as predictor in formulated hypotheses using this specific $Outcome$ variable and being associated to a specific $b$ estimate.
+
+This expresses the idea that:
+- The Outcome can be described by one or multiple predictors.
+- The remaining part of the Outcome's variability that is not explained by the predictors is call the Error.
 
 ---
 
@@ -637,13 +747,13 @@ class: title-slide, middle
 
 ## Exercise: Predicates of Statistical Analyses
 
-Find variables, formulate hypotheses, draw model, and write equation corresponding to the following data
+**Using the results obtained, identify the role of variables, formulate the tested hypotheses, draw the corresponding model, and translate it in an equation**
 
 ---
 
-# Data 1
+# Example 1
 
-Find variables, formulate hypotheses, draw model, and write equation corresponding to the following data
+**Using the results obtained, identify the role of variables, formulate the tested hypotheses, draw the corresponding model, and translate it in an equation**
 
 .pull-left[
 
@@ -684,13 +794,13 @@ countdown(minutes = 5, warn_when = 60, right =  1)
 
 ---
 
-# Data 1
+# Example 1
 
 Variables:
 - Outcome = Exam Results (from 0 to 100)
 - Predictor = Sleep Time (from 0 to Inf.)
 
-Hypothesis:
+Alternative Hypothesis:
 - $H_a$: **Exam Results** *increases* when **Sleep Time** increases
 - ( $H_0$: **Exam Results** *stay the same* when **Sleep Time** increases)
 
@@ -710,7 +820,9 @@ Equation:
 
 ---
 
-# Data 2
+# Example 2
+
+**Using the results obtained, identify the role of variables, formulate the tested hypotheses, draw the corresponding model, and translate it in an equation**
 
 .pull-left[
 
@@ -753,14 +865,14 @@ countdown(minutes = 5, warn_when = 60, right =  1)
 
 ---
 
-# Data 2
+# Example 2
 
 Variables:
 - Outcome = Exam Results (from 0 to 100)
 - Predictor 1 = Sleep Time (from 0 to Inf.)
 - Predictor 2 = Age (experienced vs beginner)
 
-Hypotheses: 
+Alternative Hypotheses: 
 - $H_{a_{1}}$: **Exam Results** *increases* when **Sleep Time** increases
 
 - $H_{a_{2}}$: **Exam Results** of **experienced students** are *higher* than for **beginner students**
@@ -769,7 +881,7 @@ Hypotheses:
 
 ---
 
-# Data 2
+# Example 2
 
 Model:
 
@@ -821,6 +933,45 @@ Equations:
 - $Exam\,Results = b_{0} + b_{1}.Sleep\,Time + b_{2}.Age + b_{3}.Interaction + e$
 
 which corresponds to: $Exam\,Results = b_{0} + b_{1}.Sleep\,Time + b_{2}.Age + b_{3}.Sleep\,Time*Age + e$ 
+
+---
+
+class: inverse, mline, center, middle
+
+# Conclusion
+
+---
+
+# Follow the Rules
+
+- Variables
+  - Identify the role and type of each of your variables
+- Hypotheses
+  - Formulate your alternative hypotheses by using the proposed templates
+  - Any other formulation, even if it make sense, is not good practice (e.g. using the terms "has an impact", "is related to", "influences", ...)
+  - An interaction hypothesis requires the formulation of the main effect hypothesis of each predictor involved
+- Model
+  - A model should represent all your hypotheses and only your hypotheses
+  - Draw only model per Outcome variable (except is doing SEM analyses)
+  - Use the same names or acronyms as your hypotheses
+- Equation
+  - Formulate your equation(s) in every paper that you want to submit (if reviewers want to remove it, they will tell you)
+
+---
+
+# The General Linear Model
+
+Now, it's time has come to test these hypotheses by using our equation(s)! 
+
+```{r out.width="50%"}
+knitr::include_graphics("img/tweet_linear.png")
+# tweetrmd::tweet_screenshot(
+#   tweetrmd::tweet_url("kylehamilton", "1349225426669817856"),
+#   maxwidth = 300,
+#   hide_media = FALSE,
+#   theme = "dark"
+#   )
+```
 
 ---
 class: inverse, mline, left, middle

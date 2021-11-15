@@ -15,13 +15,21 @@ output:
 ---
 
 ```{r setup, include = FALSE}
+# libraries --------------------------------------------------------------------
+library(tidyverse)
+library(here)
+library(knitr)
+library(nomnoml)
+library(emo)
+library(DiagrammeR)
+library(widgetframe)
 # general options --------------------------------------------------------------
 options(scipen = 999)
 options(htmltools.preserve.raw = FALSE)
 set.seed(42)
 # chunk options ----------------------------------------------------------------
-knitr::opts_chunk$set(
-  cache.extra = knitr::rand_seed, 
+opts_chunk$set(
+  cache.extra = rand_seed, 
   message = FALSE, 
   warning = FALSE, 
   error = FALSE, 
@@ -31,17 +39,11 @@ knitr::opts_chunk$set(
   fig.align = "center", 
   fig.retina = 3
   )
-# libraries --------------------------------------------------------------------
-library(tidyverse)
-library(knitr)
-library(nomnoml)
-library(emo)
-library(DiagrammeR)
-library(widgetframe)
+# medias -----------------------------------------------------------------------
+media_path <- file.path(dirname(dirname(here())), "Media", "lectures")
 ```
 
 # Module Contact Details
-
 
 .pull-left[
 **Strategic Consultancy Project I**
@@ -62,13 +64,13 @@ damien.dupre@dcu.ie
 
 .pull-right[
 ```{r}
-knitr::include_graphics("https://business.dcu.ie/wp-content/uploads/2019/04/dr_john_loonam160x160.jpg")
+include_graphics("https://business.dcu.ie/wp-content/uploads/2019/04/dr_john_loonam160x160.jpg")
 ```
 
 <br />
 
 ```{r, out.width = "42%"}
-knitr::include_graphics("https://img.rasset.ie/00166efb-300.jpg")
+include_graphics("https://img.rasset.ie/00166efb-300.jpg")
 ```
 
 ]
@@ -102,7 +104,9 @@ knitr::include_graphics("https://img.rasset.ie/00166efb-300.jpg")
 **Sinéad**
 
 ```{r}
-knitr::include_graphics("img/persona_sinead.png")
+#include_graphics(file.path(media_path, "persona_sinead.png"))
+
+include_graphics("/Users/damienhome/OneDrive/Media/lectures/persona_sinead.png")
 ```
 
 Product Manager in a Multinational Company
@@ -115,7 +119,7 @@ Knowledge of Statistics from Previous Master Degree
 .center[
 **Patrick**
 ```{r}
-knitr::include_graphics("img/persona_patrick.png")
+include_graphics("img/persona_patrick.png")
 ```
 
 Business Development Manager in an Irish Unicorn

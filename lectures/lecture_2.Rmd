@@ -117,31 +117,6 @@ The **bold part is "the thing that varies"** and the *italicised part is "the va
 - Each variable has a **Role** and a **Type**, it is essential to learn how to identify them.
 
 ---
-class: title-slide, middle
-
-## Type of Variables
-
----
-
-# Type of Variables
-
-Variables can have different types:
-
-- **Categorical**: If the variable's possibilities are words or sentences (character string)
-
-  - if the possibilities cannot be ordered: Categorical Nominal (*e.g.*, $gender$ male, female, other)
-  
-  - if the possibilities can be ordered: Categorical Ordinal (*e.g.*, $size$ S, M, L)
-  
-- **Continuous**: If the variable's possibilities are numbers (*e.g.*, $age$, $temperature$, ...) 
-
-> Warning: Variables can be converted to either Categorical and Continuous but it is always better to keep them in their correct scale.
-
-```{r out.width='30%'}
-knitr::include_graphics("img/jamovi_icons.png")
-```
-
----
 
 # Latent Variables
 
@@ -236,6 +211,31 @@ Reliability test is performed every time a scale is used but only using Cronbach
 
 ```{r out.width = "50%"}
 knitr::include_graphics("https://www.publichealthnotes.com/wp-content/uploads/2018/08/560px-Reliability_and_validity.svg_.png")
+```
+
+---
+class: title-slide, middle
+
+## Type of Variables
+
+---
+
+# Type of Variables
+
+Variables can have different types:
+
+- **Categorical**: If the variable's possibilities are words or sentences (character string)
+
+  - if the possibilities cannot be ordered: Categorical Nominal (*e.g.*, $gender$ male, female, other)
+  
+  - if the possibilities can be ordered: Categorical Ordinal (*e.g.*, $size$ S, M, L)
+  
+- **Continuous**: If the variable's possibilities are numbers (*e.g.*, $age$, $temperature$, ...) 
+
+> Warning: Variables can be converted to either Categorical and Continuous but it is always better to keep them in their correct scale.
+
+```{r out.width='30%'}
+knitr::include_graphics("img/jamovi_icons.png")
 ```
 
 ---
@@ -481,25 +481,9 @@ class: inverse, mline, center, middle
 
 ---
 
-# Alternative *vs.* Null Hypotheses
-
-Every hypothesis has to state relationship between variables 
-
-- Called $H_a$ (for alternative hypothesis) or $H_1$
-- Has a null hypothesis counterpart (no relationship between variables) called $H_0$ (pronounce H naught or H zero)
-
-$H_a$ is viewed as a “challenger” hypothesis to the null hypothesis $H_0$.
-  
-> **Statistics are used to test the probability of obtaining your results if the Null Hypothesis is true. If this probability is low, then we reject the Null Hypothesis (and consider the Alternative Hypothesis as credible).**
-
-**Warning:** Hypothesis cannot test equality between groups or modalities, they can only test differences or effects
-
----
-
 # Hypotheses in a Nutshell
 
 Hypotheses are:
-
 1. Predictions supported by theory/literature
 2. Affirmations designed to precisely describe the relationships between variables 
 
@@ -511,7 +495,21 @@ Hypotheses include:
 - Outcome / Dependent Variable (DV)
 - Direction of the outcome if the predictor increases
 
-But there is only two kind of hypotheses: **Main Effect Hypotheses** and **Interaction Effect Hypotheses**
+**Warning:** Hypothesis cannot test equality between groups or modalities, they can only test differences or effects
+
+---
+
+# Alternative *vs.* Null Hypotheses
+
+Every hypothesis has to state a difference (between groups or according values) also called $H_a$ (for alternative hypothesis) or $H_1$
+
+Every alternative hypothesis has a null hypothesis counterpart (no difference between groups or according values) also called $H_0$ (pronounce H naught or H zero)
+
+$H_a$ is viewed as a “challenger” hypothesis to the null hypothesis $H_0$.
+  
+> **Statistics are used to test the probability of obtaining your results if the Null Hypothesis is true. If this probability is low, then we reject the Null Hypothesis (and consider the Alternative Hypothesis as credible).**
+
+But there is only two kind of alternative hypotheses: **Main Effect Hypotheses** and **Interaction Effect Hypotheses**
 
 ---
 
@@ -519,7 +517,7 @@ But there is only two kind of hypotheses: **Main Effect Hypotheses** and **Inter
 
 Is the **predicted relationship between one $Predictor$ and one $Outcome$ variable**
 
-The $Outcome$ needs to be Continuous (but some model can use a Categorical Outcome)
+The $Outcome$ needs to be Continuous (but some models can use a Categorical Outcome)
 
 The $Predictor$ can be either Continuous or Categorical but the hypothesis formulation will change with its type
 
@@ -638,7 +636,7 @@ DiagrammeR::grViz("
 
 Hypothesis: 
 
-- $H_a$: **Driving errors** of **motorists who do not talk on the phone while driving** will be *lower* than **driving errors** of **motorists who do not talk on the phone while driving**
+- $H_a$: **Driving errors** of **motorists who do not talk on the phone while driving** will be *lower* than **driving errors** of **motorists who talk on the phone while driving**
 
 ---
 
@@ -1018,14 +1016,14 @@ class: title-slide, middle
 
 ## Exercise: Make your own Hypothesis
 
-|Outcome|Predictor 1|Predictor 2|
-|--|---|---|
-|Work motivation|Gender(Female/Male)||
-|Work motivation|Gender(Female/Male)|Origin(French/Irish)|
-|Work motivation|Gender(Female/Male)|Origin(French/Irish/Italians)|
-|Job Satisfaction|Stress(from 0 to 10)||
-|Job Satisfaction|Stress(from 0 to 10)|Age(Millennials/Baby boomers)|
-|Job Satisfaction|Stress(from 0 to 10)|Age(in year)|
+|Outcome|Predictor 1|Predictor 2|Hypothesis Type|
+|--|---|---|---|
+|Work motivation|Gender(Female/Male)||Main Effect|
+|Work motivation|Gender(Female/Male)|Origin(French/Irish)|Interaction Effect|
+|Work motivation|Gender(Female/Male)|Origin(French/Irish/Italians)|Interaction Effect|
+|Job Satisfaction|Stress(from 0 to 10)||Main Effect|
+|Job Satisfaction|Stress(from 0 to 10)|Age(Millennials/Baby boomers)|Interaction Effect|
+|Job Satisfaction|Stress(from 0 to 10)|Age(in year)|Interaction Effect|
 
 ```{r}
 countdown(minutes = 5, warn_when = 60)
@@ -1035,18 +1033,17 @@ countdown(minutes = 5, warn_when = 60)
 
 # Solution
 
-The work motivation of female employees is higher than the work motivation of male employees
+- 1. The **work motivation** of **female employees** is *higher* than the **work motivation** of **male employees**
 
-The effect of gender on work motivation is higher for Irish employees than French employees
+- 2. The effect of **gender** on **work motivation** is *higher* for **Irish employees** than it is for **French employees**
 
-The effect of origin on work motivation is higher for female employees than male employees
+- 3. The effect of **employee origin** on **work motivation** is *higher* for **female employees** than it is for **male employees**
 
-Job satisfaction decreases when stress increases
+- 4. **Job satisfaction** *decreases* when **stress** increases
 
-The effect of stress on job satisfaction is higher for Millennials than for Baby boomers
+- 5. The effect of **stress** on **job satisfaction** is *higher* for **Millennials** than it is for **Baby boomers**
 
-The effect of stress on job satisfaction is higher for less experienced employees than for more experienced employees
-
+- 6. The effect of **stress** on **job satisfaction** *increases* when **employee's age** increases
 
 ---
 class: inverse, mline, left, middle
