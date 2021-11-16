@@ -49,9 +49,8 @@ library(patchwork)
 library(webshot2)
 library(VennDiagram)
 library(countdown)
+library(anicon)
 ```
-
----
 
 # Type of Variables
 
@@ -65,7 +64,7 @@ Variables can have different types:
   
 - **Continuous**: If the variable's possibilities are numbers (*e.g.*, $age$, $temperature$, ...) 
 
-> Warning: Variables can be converted to either Categorical and Continuous but it is always better to keep them in their correct scale.
+> `r faa("exclamation-triangle", animate="flash", speed="slow", color="red")` Categorical variables can be converted to Continuous and Continuous variables can be converted to Categorical.
 
 ```{r out.width='30%'}
 knitr::include_graphics("img/jamovi_icons.png")
@@ -152,11 +151,11 @@ In the following formulation templates, **replace the variable names with yours*
 
 # Previoulsy ...
 
-We have seen how to structure an Academic Report introduction:
+We have seen **how to structure an Academic Report introduction**:
 - By declaring the variables you want to investigate (they have specific types and roles)
 - By ending it with a research question that include these variables
 
-We have seen how to structure an Academic Report literature review:
+We have seen **how to structure an Academic Report literature review**:
 - It consists in summarising the research that has already been conducted using these variables
 - It has to explicitly end with your hypotheses (even if in some academic report are more implicit)
 
@@ -189,19 +188,19 @@ The method section is always structured in the same way:
 ---
 class: inverse, mline, center, middle
 
-# Model Representation in the Method Section of Academic Reseach Paper
+# Model Representation in the Method Section of Academic Reseach Papers
 
 ---
 
 # Model Representation
 
-Models are an overview of the predicted relationship between variables stated in the hypotheses
+.center[### A model is an overview of the predicted relationship between variables stated in the hypotheses.]
 
-You must follow these rules:
-- Rule 1: All the arrows correspond to an hypothesis to be tested
-- Rule 2: All the tested hypotheses have to be represented with an arrow
-- Rule 3: Hypotheses using the same Outcome variable should be included in the same model
-- Rule 4: Only one Outcome variable is included in each model (except for SEM model)
+To draw a model, the following rules have to be applied:
+- **Rule 1**: All the arrows correspond to an hypothesis to be tested
+- **Rule 2**: All the tested hypotheses have to be represented with an arrow
+- **Rule 3**: Hypotheses using the same Outcome variable should be included in the same model
+- **Rule 4**: Only one Outcome variable is included in each model (except for SEM model)
 
 ---
 
@@ -249,8 +248,7 @@ DiagrammeR::grViz("
   }", height = 200, width = 400)
 ```
 
-.center[Note: By default, an interaction effect involves the test of the main effect hypotheses of all Predictors involved]
-
+.center[`r faa("exclamation-triangle", animate="flash", speed="slow", color="red")` By default, an interaction effect also involves the test of the main effect hypotheses of all Predictors included]
 ]
 
 ---
@@ -265,7 +263,7 @@ Example:
 - $Salary$ is directly measured (in $, €, or £) so it's a square.
 - $Job\,Satisfaction$ is a latent variable with several questions so it's a circle.
 
-Items used for latent variables can be omitted in a model, variables are the most important.
+Note: Items used for latent variables can be omitted in a model, variables are the most important.
 
 We can distinguish 2 types of relationship in a model:
 - Main effect relationship
@@ -387,7 +385,7 @@ This model tests three hypotheses:
 
 Simple Models are the most statistically powerful, easy to test and reliable models. Always prefer a simple model compared to a more complicated solution.
 
-Warning, including interaction effect requires a significantly higher sample size.
+`r faa("exclamation-triangle", animate="flash", speed="slow", color="red")` Testing interaction effect hypotheses require a significantly higher sample size than testing main effect hypotheses.
 
 Example:
 
@@ -425,7 +423,7 @@ This model tests four hypotheses:
 
 # Mediation Models
 
-A Mediation model is a complex path analysis between 3 variables, where one of them explains the relationship between the other two. It is usually used to identify cognitive process in psychology.
+A Mediation model is a complex path analysis between 3 variables, where one of them explains the relationship between the other two. It is usually used to identify cognitive processes in psychology.
 
 Example:
 
@@ -502,7 +500,8 @@ This model tests four hypotheses:
 
 Example: 
 
-```{r eval=TRUE}
+```{r}
+#| fig.cap: "Technology Acceptance Model (Davis, 1982)"
 DiagrammeR::grViz("
 digraph rmarkdown {
   graph [rankdir = LR]
@@ -554,7 +553,7 @@ df <-
   ) 
 ```
 
-Let's imagine the perfect scenario: **your predictor Predictor variable explains perfectly the outcome variable**.
+Let's imagine the perfect scenario: **your predictor $Predictor$ variable explains perfectly the $Outcome$ variable**.
 
 The corresponding equation is: $Outcome = Predictor$
 
@@ -589,7 +588,7 @@ In the equation $Outcome = Predictor$, **three coefficients are hidden** because
 - the **error coefficient** $e$ (i.e., how far from the prediction line the values of the Outcome are) which is 0 in our case
 
 So in general, the relation between a predictor and an outcome can be written as:
-$$Outcome = b_{0} + b_{1}.Predictor + e$$
+$$Outcome = b_{0} + b_{1}\,Predictor + e$$
 
 which is in our case:
 
@@ -599,7 +598,7 @@ $$Outcome = 0 + 1 * Predictor + 0$$
 
 # A Basic Equation
 
-The equation $Outcome = b_{0} + b_{1}.Predictor + e$ is the same as the good old $y = ax + b$ (here ordered as $y = b + ax$) where $b_{0}$ is $b$ and $b_{1}$ is $a$.
+The equation $Outcome = b_{0} + b_{1}\,Predictor + e$ is the same as the good old $y = ax + b$ (here ordered as $y = b + ax$) where $b_{0}$ is $b$ and $b_{1}$ is $a$.
 
 It is very important to know that under **EVERY** statistical test, a similar equation is used (t-test, ANOVA, Chi-square are all linear regressions).
 
@@ -622,7 +621,7 @@ plotly::ggplotly(plot0)
 
 ---
 
-# Relationship between Variables
+# Defining the Estimate
 
 Relationship between a $Predictor$ and an $Outcome$ variable (stated in a main effect hypothesis or in an interaction effect hypothesis) is analysed in terms of:
 
@@ -642,17 +641,17 @@ For example:
 
 # Significance of Relationships
 
-To evaluate if the strength of the relationship $b$ between a Predictor and an Outcome variable is significant, an equation is statistically tested using all the predictors related to the same Outcome.
-
 The basic equation of a statistical model is:
 
-$$Outcome = b_0 + b_n \,Predictors + Error$$
+$$Outcome = b_0 + b_n \,Predictors + e$$
 
-where the $Predictors$ includes all the $n$ variables used as predictor in formulated hypotheses using this specific $Outcome$ variable and being associated to a specific $b$ estimate.
+where the $Predictors$ includes all the $n$ variables used as predictor in formulated hypotheses using this specific $Outcome$ variable and being each associated to a specific $b$ estimate.
 
 This expresses the idea that:
 - The Outcome can be described by one or multiple predictors.
 - The remaining part of the Outcome's variability that is not explained by the predictors is call the Error.
+
+To evaluate if the strength of the relationship $b_n$ between a Predictor $n$ and an Outcome variable is significant, the full equation is statistically tested and $b_n$ estimated with a value.
 
 ---
 
@@ -662,7 +661,7 @@ Except in special cases:
 - An Outcome (or Dependent Variable) has to be Continuous
 - A Predictor can be Continuous or Categorical 
 
-Example: $Job\,Satisfaction = b_{0} + b_{1}.Salary + b_{2}.Origin + e$
+Example: $Job\,Satisfaction = b_{0} + b_{1}\,Salary + b_{2}\,Origin + e$
 
 In this equation:
 - $Salary$ is continuous with a main effect on $Job\,Satisfaction$ ( $b_{1}$)
@@ -674,7 +673,7 @@ In this equation:
 
 An interaction effect is represented by multiplying the 2 predictors involved:
 
-$$Job\,Satisfaction = b_{0} + b_{1}.Salary + b_{2}.Origin + b_{3}.Salary*Origin + e$$
+$$Job\,Satisfaction = b_{0} + b_{1}\,Salary + b_{2}\,Origin + b_{3}\,Salary*Origin + e$$
 
 In this equation:
 - $Salary$ is continuous with a main effect on $Job\,Satisfaction$ ( $b_{1}$)
@@ -687,15 +686,15 @@ In this equation:
 
 To test hypotheses, only the $b$ values associated to Predictors / Independent Variables are important.
 
-The intercept is always included in an equation but its result is useless for hypothesis testing.
+The intercept coefficient $b_{0}$ is always included in an equation but its result is useless for hypothesis testing.
 
 Let's see why the intercept is always included but discarded most of the time.
 
 Imagine we want to test the relationship between GDP per Capita and Life Expectancy of countries in the world. Let's compare a model without and a model with intercept:
 
-- Without intercept: $Life\,Expectancy = b_{1}.GDP\,per\,Capita + e$
+- Without intercept: $Life\,Expectancy = b_{1}\,GDP\,per\,Capita + e$
 
-- With intercept: $Life\,Expectancy = b_{0} + b_{1}.GDP\,per\,Capita + e$
+- With intercept: $Life\,Expectancy = b_{0} + b_{1}\,GDP\,per\,Capita + e$
 
 ---
 
@@ -794,7 +793,7 @@ countdown(minutes = 5, warn_when = 60, right =  1)
 
 ---
 
-# Example 1
+# Example 1 - Correction
 
 Variables:
 - Outcome = Exam Results (from 0 to 100)
@@ -816,7 +815,7 @@ DiagrammeR::grViz("
 ```
 
 Equation:
-- $Exam\,Results = b_{0} + b_{1}.Sleep\,Time + e$
+- $Exam\,Results = b_{0} + b_{1}\,Sleep\,Time + e$
 
 ---
 
@@ -865,7 +864,7 @@ countdown(minutes = 5, warn_when = 60, right =  1)
 
 ---
 
-# Example 2
+# Example 2 - Correction
 
 Variables:
 - Outcome = Exam Results (from 0 to 100)
@@ -930,9 +929,9 @@ DiagrammeR::grViz("
 
 Equations:
 
-- $Exam\,Results = b_{0} + b_{1}.Sleep\,Time + b_{2}.Age + b_{3}.Interaction + e$
+- $Exam\,Results = b_{0} + b_{1}\,Sleep\,Time + b_{2}\,Age + b_{3}\,Interaction + e$
 
-which corresponds to: $Exam\,Results = b_{0} + b_{1}.Sleep\,Time + b_{2}.Age + b_{3}.Sleep\,Time*Age + e$ 
+which corresponds to: $Exam\,Results = b_{0} + b_{1}\,Sleep\,Time + b_{2}\,Age + b_{3}\,Sleep\,Time*Age + e$ 
 
 ---
 
@@ -942,20 +941,23 @@ class: inverse, mline, center, middle
 
 ---
 
-# Follow the Rules
+# Follow my Advice
 
-- Variables
-  - Identify the role and type of each of your variables
-- Hypotheses
-  - Formulate your alternative hypotheses by using the proposed templates
-  - Any other formulation, even if it make sense, is not good practice (e.g. using the terms "has an impact", "is related to", "influences", ...)
-  - An interaction hypothesis requires the formulation of the main effect hypothesis of each predictor involved
-- Model
-  - A model should represent all your hypotheses and only your hypotheses
-  - Draw only model per Outcome variable (except is doing SEM analyses)
-  - Use the same names or acronyms as your hypotheses
-- Equation
-  - Formulate your equation(s) in every paper that you want to submit (if reviewers want to remove it, they will tell you)
+#### 1. Variables
+> Identify the role and type of each of your variables.
+
+#### 2. Hypotheses
+> Formulate your alternative hypotheses by using the proposed templates. Any other formulation, even if it make sense, is not good practice.
+
+> An interaction hypothesis requires the formulation of the main effect hypothesis of each predictor involved.
+
+#### 3. Model
+> A model should represent all your hypotheses and only your hypotheses but draw only one model per Outcome variable (except is doing SEM analyses).
+
+> Use the same names or acronyms as your hypotheses.
+
+#### 4. Equation
+> Formulate your equation(s) in every paper that you want to submit (if reviewers want to remove it, they will tell you)
 
 ---
 
