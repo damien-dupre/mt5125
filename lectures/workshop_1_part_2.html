@@ -8,6 +8,8 @@
     <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="libs/remark-css-0.0.1/metropolis.css" rel="stylesheet" />
     <link href="libs/remark-css-0.0.1/metropolis-fonts.css" rel="stylesheet" />
+    <link href="libs/font-awesome-animation-1.0/font-awesome-animation-emi.css" rel="stylesheet" />
+    <script src="libs/fontawesome-5.0.13/js/fontawesome-all.min.js"></script>
     <script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
     <script src="libs/viz-1.8.2/viz.js"></script>
     <link href="libs/DiagrammeR-styles-0.2/styles.css" rel="stylesheet" />
@@ -21,7 +23,7 @@
 class: center, middle, inverse, title-slide
 
 # MT5125 - Data Analytics - Workshop 1 - Part 2
-## How to Collect, Clean, and Transform Data before Statistical Analyses
+## How to Prepare Data before Statistical Analyses
 ### Damien Dupré
 ### Dublin City University
 
@@ -29,6 +31,18 @@ class: center, middle, inverse, title-slide
 
 
 
+
+# Always Prepare the Data
+
+.center[**To efficiently perform any kind of analysis on data, it is essential to format the data file in the most suitable way.**]
+
+To do so, 3 steps are required:
+
+1. Understanding how data have been collected
+2. Cleaning the data from any noise
+3. Transforming the data in order to obtain the relevant variables 
+
+---
 
 class: inverse, mline, center, middle
 
@@ -40,10 +54,10 @@ class: inverse, mline, center, middle
 
 &lt;img src="https://www.memesmonkey.com/images/memesmonkey/f1/f1a0708d5337e2afa78b515520c6c5fd.jpeg" width="35%" style="display: block; margin: auto;" /&gt;
 
-Big Data?
+What are Big Data?
 
-- Too large or too complex to be handled by conventional tools
-- Larger then Microsoft Excel’s Limits (2016)
+- In general: Spreadsheet too large or too complex to be handled by conventional tools
+- For me: Spreadsheet larger then Microsoft Excel’s Limits (2016)
     - Total number of rows: 1,048,576 rows
     - Total number columns: 16,384 columns
 
@@ -57,32 +71,33 @@ A tool is required to collect data, but there are tools to measure anything:
 - Economic Status
 - Social Events
 - Psychological States
+- ...
 
-&lt;img src="https://i.imgflip.com/3jtxnx.jpg" width="35%" style="display: block; margin: auto;" /&gt;
+&lt;img src="https://i.imgflip.com/3jtxnx.jpg" width="70%" style="display: block; margin: auto;" /&gt;
 
 ---
 
 # Focus on Psychometric Scales
 
-A psychometric scale is a series of questions (items) used to measure a latent variable.
+.center[**A psychometric scale is a series of questions (items) used to measure a latent variable**]
 
 --
 
-A score has to be calculated from all the items to produce the variable to analyse:
+**A score has to be calculated** from all the items to produce the variable to analyse:
 
 - Average of all items (equal contribution to the latent variable score)
 - Factor analysis (unequal contribution to the latent variable score)
 
 --
 
-A scale should have been validated by its authors: 
+**A scale should have been validated** by its authors: 
 
 - Don't change the items except when possible
 - Don't change items' range of possibilities
 
 --
 
-To be analysed a scale has some requirements:
+To be analysed, **a scale has some requirements**:
 - All the items must have the same range of possibilities/modalities
 - All the items must be analysed in the same direction
 - All the items must correlate together (scale reliability)
@@ -92,25 +107,24 @@ To be analysed a scale has some requirements:
 
 # Focus on Psychometric Scales
 
-Previously assessed with paper-pencil method, they are now used online with Survey Design Software:
+Online Survey Software are replacing the paper-pencil method. Here is a list of some:
 
 - Google Form (from your google drive, DCU hosted)
-- Qualtrics (http://www.qualtrics.com, DCU Business School account)
+- Qualtrics (https://dcubusinessschool.eu.qualtrics.com, DCU Business School account)
 - Survey Monkey (https://www.surveymonkey.com/, freemium)
 - LimeSurvey (https://www.limesurvey.org/, freemium)
 - Gorilla Experiment (https://gorilla.sc, pay per participants)
 
 --
   
-Remember: Always ask for age and gender
+<span>&lt;i class="fas  fa-exclamation-triangle faa-flash animated faa-slow " style=" color:red;"&gt;&lt;/i&gt;</span> Remember: 
+
+- Always ask for age and gender in a survey
+- Participant recruitment by list of contact/email has between 15% and 10% of answer rate
 
 --
 
-Participant recruitment by list of contact/email (between 15% and 10% answer rate)
-
---
-
-Payed participants:
+Platforms to find and reward participants:
 - Amazon MTurk (https://www.mturk.com/ mainly US and India)
 - Prolific Academic (https://www.prolific.co/ world wide)
 - Qualtrics
@@ -120,11 +134,9 @@ Payed participants:
 
 # Latent Variables
 
-A questionnaire/survey is made of multiple questions (also called items)
+.center[**A questionnaire/survey is made of multiple questions (also called items) referring to a same theoretical construct (called latent variable)**]
 
 All items that are related to the measurement of a same theoretical construct are constituting a scale.
-
-#### The theoretical construct measured by the scale is called Latent Variable.
 
 To be analysed a scale has some requirements:
 
@@ -141,23 +153,23 @@ There are two way to obtain the score of a Latent Variable:
 
 # Latent Variables
 
-Scale to measure the "Perceived Ease-of-use" of MS Excel in 4 items were measured from 1 "totally disagree" to 7 "totally agree":
+Scale to measure the **"Perceived Ease-of-use" of MS EXCEL** in 4 items were measured from 1 "totally disagree" to 7 "totally agree":
 
 .pull-left[
-- q1. I think learning MS Excel is easy
-- q2. Understanding MS Excel is easy
-- q3. I am good at using MS Excel
-- q4. I think using MS Excel is easy
+- **q1.** I think learning MS EXCEL is easy
+- **q2.** Understanding MS EXCEL is easy
+- **q3.** I am good at using MS EXCEL
+- **q4.** I think using MS EXCEL is easy
 ]
 
 .pull-right[
 <div id="htmlwidget-9eceb20dc2a931752ae4" style="width:504px;height:200px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-9eceb20dc2a931752ae4">{"x":{"diagram":"\ndigraph rmarkdown {\n  graph [rankdir = RL]\n  \n  node [shape = oval]\n  \"Perceived Ease-of-use\n  of MS Excel\"\n  \n  node [shape = box]\n  q1; q2; q3; q4\n  \n  \"Perceived Ease-of-use\n  of MS Excel\"-> {q1 q2 q3 q4}   \n\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<script type="application/json" data-for="htmlwidget-9eceb20dc2a931752ae4">{"x":{"diagram":"\ndigraph rmarkdown {\n  graph [rankdir = RL]\n  \n  node [shape = oval]\n  \"Perceived Ease-of-use\n  of MS EXCEL\"\n  \n  node [shape = box]\n  q1; q2; q3; q4\n  \n  \"Perceived Ease-of-use\n  of MS EXCEL\"-> {q1 q2 q3 q4}   \n\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 ]
 
 --
 
-Here are the results with 3 students. The score of the "Perceived Ease-of-use of MS Excel" latent variable is calculated using the average of all items.
+Here are the results with 3 students. The score of the "Perceived Ease-of-use of MS EXCEL" latent variable is calculated using the average of all items.
 
 
 |employee | q1| q2| q3| q4| peo_score|
@@ -195,21 +207,21 @@ Reliability test is performed every time a scale is used but only using Cronbach
 # Survey Example
 
 **Perceived Usefulness:**
-- *(PU1)* Using R would improve my performance in statistical analysis 
-- *(PU2)* Using R would increase my productivity in statistical analysis
-- *(PU3)* Using R would enhance my effectiveness in statistical analysis
-- *(PU4)* Using R would make it easier for me to engage in statistical analysis 
-- *(PU5)* I think using R is very useful for me to engage in statistical analysis 
+- *(PU1)* Using MS EXCEL would improve my performance in statistical analysis 
+- *(PU2)* Using MS EXCEL would increase my productivity in statistical analysis
+- *(PU3)* Using MS EXCEL would enhance my effectiveness in statistical analysis
+- *(PU4)* Using MS EXCELR would make it easier for me to engage in statistical analysis 
+- *(PU5)* I think using MS EXCEL is very useful for me to engage in statistical analysis 
 
 **Perceived Ease-Of-Use:**
-- *(PEOU1)* I think learning to use R is easy 
-- *(PEOU2)* I think doing what I want via R is easy 
-- *(PEOU3)* I think becoming skillful at using R is easy 
-- *(PEOU4)* I think using R is easy 
+- *(PEOU1)* I think learning to use MS EXCEL is easy 
+- *(PEOU2)* I think doing what I want via MS EXCEL is easy 
+- *(PEOU3)* I think becoming skilful at using MS EXCEL is easy 
+- *(PEOU4)* I think using MS EXCEL is easy 
 
 **Behavioural Intention:**
-- *(BI1)* Assuming I had access to R, I intend to use it 
-- *(BI2)* Given that I had access to R, I predict that I would use it 
+- *(BI1)* Assuming I had access to MS EXCEL, I intend to use it 
+- *(BI2)* Given that I had access to MS EXCEL, I predict that I would use it 
 
 ---
 
@@ -224,23 +236,24 @@ Qualtrics: https://dcubusinessschool.eu.qualtrics.com/jfe/form/SV_0JSAjOvXVxzJvg
 
 ---
 
-# Access to your data
+# Accessing your Data
 
-Google Form
+From a Google Form
 1. Login Google Account (be sure to use the DCU account)
 2. Go to Drive
 3. Click on your Survey form
 4. Click on Response
 5. Download Response Spreadsheet as .csv
 
-Qualtrics
-1. Login Qualtrics (DCU login/pwd)
+From a Qualtrics survey
+1. Login Qualtrics (DCU login/pwd) https://dcubusinessschool.eu.qualtrics.com
 2. Click on Data &amp; Analysis
 3. Click on Export &amp; Import &gt; Export Data...&gt; CSV (Use numeric values)
 
-Always save the unmodified raw version of your data on the cloud (google drive, dropbox, one drive, ...)
+<span>&lt;i class="fas  fa-exclamation-triangle faa-flash animated faa-slow " style=" color:red;"&gt;&lt;/i&gt;</span> Remember: 
 
-Make sure you can download them as a .csv file.
+- Always save the unmodified raw version of your data on the cloud (e.g., google drive, dropbox, one drive, ...)
+- Make sure you can download them as a .csv file.
 
 ---
 
@@ -250,13 +263,15 @@ class: inverse, mline, center, middle
 
 ---
 
-# Which Software?
+# An Essential Step
 
-If you don't have big data... use Microsoft Excel! 
+.center[**Cleaning Data means removing any non-essential feature included in the spreadsheet**]
 
-Otherwise use R or Python.
+- If you don't have big data... then use Microsoft Excel! 
 
 &lt;img src="https://miro.medium.com/max/624/1*FAzumPnvzKUDolMG7SNcHw.png" width="50%" style="display: block; margin: auto;" /&gt;
+
+- If you do have big data, then use R or Python.
 
 ---
 
@@ -317,11 +332,11 @@ class: title-slide, mline, center, middle
 
 # Exercise: Clean unicef.xlsx
 
-## On the MT611 Loop page, got to "Additional Content and Links" and download the document called "unicef.xlsx"
+### On the module Loop page, got to "Data Analytics Supplementary Documents" and download the document called "unicef.xlsx"
 
-## Open and clean the 1st sheet of this file
+### Open and clean the 1st sheet of this file
 
-<div class="countdown" id="timer_619281f8" style="right:0;bottom:0;" data-warnwhen="60">
+<div class="countdown" id="timer_619d4ef8" style="right:0;bottom:0;" data-warnwhen="60">
 <code class="countdown-time"><span class="countdown-digits minutes">15</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
@@ -333,11 +348,11 @@ class: inverse, mline, center, middle
 
 ---
 
-# Master the Key Movements
+# Master the Key Transformations
 
 Most important work is to tidy your data: 
 - Takes time to saves time and solves problems
-- Only 5 movements are necessary to master (almost) 
+- Only 5 key transformations need to be mastered
 
 .pull-left[
 ## 1. Extension
@@ -359,53 +374,58 @@ Most important work is to tidy your data:
 
 # Extension
 
-- Extension = New Column
-- In MS Excel:
-  - First row is row name (name convention)
-  - Second row is the function (starts with =)
-  - Following rows are applied (squared corner)
+.center[**Extension = Create a new column**]
 
 &lt;img src="img/extension_img.png" width="50%" style="display: block; margin: auto;" /&gt;
+
+In MS Excel:
+  - First row is row name (name convention)
+  - Second row is the function (starts with = sign)
+  - Following rows are applying the function (double click bottom right corner of the cell)
 
 ---
 
 # Excel Functions
 
-- For numeric values
+### For numeric values
   - Numeric operator ( + - / *)
   - $ (fixed parameter)
   - COUNT(), MIN(), MAX(), SUM(), AVERAGE (), STDEV()
 
-- For character strings
+### For character strings
   - LEFT()
   - CONCATENATE()
 
-- Extra function
+### Extra function
   - IF(condition, value if true, value if false)
 
 ---
 
 # Reduction
 
-- Reduction = Filter Column
+.center[**Reduction = Keep only certain values**]
 
-- In MS Excel:
+&lt;img src="img/reduction_img.png" width="50%" style="display: block; margin: auto;" /&gt;
+
+In MS Excel:
   - Select header row
   - In Data tab, use Filter
   - Click the drop-down arrow for the column you want to filter
   - Choose values to filter
-  
-&lt;img src="img/reduction_img.png" width="50%" style="display: block; margin: auto;" /&gt;
 
 ---
 
 # Excel Filters
 
-- Rows already filtered have a row index are coloured in blue
+<span>&lt;i class="fas  fa-exclamation-triangle faa-flash animated faa-slow " style=" color:red;"&gt;&lt;/i&gt;</span> Remember: 
 
+- Rows already filtered have a row index are coloured in blue
 - Copy-Paste filtered table in a new document if you want to work only on these values
 
-&lt;img src="https://www.excel-easy.com/data-analysis/images/filter/filter-result.png" width="50%" style="display: block; margin: auto;" /&gt;
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="https://www.excel-easy.com/data-analysis/images/filter/filter-result.png" alt="Example of data filtered buy the column Country to keep only values corresponding to USA" width="50%" /&gt;
+&lt;p class="caption"&gt;Example of data filtered buy the column Country to keep only values corresponding to USA&lt;/p&gt;
+&lt;/div&gt;
 
 ---
 
@@ -482,14 +502,14 @@ class: title-slide, mline, center, middle
 
 # Exercise: Transformations
 
-On the MT611 Loop page, got to "Additional Content and Links" and download the document called "employee_dd.xls"
+On the module Loop page, got to "Data Analytics Supplementary Documents" and download the document called "employee_dd.xls"
 
 1. **Extension**: Create a new variable/column which is the average response to all the questions from the survey for each employee (q1 to q9)
 2. **Reduction**: Filter employee’s 2019 salary to keep only employees with a salary higher than 30k
 3. **Aggregation**: Calculate the average salary by gender and by location
 4. **Combination**: Using the VLOOKUP function, add to the table a column corresponding to the  2017 salary located in the 2nd sheet
 
-<div class="countdown" id="timer_619280c2" style="right:0;bottom:0;" data-warnwhen="60">
+<div class="countdown" id="timer_619d4ecc" style="right:0;bottom:0;" data-warnwhen="60">
 <code class="countdown-time"><span class="countdown-digits minutes">15</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 

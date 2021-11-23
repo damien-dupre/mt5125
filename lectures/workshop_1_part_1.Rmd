@@ -256,18 +256,41 @@ DiagrammeR::grViz("
 # Structure of Models
 
 Distinguish square and circles
-- **squares** are actual **measures/items**
-- **circles** are **latent variables** related to measures/items
+- **squares** are actual **measures**
+- **circles/ovals** are **latent variables** calculated from a survey with multiple questions
 
 Example:
+
+.pull-left[
+```{r eval=TRUE}
+DiagrammeR::grViz("
+  digraph {
+    graph [rankdir = LR]
+  
+    node [shape = box]
+    'Salary'
+    node [shape = oval]
+    'Job Satisfaction'
+    
+    'Salary' -> 'Job Satisfaction'
+    
+  }", height = 100, width = 400)
+```
+]
+
+.pull-right[
 - $Salary$ is directly measured (in $, €, or £) so it's a square.
 - $Job\,Satisfaction$ is a latent variable with several questions so it's a circle.
+]
 
-Note: Items used for latent variables can be omitted in a model, variables are the most important.
-
-We can distinguish 2 types of relationship in a model:
+Now, we can distinguish 2 types of relationship in a model, one for each type of hypothesis:
 - Main effect relationship
 - Interaction effect relationship
+
+---
+class: title-slide, middle
+
+## Main Effect Relationship
 
 ---
 
@@ -307,6 +330,11 @@ DiagrammeR::grViz("
 This model tests two hypotheses:
 - 2 main effects
 ]
+
+---
+class: title-slide, middle
+
+## Interaction Effect Relationship
 
 ---
 
@@ -623,7 +651,7 @@ plotly::ggplotly(plot0)
 
 # Defining the Estimate
 
-Relationship between a $Predictor$ and an $Outcome$ variable (stated in a main effect hypothesis or in an interaction effect hypothesis) is analysed in terms of:
+Relationship between a $Predictor$ and an $Outcome$ variable (stated in a main effect hypothesis or in an interaction effect hypothesis) is called the **Estimate** $b$ and is analysed in terms of:
 
 .center[**"How many units of the Outcome variable increases/decreases/changes when the Predictor increases by 1 unit?"**]
 
@@ -652,6 +680,8 @@ This expresses the idea that:
 - The remaining part of the Outcome's variability that is not explained by the predictors is call the Error.
 
 To evaluate if the strength of the relationship $b_n$ between a Predictor $n$ and an Outcome variable is significant, the full equation is statistically tested and $b_n$ estimated with a value.
+
+The value of predictor's effect estimate $b_n$ **is the value of the slope** of the regression line between the predictor and the outcome.
 
 ---
 

@@ -91,6 +91,26 @@ lm_c3 <- lm(js_score ~ location, data = dnd) %>% aov %>% apa_print
 
 ```
 
+# Results Section in Academic Papers
+
+The results section is always structured in the same way:
+
+#### 1. Descriptive Statistics
+
+> Short description of every variable involved in the hypotheses (predictors and outcome).
+
+> Made of numeric summaries (Mean and Standard Deviation values), distribution figures, and a correlation matrix.
+
+#### 2. Inferential Statistics
+
+> Indicating the relevance of the model in a conventional style.
+
+> Communicating the test of each hypothesis in a conventional style.
+
+**The results have to indicate for every hypothesis if the null hypothesis is rejected (and the alternative hypothesis considered as plausible) or not rejected.**
+
+---
+
 class: inverse, mline, center, middle
 
 # 1. Regressions for Hypothesis Testing
@@ -107,9 +127,9 @@ It contains:
 - One or more Predictor/Independent Variables of any type (categorical or continuous)
 - Made of Main and/or Interaction Effects
 
-$$Y = \beta_{0} + \beta_{1} . X + \beta_{2} . Z + ... + \epsilon$$
+$$Y = b_{0} + b_{1}\,Predictor\,1 + b_{2}\,Predictor\,2+ ... + b_{n}\,Predictor\,n + e$$
 
-**To test the significance of the effects, only one statistical method will be used for all hypotheses types which are Linear Regressions.**
+A Linear Regression is used **to test all the hypotheses at once** and to calculate the predictors' estimate.
 
 Specific tests are available for certain type of hypothesis such as T-test or ANOVA but as they are special cases of Linear Regressions, their importance is limited (see [Jonas Kristoffer Lindeløv's blog post: Common statistical tests are linear models](https://lindeloev.github.io/tests-as-linear/)).
 
@@ -117,15 +137,19 @@ Specific tests are available for certain type of hypothesis such as T-test or AN
 
 # Notes on the Equations
 
-### 1. Using Greek or Latin alphabet
+#### 1. Greek or Latin alphabet?
 
-$$Y = \beta_{0} + \beta_{1} . X_{1} + \epsilon \; vs. \; Y = b_{0} + b_{1} . X_{1} + e$$
+$$Y = \beta_{0} + \beta_{1}\,X_{1} + \epsilon \; vs. \; Y = b_{0} + b_{1}\,X_{1} + e$$
 
-### 2. Using $i$s or not
+#### 2. Subscript $i$ or not?
 
-$$Y = \beta_{0} + \beta_{1} . X_{1} + \epsilon \; vs. \; Y_{i} = \beta_{0} + \beta_{1} . X_{1_{i}} + \epsilon_{i}$$
+$$Y = b_{0} + b_{1}\,X_{1} + e \; vs. \; Y_{i} = b_{0} + b_{1}\,X_{1_{i}} + e_{i}$$
 
-### 3. Using hats or no hats for the outcome variable
+#### 3. Which sign between estimates and predictors?
+
+$$Y = b_{0} + b_{1}.X_{1} + b_{2}*X_{2} + b_{3}\,X_{3} + e$$
+
+#### 4. Hat on $Y$ or not? Capital letter or not?
 
 .center[ $$\hat{Y}\; or\; \hat{y}\; vs.\; Y\; or\; y$$ ]
 
@@ -163,7 +187,7 @@ knitr::include_graphics("https://psyteachr.github.io/msc-data-skills/images/meme
 
 ### The corresponding model is:
 
-$$js\_score = \beta_{0} + \beta_{1}.salary + \beta_{2}.perf + \beta_{3}.salary*perf + \epsilon$$
+$$js\_score = b_{0} + b_{1}\,salary + b_{2}\,perf + b_{3}\,salary*perf +  e$$
 
 ---
 
@@ -192,14 +216,14 @@ Draw all the possible lines on the frame. The best line, also called best fit, i
 .pull-right[
 There are 200 models on this plot, but a lot are really bad! We need to find the good models by making precise our intuition that a good model is "close" to the data. 
 
-Therefore, we need a way to quantify the distance between the data and a model. Then we can fit the model by finding the value of $\beta_0$ and $\beta_1$ that generate the model with the smallest distance from this data.
+Therefore, we need a way to quantify the distance between the data and a model. Then we can fit the model by finding the value of $b_0$ and $b_1$ that generate the model with the smallest distance from this data.
 ]
 
 ---
 
 # Best Model, Lowest Error
 
-The error of the model (i.e., $\epsilon$) is the sum of the prediction error for each point (distance between actual value and predicted value)
+The error of the model (i.e., $e$) is the sum of the prediction error for each point (distance between actual value and predicted value)
 
 For each point this specific prediction error is called **Residual**
 
@@ -231,21 +255,53 @@ One common way to do this in statistics to use the "Mean-Square Error" (aka $MSE
 
 ---
 
+# Analysis of the Estimate
+
+Once the best line is found, each estimate of the tested equation is calculated by a software (i.e., $b_0, b_1, ..., b_n$).
+
+- $b_0$ is the intercept and has no interest for hypothesis testing
+- $b_1, ..., b_n$ are predictors' effect estimate and each of them is used to test an hypothesis
+
+The predictors' effect estimate $b_1, ..., b_n$ are **the value of the slope of the best line between each predictor** and the outcome. 
+
+It indicates **how many units of the outcome variable increases/decreases/changes when the predictor increases by 1 unit**
+
+---
+
+# Analysis of the Estimate
+
+- If $b_1, ..., b_n = 0$, then:
+  - The regression line is horizontal (no slope)
+  - When the Predictor increases by 1 unit, the Outcome variable does not change
+  - **The null alternative hypothesis is not rejected**
+
+- If $b_1, ..., b_n > 0$, then:
+  - The regression line is positive (slope up)
+  - When the Predictor increases by 1 unit, the Outcome variable increases by $b$
+  - **The null alternative hypothesis is rejected and the alternative hypothesis considered as plausible**
+  
+- If $b_1, ..., b_n < 0$, then:
+  - The regression line is negative (slope down)
+  - When the Predictor increases by 1 unit, the Outcome variable decreases by $b$
+  - **The null alternative hypothesis is rejected and the alternative hypothesis considered as plausible**
+
+---
+
 # Significance of Effect's Estimate
 
 The statistical significance of an effect estimate depends on the **strength of the relationship** and on the **sample size**:
 
-- A standardized estimate of $\beta_1 = 0.02$ can be very small but still significantly different from $\beta_1 = 0$
-- Whereas a standardized estimate of $\beta_1 = 0.35$ can be stronger but in fact not significantly different from $\beta_1 = 0$
+- An estimate of $b_1 = 0.02$ can be very small but still significantly different from $b_1 = 0$
+- Whereas an estimate of $b_1 = 0.35$ can be stronger but in fact not significantly different from $b_1 = 0$
 
 --
 
-The significance is the probability to obtain your results with your sample knowing that there is no link between the variables in the real life:
+The significance is the probability to obtain your results with your sample in the null hypothesis scenario:
 
 - Also called $p$-value
 - Is between 0% and 100% which corresponds to a value between 0.0 and 1.0
 
-**If the $p$-value is lower to 5% or 0.05, then the probability to obtain your results (knowing that there is no link between the variables) is low enough to say that there must be a link between the variables.**
+**If the $p$-value is lower to 5% or 0.05, then the probability to obtain your results in the null hypothesis scenario is low enough to say that the null hypothesis scenario is rejected and there must be a link between the variables.**
 
 ---
 
@@ -265,6 +321,36 @@ knitr::include_graphics("img/lm_example.png")
 </centre>
 
 ---
+
+# Estimating Regression's Coefficients
+
+The output of any software is two tables:
+- Model Fit Measure Table
+- Model Coefficients Table
+
+The **Model Fit Measure** table tests the prediction **accuracy of your overall model** (all predictors taken into account).
+
+The **Model Coefficients** table provide an estimate to each predictor $b_1, ..., b_n$ (as well as the intercept $b_0$). the value of the estimate is statistically tested with a $p$-value to see if it is statistically different from 0 (null hypothesis). Therefore, this table is **used to test each hypotheses** separately.
+
+---
+
+# Jamovi: Stats. Open. Now.
+
+Jamovi is a statistical spreadsheet software designed to be **easy to use**. Jamovi is a compelling alternative to costly statistical products such as SPSS, SAS and JMP to cite a few.
+
+Jamovi will always be **free and open** because Jamovi is made by the scientific community, for the scientific community.
+
+It can be downloaded from its website https://www.jamovi.org/
+
+It can also be used without installation, in a web browser, https://cloud.jamovi.org/ for **online demo** but this demo undergoes periods of downtime, and may cease functioning (without warning) at any time.
+
+**Jamovi Vocabulary:**
+
+- DV = Outcome
+- Covariate = Continuous Predictor
+- Factor = Categorical Predictor
+
+---
 class: inverse, mline, left, middle
 
 # 2. Hypothesis with Continuous Predictor
@@ -275,18 +361,18 @@ class: inverse, mline, left, middle
 
 .pull-left[
 ### Variables
-- DV = $js\_score$ (from 0 to 10)
-- IV = $salary$ (from 0 to Inf.)
+- Outcome = $js\_score$ (from 0 to 10)
+- Predictor = $salary$ (from 0 to Inf.)
 
 ### Hypothesis
 
-- $H_a$: $js\_score$ increases when $salary$ increases  (i.e., $\beta_1>0$)
+- $H_a$: $js\_score$ increases when $salary$ increases  (i.e., $b_1>0$)
 
-- $H_0$: $js\_score$ stay the same when $salary$ increases (i.e., $\beta_1=0$)
+- $H_0$: $js\_score$ stay the same when $salary$ increases (i.e., $b_1=0$)
 
 ### Equation
 
-$$js\_score = \beta_{0} + \beta_{1} * salary + \epsilon$$
+$$js\_score = b_{0} + b_{1}\,salary + e$$
 ]
 
 .pull-right[
@@ -326,7 +412,7 @@ dnd %>%
     "text", 
     x = 29000, 
     y = 7.5, 
-    label = "H[0]:beta[1] == 0", 
+    label = "H[0]:b[1] == 0", 
     color = "red", 
     size = 6,
     parse = TRUE
@@ -335,7 +421,7 @@ dnd %>%
     "text", 
     x = 30500, 
     y = 10, 
-    label = "H[1]:beta[1] > 0", 
+    label = "H[1]:b[1] > 0", 
     color = "blue", 
     size = 6,
     parse = TRUE
@@ -350,35 +436,34 @@ dnd %>%
 ### In JAMOVI
 
 1. Open your file
-2. Set variables as continuous
+2. Set variables as **continuous**
 3. **Analyses** > **Regression** > **Linear Regression**
-4. Set $js\_score$ as DV and $salary$ as Covariates
+4. Set $js\_score$ as DV (i.e., Outcome) and $salary$ as Covariates (i.e., Continuous Predictor)
 
 ```{r out.width = "100%"}
 knitr::include_graphics("img/jamovi_lm_main.png")
 ```
-  
+
+---
+class: title-slide, middle
+
+## Model Fit Measure Table
+
 ---
 
 # Model Fit Measure Table
 
 The **Model Fit Measure** table tests the prediction **accuracy of your overall model** (all predictors taken into account).
 
-.pull-left[
-- The **Model** column indicate the reference of the model in case you want to compare multiple models
-]
-
-.pull-right[
 ```{r out.width = "40%"}
 knitr::include_graphics("img/jamovi_mfm.png")
 ```
-]
 
+Default Columns:
+
+- The **Model** column indicate the reference of the model in case you want to compare multiple models
 - $R$ is the correlation between the outcome variable and all predictors taken into account (i.e., the closer to 1 or -1 the better, however in social science models with more that 0.2 or less than -0.2 are already excellent)
 - $R^2$ is the % of variance from the outcome explained by the model (e.g., $R^2 = 0.73$ means the model explains 73% of the variance of the outcome variable). $R^2$ is also called **Coefficient of Determination**
-
-Note $R \neq r$: 
-- $R$ is for a model that can include multiple predictors whereas $r$ is only for 1 predictor 
 
 ---
 
@@ -392,9 +477,9 @@ knitr::include_graphics("img/jamovi_mfm_full.png")
 - $AIC$, $BIC$ and $RMSE$ are useful to compare multiple models, the lower the better
 - **Overall Model F Test** is the statistical test to show that your model have significantly better predictions than a model without any predictor.
   - $F$ is the value of the statistical test comparing the results obtained with this sample using the full model with the results obtained with this sample using a model only with the intercept (i.e., $H_0$)
-  - $df1$ is the degree of freedom "between group", its value corresponds to the amount of predictor in your model: $df1 = K$ (this is the easy explanation, see more details page 398 of "Learning Statistics with JAMOVI")
+  - $df1$ is the degree of freedom "between group", its value corresponds to the amount of predictors in your model: $df1 = K$ (this is the easy explanation, see more details page 398 of "Learning Statistics with JAMOVI")
   - $df2$ is the degree of freedom "within group", its value corresponds to the amount of observation minus number of parameters minus 1: $df2 = N - K - 1$.
-  - $p$ is the p-value, i.e the probability to obtain our prediction with our sample knowing that predictors have no effect in the real life (i.e., $p = P(data|H_0)$)
+  - $p$ is the p-value, i.e the probability to obtain our prediction with our sample in the null hypothesis scenario  (i.e., $p = P(data|H_0)$)
 
 ---
 
@@ -410,26 +495,34 @@ From our example:
 
 --
 
-Note about p-values: 
- - If p-value is higher than 0.001, write $p = value$ (e.g., $p = 0.58$ )
- - If p-value is lower than 0.001, write $p < 0.001$
- - But never $p = 0.000$
+Note about p-values:
+
+- If the value in the table is $< 0.001$, then write $p < 0.001$ in the text
+- Else write $p = value_p$ (e.g., $p = 0.58$ )
+- But never $p =< 0.001$
+
+---
+class: title-slide, middle
+
+## Model Coefficients Table
 
 ---
 
 # Model Coefficients Table
 
-The **Model Coefficients** table tests the prediction accuracy of each predictor (intercept included. This table is **used to test each hypotheses** separately.
+The **Model Coefficients** table provide an estimate to each predictor $b_1, ..., b_n$ (as well as the intercept $b_0$). the value of the estimate is statistically tested with a $p$-value to see if it is statistically different from 0 (null hypothesis).
 
 ```{r}
 knitr::include_graphics("img/jamovi_mc.png")
 ```
 
+Default Columns:
+
 - **Predictor** is the list of variables associated to parameters in your model (main and interaction) which includes the intercept
 - **Estimate** is the non-standardized relationship estimate of the best prediction line (expressed in the unit of the variable)
 - **SE** is the Standard Error and indicate how spread are the values around the estimate
 - $t$ is the value of the statistical test comparing the estimate obtained with this sample with an estimate of 0 (i.e., $H_0$)
-- $p$ is the p-value, i.e the probability to obtain our prediction with our sample knowing that predictor have no effect in the real life
+- $p$ is the p-value, i.e the probability to obtain our prediction with our sample in the null hypothesis scenario 
 
 ---
 
@@ -441,13 +534,13 @@ knitr::include_graphics("img/jamovi_mc_full.png")
 
 - **Omnibus ANOVA Test** is an alternative way to test model's coefficient but **use only for a categorical predictor with more than 2 modalities**
 - **Estimate Confidence Interval** defines the limits of the range where Estimate are still possible to be in given the sample size
-- **Standardize Estimate** indicates the strength and direction of the relationship in term of correlation
+- **Standardized Estimate** indicates the strength and direction of the relationship in term of correlation
 
 --
 
 Note that in our example, because there is only one predictor:
 
-1. The Standardize Estimate is the correlation
+1. The Standardized Estimate is the correlation
 2. The F-test in the Model Fit Measure table is the same as the F-test in the Omnibus ANOVA Test
 3. The p-value in the Model Fit Measure table is the same as the one in the Omnibus ANOVA Test and in the Model Coefficient table
 
@@ -479,14 +572,14 @@ class: title-slide, middle
 
 ### Hypotheses
 
-- $H_{a_{1}}$: $js\_score$ increases when $salary$ increases (i.e., $\beta_1>0$) 
-- $H_{0_{1}}$: $js\_score$ stay the same when $salary$ increases (i.e., $\beta_1=0$)
+- $H_{a_{1}}$: $js\_score$ increases when $salary$ increases (i.e., $b_1>0$) 
+  - $H_{0_{1}}$: $js\_score$ stay the same when $salary$ increases (i.e., $b_1=0$)
 
-- $H_{a_{2}}$: $js\_score$ increases when $perf$ increases (i.e., $\beta_2>0$) 
-- $H_{0_{2}}$: $js\_score$ stay the same when $perf$ increases (i.e., $\beta_2=0$)
+- $H_{a_{2}}$: $js\_score$ increases when $perf$ increases (i.e., $b_2>0$) 
+  - $H_{0_{2}}$: $js\_score$ stay the same when $perf$ increases (i.e., $b_2=0$)
 
-- $H_{a_{3}}$: The effect of $salary$ on $js\_score$ increases when $perf$ increases (i.e., $\beta_3>0$) 
-- $H_{0_{3}}$: The effect of $salary$ on $js\_score$ is the same when $perf$ increases (i.e., $\beta_3=0$)
+- $H_{a_{3}}$: The effect of $salary$ on $js\_score$ increases when $perf$ increases (i.e., $b_3>0$) 
+  - $H_{0_{3}}$: The effect of $salary$ on $js\_score$ is the same when $perf$ increases (i.e., $b_3=0$)
 
 ---
 
@@ -494,9 +587,9 @@ class: title-slide, middle
 
 ### Equation
 
-$$js\_score = \beta_{0} + \beta_{1}.salary + \beta_{2}.perf + \beta_{3}.salary*perf + \epsilon$$
+$$js\_score = b_{0} + b_{1}\,salary + b_{2}\,perf + b_{3}\,salary*perf + e$$
 
-Note: The test of the interaction $\beta_{3}.salary*perf$ corresponds to the test of a new variable for which values of $salary$ and values of $perf$ are multiplied
+Note: The test of the interaction $b_{3}\,salary*perf$ corresponds to the test of a new variable for which values of $salary$ and values of $perf$ are multiplied
 
 ```{r out.width = "40%"}
 knitr::include_graphics("img/meme_interaction_1.jpg")
@@ -510,9 +603,10 @@ knitr::include_graphics("img/meme_interaction_1.jpg")
 
 1. Open your file
 2. Set variables as **continuous**
-3. Analyses > Regression> Linear Regression
+3. **Analyses** > **Regression** > **Linear Regression**
 4. Set $js\_score$ as DV and $salary$ as well as $perf$ as Covariates
-4. In **Model Builder** option: Select both $salary$ and $perf$ to bring them in the covariates at once and to obtain a third term called $salary*perf$
+4. In the **Model Builder** option: 
+  - Select both $salary$ and $perf$ to bring them in the covariates at once and to obtain a third term called $salary*perf$
 
 ```{r}
 knitr::include_graphics("img/jamovi_lm_int.png")
@@ -520,7 +614,7 @@ knitr::include_graphics("img/jamovi_lm_int.png")
 
 ---
 
-# Communicate Results
+# Communicate the Results
 
 ### Overall model:
 
@@ -558,10 +652,10 @@ To plot the interaction between 2 continuous predictors, one of them has to be *
 
 # Representing Interaction Effects
 
-In our case:
-- +1SD is the group of high perf (observations higher than average + 1SD)
-- Mean is the group of average perf (observations between average + 1SD and average - 1SD)
-- -1SD  is the group of low perf (observations lower than average - 1SD)
+In this case:
+- **+1SD** is the group of **high perf** (observations higher than avg. + 1SD)
+- **Mean** is the group of **average perf** (observations between avg. + 1SD and avg. - 1SD)
+- **-1SD**  is the group of **low perf** (observations lower than avg. - 1SD)
 
 Warning: When representing the results of the linear regression **don't use the QQ-plot instead**
 
@@ -578,11 +672,11 @@ class: title-slide, middle
 ## Exercise
 
 1. Open the dataset dnd.csv in JAMOVI and **reproduce the results obtained by testing**:
-$$js\_score = \beta_{0} + \beta_{1}.salary + \epsilon$$
-$$js\_score = \beta_{0} + \beta_{1}.salary + \beta_{2}.perf + \beta_{3}.salary*perf + \epsilon$$
+$$js\_score = b_{0} + b_{1}\,salary + e$$
+$$js\_score = b_{0} + b_{1}\,salary + b_{2}\,perf + b_{3}\,salary*perf + e$$
 
 2. **Test a model which contains**:
-$$js\_score = \beta_{0} + \beta_{1}.age + \beta_{2}.perf + \beta_{3}.age*perf + \epsilon$$
+$$js\_score = b_{0} + b_{1}\,age + b_{2}\,perf + b_{3}\,age*perf + e$$
 
 ```{r}
 countdown(minutes = 10, warn_when = 60)
@@ -612,7 +706,7 @@ knitr::include_graphics("https://memegenerator.net/img/instances/82194202/what-i
 # Example of Categorical Coding
 
 .pull-left[
-Imagine we decide to sample 3 male and 3 female employees and we want to see if the difference between their job satisfaction averages is due **to sampling luck or is reflecting a real difference in the population**.
+Imagine we sample 3 male and 3 female employees to see if the difference between their job satisfaction averages is due **to sampling luck or is reflecting a real difference in the population**.
 
 That is, **is the difference between male and female employees statistically significant?**
 ]
@@ -641,7 +735,7 @@ df2 %>%
 
 .pull-left[
 
-.center[When using a Categorical variable having 2 category, **e.g., comparing female vs. male** ...]
+.center[Using a Categorical variable having 2 category, **e.g., comparing female vs. male** ...]
 
 ```{r fig.height=5}
 df2 %>% 
@@ -672,9 +766,9 @@ df2 %>%
 ```
 ]
 
-For Categorical variables having 2 categories, **by default the Linear Regression recodes with the alphabetical order** (Female first then Male).
+By default, Categorical variables **are recoded using the alphabetical order** (e.g., here Female first then Male).
 
-However you can manually choose to recode the variable yourself by creating a new variable, such as... `IF(gender == "female", 2, 1)`
+However, you can recode the variable yourself with your own order by creating a new variable using IF statement (e.g., `IF(gender == "female", 2, 1)`)
 
 ---
 
@@ -682,7 +776,7 @@ However you can manually choose to recode the variable yourself by creating a ne
 
 .pull-left[
 
-.center[Female = 1 and Male = 2]
+.center[Default: **Female = 1** and **Male = 2**]
 
 ```{r fig.height=4}
 df2 %>% 
@@ -708,7 +802,7 @@ df2 %>%
 
 .pull-right[
 
-.center[Female = 2 and Male = 1]
+.center[Manual: **Male = 1** and **Female = 2**]
 
 ```{r fig.height=4}
 df2  %>% 
@@ -754,7 +848,7 @@ Instead of using $salary$ as a **continuous variable**, let's convert it as $sal
 
 ### Hypothesis
 
-The average $js\_score$ of employer having a **high** $salary\_c$ is different than for those having a **low** $salary\_c$
+The $js\_score$ of employees having a **high** $salary\_c$ is different than the $js\_score$ of employees having a **low** $salary\_c$
 
 ### In mathematical terms
 
@@ -762,38 +856,15 @@ $$H_a: \mu(js\_score)_{high\,salary} \neq \mu(js\_score)_{low\,salary}$$
 $$H_0: \mu(js\_score)_{high\,salary} = \mu(js\_score)_{low\,salary}$$
 
 ---
-class: title-slide, middle
-
-## Live Demo
-
----
 
 # Categorical Predictor with 2 Categories
 
-Why $t$-test and Linear Regression obtain the exact **same** results?
+An hypothesis of differences between two groups is easily tested with a Linear Regression:
 
-.pull-left[
+- If $\mu_{1} \neq \mu_{2}$, the slope of the line between these averages is not null (i.e., $b_{1} \neq 0$)
+- If $\mu_{1} = \mu_{2}$, the slope of the line between these averages is null (i.e., $b_{1} = 0$ )
 
-Hypothesis Testing in $t$-test
-
-- $H_a: \mu_{1} \neq \mu_{2}$
-- $H_0: \mu_{1} = \mu_{2}$
-]
-
-.pull-right[
-
-Hypothesis Testing in Linear Regression
-
-- $H_a: \beta_{1} \neq 0$
-- $H_0: \beta_{1} = 0$
-
-]
-
-If $\mu_{1} \neq \mu_{2}$ then the slope of the line between group averages is different than 0 ( $\beta_{1} \neq 0$ ).
-
-If $\mu_{1} = \mu_{2}$ then the slope of the line between group averages is equal to 0 ( $\beta_{1} = 0$ ).
-
-What you don't know is that the Linear Regression automatically recode all Categorical variables to Continuous variables.
+The Linear Regression automatically recode all Categorical variables to Continuous variables using 1, 2, 3 and so on in alphabetical order.
 
 ---
 
@@ -806,8 +877,8 @@ What you don't know is that the Linear Regression automatically recode all Categ
 ### Explanation
 
 .pull-left[
-- If two averages are **equal**, then the **slope of the line crossing these two averages is 0**
 - If two averages are **not equal**, then **the slope of the line crossing these two averages is not 0**
+- If two averages are **equal**, then the **slope of the line crossing these two averages is 0**
 ]
 
 .pull-right[
@@ -835,6 +906,15 @@ JAMOVI and other software **automatically code categorical variable following al
 
 For example, here **low coded with the value 1** and **high coded with the value 2** would make more sense
 
+.pull-left[
+For example, here **low coded with the value 1** and **high coded with the value 2** would make more sense.
+
+The way how categorical variables are coded will influence the sign of the estimate (positive vs. negative)
+
+But **it doesn't change the value of the statistical test** nor the $p$-value obtained
+]
+
+.pull-right[
 ```{r fig.width=4, fig.height=4}
 dnd %>% 
   dplyr::mutate(salary_c = factor(salary_c, levels = c("low", "high"))) %>% 
@@ -848,22 +928,21 @@ dnd %>%
     text = element_text(size = 20)
     )
 ```
+]
+
+
 
 ---
 
 # Categorical Predictor with 2 Categories
 
-The way how categorical variables are coded will influence the sign of the estimate (positive vs. negative)
-
-But **it doesn't change the value of the statistical test** nor the $p$-value obtained
-
 ### To sum up
 
-**To test the influence of a categorical predictor** variable either nominal or ordinal **having two categories** (e.g., high vs. low, male vs. female, France vs. Ireland), it is possible to **test if the $\beta$ associated to this predictor is significantly different than 0**.
+**To test the influence of a categorical predictor** variable either nominal or ordinal **having two categories** (e.g., high vs. low, male vs. female, France vs. Ireland), it is possible to **test if the $b$ associated to this predictor is significantly different than 0**.
 
 ### Equation
 
-$$js\_score = \beta_{0} + \beta_{1} * salary\_c + \epsilon$$
+$$js\_score = b_{0} + b_{1} * salary\_c + e$$
 
 ---
 
@@ -874,7 +953,7 @@ $$js\_score = \beta_{0} + \beta_{1} * salary\_c + \epsilon$$
 1. Open your file
 2. Set variables in their **correct type** (continuous, cat. nominal or cat. ordinal)
 3. **Analyses > Regression > Linear Regression**
-4. Set $js\_score$ as DV and $salary\_c$ as Factors
+4. Set $js\_score$ as DV (i.e., Outcome) and $salary\_c$ as Factors (i.e., Categorical Predictor)
 
 ```{r out.width = "100%"}
 knitr::include_graphics("img/jamovi_lm_main_c2.png")
@@ -888,11 +967,11 @@ knitr::include_graphics("img/jamovi_lm_main_c2.png")
 
 > The prediction provided by the model with all predictors is significantly better than a model without predictors (** `r lm_c$full_result$modelfit$r2`**).
 
-### Hypothesis (high = 1 vs. low = 2, default)
+### Hypothesis with Default Coding (high = 1 vs. low = 2)
 
 > The effect of $salary\_c$ on $js\_score$ is statistically significant, therefore $H_{0}$ can be rejected (** `r lm_c$full_result$salary_c`**).
 
-### Hypothesis (low = 1 vs. high = 2, recoded)
+### Hypothesis with Manual Coding (low = 1 vs. high = 2)
 
 > The effect of $salary\_c$ on $js\_score$ is statistically significant, therefore $H_{0}$ can be rejected (** `r lm_c2$full_result$salary_c`**).
 
@@ -902,14 +981,9 @@ knitr::include_graphics("img/jamovi_lm_main_c2.png")
 
 Choosing 1 and 2 are **just arbitrary numerical values** but any other possibility will produce the same $p$-value
 
-However choosing codes separated by 1 is handy because it's easily interpretable, the **non-standardized estimate corresponds to the change from one category to another**:
+However, choosing codes separated by 1 is handy because it's easily interpretable, the **estimate corresponds to the change from one category to another**:
 
-> When "low" is coded 1 and "high" coded 2, the average $js\_score$ for "high" $salary\_c$ employes is `r round(m_js_high - m_js_low, 2)` higher than the average $js\_score$ for "low" $salary\_c$ employees
-
-There are special cases called: 
-
-- **Dummy Coding** when a category is coded 0 and the other 1
-- **Deviation Coding** when a category is coded 1 and the other -1
+> The $js\_score$ of "high" $salary\_c$ employees is `r round(m_js_high - m_js_low, 2)` higher than the $js\_score$ of "low" $salary\_c$ employees (when "low" is coded 1 and "high" coded 2).
 
 ---
 
@@ -921,11 +995,12 @@ There are special cases called:
 2. Set variables according their type
 3. **Analyses > Regression > Linear Regression**
 4. Set $js\_score$ as DV and $salary\_c$ as well as $gender$ as Factors
-4. In **Model Builder** option: select both $salary\_c$ and $gender$ to bring them in the Factors at once
+4. In the **Model Builder** option: 
+  - Select both $salary\_c$ and $gender$ to bring them in the Factors at once
 
 ### Model Tested
 
-$$js\_score = \beta_{0} + \beta_{1}.salary\_c + \beta_{2}.gender + \beta_{3}.salary\_c*gender + \epsilon$$
+$$js\_score = b_{0} + b_{1}\,salary\_c + b_{2}\,gender + b_{3}\,salary\_c*gender + e$$
 
 Note: The test of the interaction effect corresponds to the test of a variable resulting from the multiplication between the codes of $salary\_c$ and the codes of $gender$.
 
@@ -949,9 +1024,9 @@ class: title-slide, middle
 
 With the "dnd.csv" data, test the following models and conclude on each effect:
 
-Model 1: $js\_score = \beta_{0} + \beta_{1}.perf + \beta_{2}.gender + \beta_{3}.perf*gender + \epsilon$
+Model 1: $js\_score = b_{0} + b_{1}\,perf + b_{2}\,gender + b_{3}\,perf*gender + e$
 
-Model 2: $js\_score = \beta_{0} + \beta_{1}.perf + \beta_{2}.location + \beta_{3}.perf*location+ \epsilon$
+Model 2: $js\_score = b_{0} + b_{1}\,perf + b_{2}\,location + b_{3}\,perf*location+ e$
 
 ```{r}
 countdown(minutes = 10, warn_when = 60)
@@ -975,26 +1050,26 @@ I would like to test the effect of the variable $location$ which has 3 categorie
 knitr::include_graphics("img/jamovi_lm_main_c31.png")
 ```
 
-There is not 1 result for $location$ but 2!
+In the Model Coefficient Table, to test the estimate of $location$, there is not 1 result for $location$ but 2!
 - Comparison of "Australia" vs. "France"
 - Comparison of "Australia" vs. "Ireland"
 
-### How can I test the effect of the full variable?
+**Why multiple $p$-value are provided for the same predictor?**
 
 ---
 
 # Coding Predictors with 3+ categories
 
-Y/Outcome/DV = $js\_score$(Continuous variable from 0 to 100)
-
-X/Predictor/IV = $location$ (Categorical variable with 3 categories: *Australia*, *France* and *Ireland*)
+### Variables
+- Outcome = $js\_score$ (from 0 to 10)
+- Predictor = $location$ (3 categories: *Australia*, *France* and *Ireland*)
 
 .pull-left[
 ```{r}
 df4 <- data.frame(
   employee = 1:8, 
   location = c("Ireland", "France", "Australia", "Australia", "Ireland", "France", "Australia", "Ireland"),
-  js_score = c(89, 64, 71, 77, 96, 69, 59, 99)
+  js_score = c(8.9, 6.4, 7.1, 7.7, 9.6, 6.9, 5.9, 9.9)
 ) %>% 
   dplyr::mutate(location_c = case_when(
     location == "Australia" ~ 1,
@@ -1027,7 +1102,7 @@ df4 %>%
 
 $t$-test can only compare 2 categories. Because Linear Regression Models are (kind of) $t$-test, categories will be compared 2-by-2 with one category as the reference to compare all the others.
 
-For example a linear regression of `location` on `js_score` will display not one effect for the `location` but the effect of the 2-by-2 comparison using a reference group by alphabetical order:
+For example a linear regression of $location$ on $js\_score$ will display not one effect for the $location$ but the effect of the 2-by-2 comparison using a reference group by alphabetical order:
 
 ```{r results='asis'}
 df4 %>% 
@@ -1046,7 +1121,7 @@ Here is our problem: **How to test the overall effect of a variable with 3 or mo
 
 # ANOVA Test for Overall Effects
 
-Beside (Multiple) Linear Regression and $t$-test, researchers are using ANOVA a lot. ANOVA, stands for Analysis of Variance and is also a sub category of Linear Regression Models.
+BesideLinear Regression and $t$-test, researchers are using ANOVA a lot. ANOVA, stands for Analysis of Variance and is also a sub category of Linear Regression Models.
 
 ANOVA is used to calculate the overall effect of categorical variable having more that 2 categories as $t$-test cannot cope. In the case of testing 1 categorical variable, a "one-way" ANOVA is performed.
 
@@ -1064,9 +1139,9 @@ ANOVA is used to calculate the overall effect of categorical variable having mor
 
 # ANOVA Test for Overall Effects
 
-I won't go too much in the details but to check if at least one group is different from the others, the distance of each value to the overall mean (Between−group variation) is compared to the distance of each value to their group mean(Within−group variation).
+I won't go too much in the details but to check if at least one group is different from the others, the distance of each value to the overall mean (Between−group variation) is compared to the distance of each value to their group mean (Within−group variation).
 
-If the Between−group variation is the same as the Within−group variation, all the groups are the same.
+**If the Between−group variation is the same as the Within−group variation, all the groups are the same.**
 
 ```{r out.width = '100%'}
 knitr::include_graphics("img/one_way_anova_basics.png")
@@ -1080,12 +1155,12 @@ An hypothesis for a categorical predictor with 3 or more categories predicts tha
 
 ### With $location$ the hypothesis is the following
 
-> The average $js\_score$ of employees working in at least one specific $location$ will be significantly different than the average $js\_score$ of employees working in the other $location$.
+> The $js\_score$ of employees working in at least one specific $location$ will be significantly different than the $js\_score$ of employees working in the other $location$.
 
 ### In mathematical terms
 
-- $H_0$: it is true that $\mu_{Ireland} = \mu_{France} = \mu_{Australia}$
-- $H_a$: it is **not** true that $\mu_{Ireland} = \mu_{France} = \mu_{Australia}$
+- $H_0$: it is true that $\mu(js\_score)_{Ireland} = \mu(js\_score)_{France} = \mu(js\_score)_{Australia}$
+- $H_a$: it is **not** true that $\mu(js\_score)_{Ireland} = \mu(js\_score)_{France} = \mu(js\_score)_{Australia}$
 
 This analysis is usually preformed using a one-way ANOVA but as ANOVA are special cases of the General Linear Model, let's keep this approach.
 
@@ -1115,7 +1190,8 @@ dnd %>%
 2. Set variables according their type
 3. Analyses > Regression > Linear Regression
 4. Set $js\_score$ as DV and $location$ as Factors
-5. In **Model Coefficients** option: select **Omnibus Test ANOVA test**
+5. In the **Model Coefficients** option: 
+  - Select **Omnibus Test ANOVA test**
 
 ```{r out.width = "40%"}
 knitr::include_graphics("img/jamovi_lm_main_c32.png")
@@ -1137,10 +1213,10 @@ class: title-slide, middle
 
 Using the dnd.csv dataset, test the following models and conclude on the hypothesis related to each estimate:
 
-Model 1: $js\_score = \beta_{0} + \beta_{1}.salary + \beta_{2}.location + \beta_{3}.perf + \epsilon$
+Model 1: $js\_score = b_{0} + b_{1}\,salary + b_{2}\,location + b_{3}\,perf + e$
 
-Model 2: $$js\_score = \beta_{0} + \beta_{1}.salary + \beta_{2}.location + \beta_{3}.perf + \beta_{4}.salary*location +$$
-$$\beta_{5}.perf*location + \beta_{6}.perf*salary + \beta_{7}.salary*location*perf + \epsilon$$
+Model 2: $$js\_score = b_{0} + b_{1}\,salary + b_{2}\,location + b_{3}\,perf + b_{4}\,salary*location +$$
+$$b_{5}\,perf*location + b_{6}\,perf*salary + b_{7}\,salary*location*perf + e$$
 
 ```{r}
 countdown(minutes = 5, warn_when = 60)
@@ -1151,7 +1227,7 @@ class: inverse, mline, left, middle
 
 <img class="circle" src="https://github.com/damien-dupre.png" width="250px"/>
 
-# Thanks for your attention and don't hesitate if you have any question!
+# Thanks for your attention and don't hesitate to ask if you have any question!
 
 [`r fa(name = "twitter")` @damien_dupre](http://twitter.com/damien_dupre)  
 [`r fa(name = "github")` @damien-dupre](http://github.com/damien-dupre)  

@@ -46,11 +46,11 @@ library(countdown)
 
 After having:
 
-1. Downloaded your Data
+#### 1. Downloaded your Data
 
-2. Cleaned your Data
+#### 2. Cleaned your Data
 
-3. Transformed your Data
+#### 3. Transformed your Data
 
 It is time to look at your Data!
 
