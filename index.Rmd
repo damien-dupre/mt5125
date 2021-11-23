@@ -1,0 +1,26 @@
+---
+title: "MT5125 - Data Analytics"
+author: "Damien Dupré"
+output:
+  prettydoc::html_pretty:
+    theme: architect
+    highlight: github
+---
+
+# Lecture Slides
+
+- [Lecture 1](https://damien-dupre.github.io/mt5125/lectures/lecture_1)
+- [Lecture 2](https://damien-dupre.github.io/mt5125/lectures/lecture_2)
+- [Lecture 3](https://damien-dupre.github.io/mt5125/lectures/lecture_3)
+
+# Workshop Slides
+
+## Workshop 1: Inferential Statistics
+- [Workshop 1 - part 1](https://damien-dupre.github.io/mt5125/lectures/workshop_1_part_1)
+- [Workshop 1 - part 2](https://damien-dupre.github.io/mt5125/lectures/workshop_1_part_2)
+- [Workshop 1 - part 3](https://damien-dupre.github.io/mt5125/lectures/workshop_1_part_3)
+
+## Workshop 2: Descriptive Statistics and Storytelling
+- [Workshop 2 - part 1](https://damien-dupre.github.io/mt5125/lectures/workshop_2_part_1)
+- [Workshop 2 - part 2](https://damien-dupre.github.io/mt5125/lectures/workshop_2_part_2)
+- [Workshop 2 - part 3](https://damien-dupre.github.io/mt5125/lectures/workshop_2_part_3)
