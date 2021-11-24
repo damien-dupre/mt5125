@@ -45,7 +45,7 @@ library(kableExtra)
 library(countdown)
 
 # data -------------------------------------------------------------------------
-dnd <- readr::read_csv(here::here("data/dnd.csv"))  
+organisation_beta <- readr::read_csv(here::here("data/organisation_beta.csv"))
 
   # tibble::tibble(
   #   gender = sample(c("male", "female"), 20, replace = TRUE),
@@ -76,18 +76,18 @@ dnd <- readr::read_csv(here::here("data/dnd.csv"))
   #     perf < mean(perf) - sd(perf) ~ "low"
   #   ),
   # ) %>%
-  # readr::write_csv(here::here("data/dnd.csv"))
+  # readr::write_csv(here::here("data/organisation_beta.csv"))
 
 # analyses ---------------------------------------------------------------------
-m_js_high <- mean(dnd$js_score[dnd$salary_c == "high"])
-m_js_low <- mean(dnd$js_score[dnd$salary_c == "low"])
-lm_1 <- lm(js_score ~ salary, data = dnd) %>% apa_print
-lm_2 <- lm(js_score ~ salary*perf, data = dnd) %>% apa_print
-lm_c <- lm(js_score ~ salary_c, data = dnd) %>% apa_print
-lm_c2 <- dnd %>% 
+m_js_high <- mean(organisation_beta$js_score[organisation_beta$salary_c == "high"])
+m_js_low <- mean(organisation_beta$js_score[organisation_beta$salary_c == "low"])
+lm_1 <- lm(js_score ~ salary, data = organisation_beta) %>% apa_print
+lm_2 <- lm(js_score ~ salary*perf, data = organisation_beta) %>% apa_print
+lm_c <- lm(js_score ~ salary_c, data = organisation_beta) %>% apa_print
+lm_c2 <- organisation_beta %>% 
   dplyr::mutate(salary_c = factor(salary_c, level = c("low", "high"))) %>% 
   lm(js_score ~ salary_c, data = .) %>% apa_print
-lm_c3 <- lm(js_score ~ location, data = dnd) %>% aov %>% apa_print
+lm_c3 <- lm(js_score ~ location, data = organisation_beta) %>% aov %>% apa_print
 
 ```
 
@@ -229,12 +229,12 @@ For each point this specific prediction error is called **Residual**
 
 .pull-left[
 ```{r fig.width=5, fig.height=5}
-linear_model_1 <- lm(js_score ~ salary, dnd)
+linear_model_1 <- lm(js_score ~ salary, organisation_beta)
 
-dnd$predicted <- predict(linear_model_1)   # Save the predicted values
-dnd$residuals <- residuals(linear_model_1) # Save the residual values
+organisation_beta$predicted <- predict(linear_model_1)   # Save the predicted values
+organisation_beta$residuals <- residuals(linear_model_1) # Save the residual values
 
-plot_error <- dnd %>% 
+plot_error <- organisation_beta %>% 
   ggplot(aes(salary, js_score, label = residuals)) +
   geom_segment(aes(xend = salary, yend = predicted), color = "red") +
   geom_point() +
@@ -377,7 +377,7 @@ $$js\_score = b_{0} + b_{1}\,salary + e$$
 
 .pull-right[
 ```{r}
-dnd %>% 
+organisation_beta %>% 
   dplyr::select(employee, salary, js_score) %>% 
   knitr::kable()
 ```
@@ -389,7 +389,7 @@ dnd %>%
 
 .pull-left[
 ```{r fig.height=10}
-dnd %>% 
+organisation_beta %>% 
   ggplot(aes(x = salary, y = js_score, label = employee)) +
   geom_point(color = "red", size = 5) +
   geom_text_repel(point.padding = 0.5, size = 14) +
@@ -400,11 +400,11 @@ dnd %>%
 ]
 .pull-right[
 ```{r fig.height=10}
-dnd %>% 
+organisation_beta %>% 
   ggplot(aes(x = salary, y = js_score, label = employee)) +
   geom_point(color = "black", size = 5) +
   geom_smooth(method = "lm", formula = "y ~ x", size = 2, fullrange = TRUE, se = FALSE) +
-  geom_hline(yintercept = mean(dnd$js_score), color = "red", size = 2) +
+  geom_hline(yintercept = mean(organisation_beta$js_score), color = "red", size = 2) +
   scale_y_continuous(limits = c(0, 10)) +
   theme_bw() +
   theme(text = element_text(size = 20)) +
@@ -671,7 +671,7 @@ class: title-slide, middle
 
 ## Exercise
 
-1. Open the dataset dnd.csv in JAMOVI and **reproduce the results obtained by testing**:
+1. Open the dataset organisation_beta.csv in JAMOVI and **reproduce the results obtained by testing**:
 $$js\_score = b_{0} + b_{1}\,salary + e$$
 $$js\_score = b_{0} + b_{1}\,salary + b_{2}\,perf + b_{3}\,salary*perf + e$$
 
@@ -838,7 +838,7 @@ df2 %>%
 
 # Categorical Predictor with 2 Categories
 
-Let's use another example with the `dnd` dataset!
+Let's use another example with the `organisation_beta` dataset!
 
 ### Variable transformation
 
@@ -883,7 +883,7 @@ The Linear Regression automatically recode all Categorical variables to Continuo
 
 .pull-right[
 ```{r fig.width=4, fig.height=4}
-ggplot(dnd, aes(x = salary_c, y = js_score)) + 
+ggplot(organisation_beta, aes(x = salary_c, y = js_score)) + 
   geom_jitter(width = 0.1) +
   geom_segment(x = 1, xend = 2, y = m_js_high, yend = m_js_low, lwd = 2, color = "red") +
   geom_hline(yintercept = (m_js_high + m_js_low)/2, linetype = "dashed") +
@@ -916,7 +916,7 @@ But **it doesn't change the value of the statistical test** nor the $p$-value ob
 
 .pull-right[
 ```{r fig.width=4, fig.height=4}
-dnd %>% 
+organisation_beta %>% 
   dplyr::mutate(salary_c = factor(salary_c, levels = c("low", "high"))) %>% 
   ggplot(aes(x = salary_c, y = js_score)) + 
   geom_jitter(width = 0.1) +
@@ -1022,7 +1022,7 @@ class: title-slide, middle
 
 ## Exercise
 
-With the "dnd.csv" data, test the following models and conclude on each effect:
+With the "organisation_beta.csv" data, test the following models and conclude on each effect:
 
 Model 1: $js\_score = b_{0} + b_{1}\,perf + b_{2}\,gender + b_{3}\,perf*gender + e$
 
@@ -1169,10 +1169,10 @@ This analysis is usually preformed using a one-way ANOVA but as ANOVA are specia
 # ANOVA in our Example
 
 ```{r}
-dnd %>% 
+organisation_beta %>% 
   ggplot(aes(x = location, y =  js_score)) + 
   geom_jitter(width = 0.1) +
-  geom_hline(yintercept = mean(dnd$js_score), linetype = "dashed") +
+  geom_hline(yintercept = mean(organisation_beta$js_score), linetype = "dashed") +
   stat_summary(fun = mean, geom = "errorbar", aes(ymax = ..y.., ymin = ..y..), lwd = 2, color = "blue") +
   theme(
     legend.position = "none",
@@ -1211,7 +1211,7 @@ class: title-slide, middle
 
 ## Exercise
 
-Using the dnd.csv dataset, test the following models and conclude on the hypothesis related to each estimate:
+Using the organisation_beta.csv dataset, test the following models and conclude on the hypothesis related to each estimate:
 
 Model 1: $js\_score = b_{0} + b_{1}\,salary + b_{2}\,location + b_{3}\,perf + e$
 

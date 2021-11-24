@@ -588,7 +588,7 @@ class: title-slide, mline, center, middle
 
 # Exercise: Transformations
 
-On the module Loop page, got to "Data Analytics Supplementary Documents" and download the document called "employee_dd.xls"
+On the module Loop page, got to "Data Analytics Supplementary Documents" and download the document called "organisation_alpha.xls"
 
 1. **Extension**: Create a new variable/column which is the average response to all the questions from the survey for each employee (q1 to q9)
 2. **Reduction**: Filter employee’s 2019 salary to keep only employees with a salary higher than 30k
