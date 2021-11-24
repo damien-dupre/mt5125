@@ -3,6 +3,9 @@ title: "MT5125 - Data Analytics"
 author: "Damien Dupré"
 output:
   prettydoc::html_pretty:
+    toc: true
+    toc_depth: 2
+    toc_float: yes
     theme: architect
     highlight: github
 ---
