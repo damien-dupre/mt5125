@@ -135,26 +135,6 @@ Specific tests are available for certain type of hypothesis such as T-test or AN
 
 ---
 
-# Notes on the Equations
-
-#### 1. Greek or Latin alphabet?
-
-$$Y = \beta_{0} + \beta_{1}\,X_{1} + \epsilon \; vs. \; Y = b_{0} + b_{1}\,X_{1} + e$$
-
-#### 2. Subscript $i$ or not?
-
-$$Y = b_{0} + b_{1}\,X_{1} + e \; vs. \; Y_{i} = b_{0} + b_{1}\,X_{1_{i}} + e_{i}$$
-
-#### 3. Which sign between estimates and predictors?
-
-$$Y = b_{0} + b_{1}.X_{1} + b_{2}*X_{2} + b_{3}\,X_{3} + e$$
-
-#### 4. Hat on $Y$ or not? Capital letter or not?
-
-.center[ $$\hat{Y}\; or\; \hat{y}\; vs.\; Y\; or\; y$$ ]
-
----
-
 # General Linear Model Everywhere
 
 Most of the common statistical models (t-test, correlation, ANOVA; chi-square, etc.) are special cases of linear models.
@@ -273,17 +253,17 @@ It indicates **how many units of the outcome variable increases/decreases/change
 - If $b_1, ..., b_n = 0$, then:
   - The regression line is horizontal (no slope)
   - When the Predictor increases by 1 unit, the Outcome variable does not change
-  - **The null alternative hypothesis is not rejected**
+  - **The null hypothesis is not rejected**
 
 - If $b_1, ..., b_n > 0$, then:
   - The regression line is positive (slope up)
   - When the Predictor increases by 1 unit, the Outcome variable increases by $b$
-  - **The null alternative hypothesis is rejected and the alternative hypothesis considered as plausible**
+  - **The null hypothesis is rejected and the alternative hypothesis considered as plausible**
   
 - If $b_1, ..., b_n < 0$, then:
   - The regression line is negative (slope down)
   - When the Predictor increases by 1 unit, the Outcome variable decreases by $b$
-  - **The null alternative hypothesis is rejected and the alternative hypothesis considered as plausible**
+  - **The null hypothesis is rejected and the alternative hypothesis considered as plausible**
 
 ---
 

@@ -1,6 +1,6 @@
 ---
-title: "MT5125 - Data Analytics - Workshop 1 - Agenda"
-subtitle: "Models and Equations"
+title: "MT5125 - Data Analytics"
+subtitle: "Workshop 1 - Agenda"
 author: "Damien Dupré"
 date: "Dublin City University"
 output:

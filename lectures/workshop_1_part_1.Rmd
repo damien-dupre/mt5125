@@ -772,6 +772,26 @@ p1 / (p2 + p3)
 If the intercept is not included, the intercept is zero and can lead to estimation errors
 
 ---
+
+# Notes on the Equations
+
+#### 1. Greek or Latin alphabet?
+
+$$Y = \beta_{0} + \beta_{1}\,X_{1} + \epsilon \; vs. \; Y = b_{0} + b_{1}\,X_{1} + e$$
+
+#### 2. Subscript $i$ or not?
+
+$$Y = b_{0} + b_{1}\,X_{1} + e \; vs. \; Y_{i} = b_{0} + b_{1}\,X_{1_{i}} + e_{i}$$
+
+#### 3. Which sign between estimates and predictors?
+
+$$Y = b_{0} + b_{1}.X_{1} + b_{2}*X_{2} + b_{3}\,X_{3} + e$$
+
+#### 4. Hat on $Y$ or not? Capital letter or not?
+
+.center[ $$\hat{Y}\; or\; \hat{y}\; vs.\; Y\; or\; y$$ ]
+
+---
 class: title-slide, middle
 
 ## Exercise: Predicates of Statistical Analyses

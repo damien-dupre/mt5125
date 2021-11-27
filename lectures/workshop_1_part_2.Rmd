@@ -146,25 +146,6 @@ Platforms to find and reward participants:
 
 # Latent Variables
 
-.center[**A questionnaire/survey is made of multiple questions (also called items) referring to a same theoretical construct (called latent variable)**]
-
-All items that are related to the measurement of a same theoretical construct are constituting a scale.
-
-To be analysed a scale has some requirements:
-
-1. All the items must have the same range of possibilities/modalities
-2. All the items must correlate together (scale reliability)
-3. A unique theoretical construct score has to be calculated from all the items even if it contains subscales.
-
-There are two way to obtain the score of a Latent Variable: 
-
-- Average of all items (reversed if necessary)
-- Factor/Component analysis
-
----
-
-# Latent Variables
-
 Scale to measure the **"Perceived Ease-of-use" of MS EXCEL** in 4 items were measured from 1 "totally disagree" to 7 "totally agree":
 
 .pull-left[
