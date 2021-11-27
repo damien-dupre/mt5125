@@ -1,5 +1,5 @@
 ---
-title: "MT5125 - Data Analytics - Workshop 2 - Part 3"
+title: "MT5125 - Data Analytics - Workshop 2 - Part 1"
 subtitle: "Descriptive Statistics with JAMOVI"
 author: "Damien Dupré"
 date: "Dublin City University"
