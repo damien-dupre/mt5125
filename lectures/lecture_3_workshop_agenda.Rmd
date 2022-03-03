@@ -1,0 +1,35 @@
+---
+title: "MT5125 - Data Analytics"
+subtitle: "Workshop 1 - Agenda"
+author: "Damien Dupré"
+date: "Dublin City University"
+output:
+  xaringan::moon_reader:
+    css: ["default", "metropolis", "metropolis-fonts", "css/custom_design.css"]
+    lib_dir: libs
+    nature:
+      beforeInit: "libs/cols_macro.js"
+      highlightStyle: zenburn
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+# Workshop 1 - Agenda (approximative)
+
+- #### `r fontawesome::fa(name = "user-edit")` 9.30am - 11am
+>#### Part 1 "Models and Equations"
+
+- #### `r fontawesome::fa(name = "coffee")` Coffee Break (30min)
+
+- #### `r fontawesome::fa(name = "user-edit")` 11.30am - 12.30pm
+>#### Part 2 "How to Prepare Data before Statistical Analyses"
+
+- #### `r fontawesome::fa(name = "utensils")` Lunch Break (45min)
+
+- #### `r fontawesome::fa(name = "user-edit")` 1.15pm - 2pm
+>#### Part 2 "How to Prepare Data before Statistical Analyses"
+
+- #### `r fontawesome::fa(name = "coffee")` Coffee Break (15min)
+
+- #### `r fontawesome::fa(name = "user-edit")` 2.15pm - 4pm
+>#### Part 3 "Hypothesis Testing with JAMOVI"
