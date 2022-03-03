@@ -15,13 +15,31 @@ output:
 ---
 
 ```{r setup, include = FALSE}
+# libraries --------------------------------------------------------------------
+library(countdown)
+library(DiagrammeR)
+library(emo)
+library(fontawesome)
+library(gapminder)
+library(ggrepel)
+library(kableExtra)
+library(knitr)
+library(nomnoml)
+library(patchwork)
+library(plotly)
+library(tidyverse)
+library(tweetrmd)
+library(VennDiagram)
+library(webshot2)
+library(widgetframe)
+
 # general options --------------------------------------------------------------
 options(scipen = 999)
 options(htmltools.preserve.raw = FALSE)
 set.seed(42)
 # chunk options ----------------------------------------------------------------
-knitr::opts_chunk$set(
-  cache.extra = knitr::rand_seed, 
+opts_chunk$set(
+  cache.extra = rand_seed, 
   message = FALSE, 
   warning = FALSE, 
   error = FALSE, 
@@ -31,23 +49,7 @@ knitr::opts_chunk$set(
   fig.align = "center", 
   fig.retina = 3
   )
-# libraries --------------------------------------------------------------------
-library(tidyverse)
-library(knitr)
-library(nomnoml)
-library(emo)
-library(DiagrammeR)
-library(widgetframe)
-library(kableExtra)
-library(ggrepel)
-library(fontawesome)
-library(tweetrmd)
-library(plotly)
-library(gapminder)
-library(patchwork)
-library(webshot2)
-library(VennDiagram)
-library(countdown)
+
 ```
 
 # Essential Concepts to Master

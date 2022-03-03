@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>MT5125 - Data Analytics - Workshop 1 - Part 3</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Damien Dupré" />
+    <script src="libs/header-attrs-2.11/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/metropolis.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/metropolis-fonts.css" rel="stylesheet" />
+    <script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+    <script src="libs/plotly-binding-4.9.4.1/plotly.js"></script>
+    <script src="libs/typedarray-0.1/typedarray.min.js"></script>
+    <script src="libs/jquery-3.5.1/jquery.min.js"></script>
+    <link href="libs/crosstalk-1.1.1/css/crosstalk.css" rel="stylesheet" />
+    <script src="libs/crosstalk-1.1.1/js/crosstalk.min.js"></script>
+    <link href="libs/plotly-htmlwidgets-css-1.57.1/plotly-htmlwidgets.css" rel="stylesheet" />
+    <script src="libs/plotly-main-1.57.1/plotly-latest.min.js"></script>
+    <link href="libs/countdown-0.3.5/countdown.css" rel="stylesheet" />
+    <script src="libs/countdown-0.3.5/countdown.js"></script>
+    <link rel="stylesheet" href="css/custom_design.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# MT5125 - Data Analytics - Workshop 1 - Part 3
+## Hypothesis Testing with JAMOVI
+### Damien Dupré
+### Dublin City University
+
+---
+
+
+
+
+# Results Section in Academic Papers
+
+The results section is always structured in the same way:
+
+#### 1. Descriptive Statistics
+
+&gt; Short description of every variable involved in the hypotheses (predictors and outcome).
+
+&gt; Made of numeric summaries (Mean and Standard Deviation values), distribution figures, and a correlation matrix.
+
+#### 2. Inferential Statistics
+
+&gt; Indicating the relevance of the model in a conventional style.
+
+&gt; Communicating the test of each hypothesis in a conventional style.
+
+**The results have to indicate for every hypothesis if the null hypothesis is rejected (and the alternative hypothesis considered as plausible) or not rejected.**
+
+---
+
+class: inverse, mline, center, middle
+
+# 1. Regressions for Hypothesis Testing
+
+---
+
+# Vocabulary
+
+"Linear Model", "Linear Regression", "Multiple Regression" or simply "Regression" are all referring to the same model: **The General Linear Model**.
+
+It contains:
+
+- Only one Outcome/Dependent Variable
+- One or more Predictor/Independent Variables of any type (categorical or continuous)
+- Made of Main and/or Interaction Effects
+
+`$$Y = b_{0} + b_{1}\,Predictor\,1 + b_{2}\,Predictor\,2+ ... + b_{n}\,Predictor\,n + e$$`
+
+A Linear Regression is used **to test all the hypotheses at once** and to calculate the predictors' estimate.
+
+Specific tests are available for certain type of hypothesis such as T-test or ANOVA but as they are special cases of Linear Regressions, their importance is limited (see [Jonas Kristoffer Lindeløv's blog post: Common statistical tests are linear models](https://lindeloev.github.io/tests-as-linear/)).
+
+---
+
+# General Linear Model Everywhere
+
+Most of the common statistical models (t-test, correlation, ANOVA; chi-square, etc.) are special cases of linear models.
+
+This beautiful simplicity means that there is less to learn. In particular, it all comes down to `\(y = ax + b\)` which most students know from secondary school. 
+
+Unfortunately, stats intro courses are usually taught as if each test is an independent tool, needlessly making life more complicated for students and teachers alike.
+
+&lt;img src="https://psyteachr.github.io/msc-data-skills/images/memes/glm_meme.png" width="35%" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Applied Example
+
+### Imagine the following case study...
+
+&gt; The CEO of the D&amp;D company has problems with his employee well-being and wants to investigate the relationship between **Job Satisfaction (js_score)**, **salary** and **performance (perf)**.
+
+--
+
+### Therefore the CEO formulate 3 hypotheses:
+
+- The `\(js\_score\)` increases when employees' `\(salary\)` increases
+- The `\(js\_score\)` increases when employees' `\(perf\)` increases
+- The effect of `\(salary\)` on `\(js\_score\)` is higher for high `\(perf\)` than for low `\(perf\)`
+
+--
+
+### The corresponding model is:
+
+`$$js\_score = b_{0} + b_{1}\,salary + b_{2}\,perf + b_{3}\,salary*perf +  e$$`
+
+---
+
+# Where the Regression Line comes from?
+
+Draw all the possible lines on the frame. The best line, also called best fit, is the one which has the lowest amount or error. 
+
+.pull-left[
+&lt;img src="lecture_3_workshop_part_3_files/figure-html/unnamed-chunk-2-1.png" width="360" style="display: block; margin: auto;" /&gt;
+]
+.pull-right[
+There are 200 models on this plot, but a lot are really bad! We need to find the good models by making precise our intuition that a good model is "close" to the data. 
+
+Therefore, we need a way to quantify the distance between the data and a model. Then we can fit the model by finding the value of `\(b_0\)` and `\(b_1\)` that generate the model with the smallest distance from this data.
+]
+
+---
+
+# Best Model, Lowest Error
+
+The error of the model (i.e., `\(e\)`) is the sum of the prediction error for each point (distance between actual value and predicted value)
+
+For each point this specific prediction error is called **Residual**
+
+.pull-left[
+<div id="htmlwidget-a1f45911c4bb22c5dc35" style="width:360px;height:360px;" class="plotly html-widget"></div>
+<script type="application/json" data-for="htmlwidget-a1f45911c4bb22c5dc35">{"x":{"data":[{"x":[28876.8914167967,28876.8914167967,null,29597.1151647009,29597.1151647009,null,29533.3446463768,29533.3446463768,null,30779.9651183363,30779.9651183363,null,29916.6309335282,29916.6309335282,null,30253.3185139948,30253.3185139948,null,29971.4532446513,29971.4532446513,null,29957.1295427087,29957.1295427087,null,31368.6022840145,31368.6022840145,null,29774.2290143407,29774.2290143407,null,31516.4706044295,31516.4706044295,null,28451.2471957698,28451.2471957698,null,30584.6137496361,30584.6137496361,null,30123.8542438446,30123.8542438446,null,30215.941568744,30215.941568744,null,30379.6394827599,30379.6394827599,null,29497.6765468907,29497.6765468907,null,29666.7926163306,29666.7926163306,null,28981.4246168929,28981.4246168929,null,28928.2087735244,28928.2087735244],"y":[5.05731147499756,4.88532727465486,null,6.64244010803127,6.21871933047838,null,6.11969351948406,6.10065726604827,null,9.48219770455237,8.40859815077282,null,8.88334655268349,6.81025743110932,null,7.01560586193298,7.43358670398447,null,4.63373761366178,6.91175315982719,null,7.91999760987963,6.88523485848565,null,9.02800380544652,9.49837632423846,null,5.86044941221411,6.54662048726922,null,10,9.77213353416546,null,3.61772138448855,4.09730740641821,null,6.9485097870176,8.04693281569172,null,7.42901196743838,7.19390198123893,null,7.2929917750489,7.36438859435067,null,7.76504315141965,7.66745205030978,null,6.38063349490773,6.03462284183016,null,5.96292520086875,6.34771724361767,null,5.60722578230465,5.07885565938772,null,4.63593098523009,4.98033407772929],"text":["salary: 28876.89<br />js_score:  5.057311<br />residuals:  0.17198420<br />salary: 28876.89<br />predicted: 4.885327","salary: 28876.89<br />js_score:  5.057311<br />residuals:  0.17198420<br />salary: 28876.89<br />predicted: 4.885327",null,"salary: 29597.12<br />js_score:  6.642440<br />residuals:  0.42372078<br />salary: 29597.12<br />predicted: 6.218719","salary: 29597.12<br />js_score:  6.642440<br />residuals:  0.42372078<br />salary: 29597.12<br />predicted: 6.218719",null,"salary: 29533.34<br />js_score:  6.119694<br />residuals:  0.01903625<br />salary: 29533.34<br />predicted: 6.100657","salary: 29533.34<br />js_score:  6.119694<br />residuals:  0.01903625<br />salary: 29533.34<br />predicted: 6.100657",null,"salary: 30779.97<br />js_score:  9.482198<br />residuals:  1.07359955<br />salary: 30779.97<br />predicted: 8.408598","salary: 30779.97<br />js_score:  9.482198<br />residuals:  1.07359955<br />salary: 30779.97<br />predicted: 8.408598",null,"salary: 29916.63<br />js_score:  8.883347<br />residuals:  2.07308912<br />salary: 29916.63<br />predicted: 6.810257","salary: 29916.63<br />js_score:  8.883347<br />residuals:  2.07308912<br />salary: 29916.63<br />predicted: 6.810257",null,"salary: 30253.32<br />js_score:  7.015606<br />residuals: -0.41798084<br />salary: 30253.32<br />predicted: 7.433587","salary: 30253.32<br />js_score:  7.015606<br />residuals: -0.41798084<br />salary: 30253.32<br />predicted: 7.433587",null,"salary: 29971.45<br />js_score:  4.633738<br />residuals: -2.27801555<br />salary: 29971.45<br />predicted: 6.911753","salary: 29971.45<br />js_score:  4.633738<br />residuals: -2.27801555<br />salary: 29971.45<br />predicted: 6.911753",null,"salary: 29957.13<br />js_score:  7.919998<br />residuals:  1.03476275<br />salary: 29957.13<br />predicted: 6.885235","salary: 29957.13<br />js_score:  7.919998<br />residuals:  1.03476275<br />salary: 29957.13<br />predicted: 6.885235",null,"salary: 31368.60<br />js_score:  9.028004<br />residuals: -0.47037252<br />salary: 31368.60<br />predicted: 9.498376","salary: 31368.60<br />js_score:  9.028004<br />residuals: -0.47037252<br />salary: 31368.60<br />predicted: 9.498376",null,"salary: 29774.23<br />js_score:  5.860449<br />residuals: -0.68617108<br />salary: 29774.23<br />predicted: 6.546620","salary: 29774.23<br />js_score:  5.860449<br />residuals: -0.68617108<br />salary: 29774.23<br />predicted: 6.546620",null,"salary: 31516.47<br />js_score: 10.000000<br />residuals:  0.22786647<br />salary: 31516.47<br />predicted: 9.772134","salary: 31516.47<br />js_score: 10.000000<br />residuals:  0.22786647<br />salary: 31516.47<br />predicted: 9.772134",null,"salary: 28451.25<br />js_score:  3.617721<br />residuals: -0.47958602<br />salary: 28451.25<br />predicted: 4.097307","salary: 28451.25<br />js_score:  3.617721<br />residuals: -0.47958602<br />salary: 28451.25<br />predicted: 4.097307",null,"salary: 30584.61<br />js_score:  6.948510<br />residuals: -1.09842303<br />salary: 30584.61<br />predicted: 8.046933","salary: 30584.61<br />js_score:  6.948510<br />residuals: -1.09842303<br />salary: 30584.61<br />predicted: 8.046933",null,"salary: 30123.85<br />js_score:  7.429012<br />residuals:  0.23510999<br />salary: 30123.85<br />predicted: 7.193902","salary: 30123.85<br />js_score:  7.429012<br />residuals:  0.23510999<br />salary: 30123.85<br />predicted: 7.193902",null,"salary: 30215.94<br />js_score:  7.292992<br />residuals: -0.07139682<br />salary: 30215.94<br />predicted: 7.364389","salary: 30215.94<br />js_score:  7.292992<br />residuals: -0.07139682<br />salary: 30215.94<br />predicted: 7.364389",null,"salary: 30379.64<br />js_score:  7.765043<br />residuals:  0.09759110<br />salary: 30379.64<br />predicted: 7.667452","salary: 30379.64<br />js_score:  7.765043<br />residuals:  0.09759110<br />salary: 30379.64<br />predicted: 7.667452",null,"salary: 29497.68<br />js_score:  6.380633<br />residuals:  0.34601065<br />salary: 29497.68<br />predicted: 6.034623","salary: 29497.68<br />js_score:  6.380633<br />residuals:  0.34601065<br />salary: 29497.68<br />predicted: 6.034623",null,"salary: 29666.79<br />js_score:  5.962925<br />residuals: -0.38479204<br />salary: 29666.79<br />predicted: 6.347717","salary: 29666.79<br />js_score:  5.962925<br />residuals: -0.38479204<br />salary: 29666.79<br />predicted: 6.347717",null,"salary: 28981.42<br />js_score:  5.607226<br />residuals:  0.52837012<br />salary: 28981.42<br />predicted: 5.078856","salary: 28981.42<br />js_score:  5.607226<br />residuals:  0.52837012<br />salary: 28981.42<br />predicted: 5.078856",null,"salary: 28928.21<br />js_score:  4.635931<br />residuals: -0.34440309<br />salary: 28928.21<br />predicted: 4.980334","salary: 28928.21<br />js_score:  4.635931<br />residuals: -0.34440309<br />salary: 28928.21<br />predicted: 4.980334"],"type":"scatter","mode":"lines","line":{"width":1.88976377952756,"color":"rgba(255,0,0,1)","dash":"solid"},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[28876.8914167967,29597.1151647009,29533.3446463768,30779.9651183363,29916.6309335282,30253.3185139948,29971.4532446513,29957.1295427087,31368.6022840145,29774.2290143407,31516.4706044295,28451.2471957698,30584.6137496361,30123.8542438446,30215.941568744,30379.6394827599,29497.6765468907,29666.7926163306,28981.4246168929,28928.2087735244],"y":[5.05731147499756,6.64244010803127,6.11969351948406,9.48219770455237,8.88334655268349,7.01560586193298,4.63373761366178,7.91999760987963,9.02800380544652,5.86044941221411,10,3.61772138448855,6.9485097870176,7.42901196743838,7.2929917750489,7.76504315141965,6.38063349490773,5.96292520086875,5.60722578230465,4.63593098523009],"text":["salary: 28876.89<br />js_score:  5.057311<br />residuals:  0.17198420","salary: 29597.12<br />js_score:  6.642440<br />residuals:  0.42372078","salary: 29533.34<br />js_score:  6.119694<br />residuals:  0.01903625","salary: 30779.97<br />js_score:  9.482198<br />residuals:  1.07359955","salary: 29916.63<br />js_score:  8.883347<br />residuals:  2.07308912","salary: 30253.32<br />js_score:  7.015606<br />residuals: -0.41798084","salary: 29971.45<br />js_score:  4.633738<br />residuals: -2.27801555","salary: 29957.13<br />js_score:  7.919998<br />residuals:  1.03476275","salary: 31368.60<br />js_score:  9.028004<br />residuals: -0.47037252","salary: 29774.23<br />js_score:  5.860449<br />residuals: -0.68617108","salary: 31516.47<br />js_score: 10.000000<br />residuals:  0.22786647","salary: 28451.25<br />js_score:  3.617721<br />residuals: -0.47958602","salary: 30584.61<br />js_score:  6.948510<br />residuals: -1.09842303","salary: 30123.85<br />js_score:  7.429012<br />residuals:  0.23510999","salary: 30215.94<br />js_score:  7.292992<br />residuals: -0.07139682","salary: 30379.64<br />js_score:  7.765043<br />residuals:  0.09759110","salary: 29497.68<br />js_score:  6.380633<br />residuals:  0.34601065","salary: 29666.79<br />js_score:  5.962925<br />residuals: -0.38479204","salary: 28981.42<br />js_score:  5.607226<br />residuals:  0.52837012","salary: 28928.21<br />js_score:  4.635931<br />residuals: -0.34440309"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(0,0,0,1)","opacity":1,"size":5.66929133858268,"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(0,0,0,1)"}},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[28451.2471957698,28490.0474920819,28528.8477883941,28567.6480847062,28606.4483810184,28645.2486773305,28684.0489736427,28722.8492699548,28761.649566267,28800.4498625791,28839.2501588913,28878.0504552034,28916.8507515156,28955.6510478277,28994.4513441399,29033.251640452,29072.0519367642,29110.8522330763,29149.6525293885,29188.4528257006,29227.2531220128,29266.0534183249,29304.8537146371,29343.6540109492,29382.4543072613,29421.2546035735,29460.0548998856,29498.8551961978,29537.6554925099,29576.4557888221,29615.2560851342,29654.0563814464,29692.8566777585,29731.6569740707,29770.4572703828,29809.257566695,29848.0578630071,29886.8581593193,29925.6584556314,29964.4587519436,30003.2590482557,30042.0593445679,30080.85964088,30119.6599371922,30158.4602335043,30197.2605298165,30236.0608261286,30274.8611224408,30313.6614187529,30352.4617150651,30391.2620113772,30430.0623076894,30468.8626040015,30507.6629003137,30546.4631966258,30585.263492938,30624.0637892501,30662.8640855623,30701.6643818744,30740.4646781866,30779.2649744987,30818.0652708109,30856.865567123,30895.6658634352,30934.4661597473,30973.2664560594,31012.0667523716,31050.8670486837,31089.6673449959,31128.467641308,31167.2679376202,31206.0682339323,31244.8685302445,31283.6688265566,31322.4691228688,31361.2694191809,31400.0697154931,31438.8700118052,31477.6703081174,31516.4706044295],"y":[4.09730740641821,4.16914064854159,4.24097389066497,4.31280713278836,4.38464037491175,4.45647361703512,4.52830685915851,4.60014010128189,4.67197334340528,4.74380658552865,4.81563982765204,4.88747306977542,4.95930631189881,5.03113955402219,5.10297279614557,5.17480603826895,5.24663928039234,5.31847252251572,5.3903057646391,5.46213900676248,5.53397224888587,5.60580549100925,5.67763873313264,5.74947197525601,5.8213052173794,5.89313845950278,5.96497170162617,6.03680494374955,6.10863818587293,6.18047142799632,6.25230467011969,6.32413791224308,6.39597115436646,6.46780439648985,6.53963763861323,6.61147088073661,6.68330412285999,6.75513736498338,6.82697060710676,6.89880384923014,6.97063709135352,7.04247033347691,7.11430357560029,7.18613681772368,7.25797005984705,7.32980330197044,7.40163654409382,7.47346978621721,7.54530302834058,7.61713627046397,7.68896951258736,7.76080275471074,7.83263599683412,7.9044692389575,7.97630248108089,8.04813572320426,8.11996896532765,8.19180220745103,8.26363544957442,8.3354686916978,8.40730193382118,8.47913517594456,8.55096841806795,8.62280166019133,8.69463490231471,8.76646814443809,8.83830138656148,8.91013462868486,8.98196787080825,9.05380111293162,9.12563435505501,9.19746759717839,9.26930083930178,9.34113408142515,9.41296732354854,9.48480056567193,9.55663380779531,9.62846704991869,9.70030029204207,9.77213353416546],"text":["salary: 28451.25<br />js_score: 4.097307","salary: 28490.05<br />js_score: 4.169141","salary: 28528.85<br />js_score: 4.240974","salary: 28567.65<br />js_score: 4.312807","salary: 28606.45<br />js_score: 4.384640","salary: 28645.25<br />js_score: 4.456474","salary: 28684.05<br />js_score: 4.528307","salary: 28722.85<br />js_score: 4.600140","salary: 28761.65<br />js_score: 4.671973","salary: 28800.45<br />js_score: 4.743807","salary: 28839.25<br />js_score: 4.815640","salary: 28878.05<br />js_score: 4.887473","salary: 28916.85<br />js_score: 4.959306","salary: 28955.65<br />js_score: 5.031140","salary: 28994.45<br />js_score: 5.102973","salary: 29033.25<br />js_score: 5.174806","salary: 29072.05<br />js_score: 5.246639","salary: 29110.85<br />js_score: 5.318473","salary: 29149.65<br />js_score: 5.390306","salary: 29188.45<br />js_score: 5.462139","salary: 29227.25<br />js_score: 5.533972","salary: 29266.05<br />js_score: 5.605805","salary: 29304.85<br />js_score: 5.677639","salary: 29343.65<br />js_score: 5.749472","salary: 29382.45<br />js_score: 5.821305","salary: 29421.25<br />js_score: 5.893138","salary: 29460.05<br />js_score: 5.964972","salary: 29498.86<br />js_score: 6.036805","salary: 29537.66<br />js_score: 6.108638","salary: 29576.46<br />js_score: 6.180471","salary: 29615.26<br />js_score: 6.252305","salary: 29654.06<br />js_score: 6.324138","salary: 29692.86<br />js_score: 6.395971","salary: 29731.66<br />js_score: 6.467804","salary: 29770.46<br />js_score: 6.539638","salary: 29809.26<br />js_score: 6.611471","salary: 29848.06<br />js_score: 6.683304","salary: 29886.86<br />js_score: 6.755137","salary: 29925.66<br />js_score: 6.826971","salary: 29964.46<br />js_score: 6.898804","salary: 30003.26<br />js_score: 6.970637","salary: 30042.06<br />js_score: 7.042470","salary: 30080.86<br />js_score: 7.114304","salary: 30119.66<br />js_score: 7.186137","salary: 30158.46<br />js_score: 7.257970","salary: 30197.26<br />js_score: 7.329803","salary: 30236.06<br />js_score: 7.401637","salary: 30274.86<br />js_score: 7.473470","salary: 30313.66<br />js_score: 7.545303","salary: 30352.46<br />js_score: 7.617136","salary: 30391.26<br />js_score: 7.688970","salary: 30430.06<br />js_score: 7.760803","salary: 30468.86<br />js_score: 7.832636","salary: 30507.66<br />js_score: 7.904469","salary: 30546.46<br />js_score: 7.976302","salary: 30585.26<br />js_score: 8.048136","salary: 30624.06<br />js_score: 8.119969","salary: 30662.86<br />js_score: 8.191802","salary: 30701.66<br />js_score: 8.263635","salary: 30740.46<br />js_score: 8.335469","salary: 30779.26<br />js_score: 8.407302","salary: 30818.07<br />js_score: 8.479135","salary: 30856.87<br />js_score: 8.550968","salary: 30895.67<br />js_score: 8.622802","salary: 30934.47<br />js_score: 8.694635","salary: 30973.27<br />js_score: 8.766468","salary: 31012.07<br />js_score: 8.838301","salary: 31050.87<br />js_score: 8.910135","salary: 31089.67<br />js_score: 8.981968","salary: 31128.47<br />js_score: 9.053801","salary: 31167.27<br />js_score: 9.125634","salary: 31206.07<br />js_score: 9.197468","salary: 31244.87<br />js_score: 9.269301","salary: 31283.67<br />js_score: 9.341134","salary: 31322.47<br />js_score: 9.412967","salary: 31361.27<br />js_score: 9.484801","salary: 31400.07<br />js_score: 9.556634","salary: 31438.87<br />js_score: 9.628467","salary: 31477.67<br />js_score: 9.700300","salary: 31516.47<br />js_score: 9.772134"],"type":"scatter","mode":"lines","name":"fitted values","line":{"width":3.77952755905512,"color":"rgba(51,102,255,1)","dash":"solid"},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":23.3059360730594,"r":7.30593607305936,"b":58.7795765877958,"l":58.7795765877958},"plot_bgcolor":"rgba(255,255,255,1)","paper_bgcolor":"rgba(255,255,255,1)","font":{"color":"rgba(0,0,0,1)","family":"","size":26.5670402656704},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[28297.9860253368,31669.7317748625],"tickmode":"array","ticktext":["29000","30000","31000"],"tickvals":[29000,30000,31000],"categoryorder":"array","categoryarray":["29000","30000","31000"],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.65296803652968,"tickwidth":0.66417600664176,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":21.2536322125363},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0.66417600664176,"zeroline":false,"anchor":"y","title":{"text":"salary","font":{"color":"rgba(0,0,0,1)","family":"","size":26.5670402656704}},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[3.29860745371297,10.3191139307756],"tickmode":"array","ticktext":["4","6","8","10"],"tickvals":[4,6,8,10],"categoryorder":"array","categoryarray":["4","6","8","10"],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.65296803652968,"tickwidth":0.66417600664176,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":21.2536322125363},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0.66417600664176,"zeroline":false,"anchor":"x","title":{"text":"js_score","font":{"color":"rgba(0,0,0,1)","family":"","size":26.5670402656704}},"hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":"transparent","line":{"color":"rgba(51,51,51,1)","width":0.66417600664176,"linetype":"solid"},"yref":"paper","xref":"paper","x0":0,"x1":1,"y0":0,"y1":1}],"showlegend":false,"legend":{"bgcolor":"rgba(255,255,255,1)","bordercolor":"transparent","borderwidth":1.88976377952756,"font":{"color":"rgba(0,0,0,1)","family":"","size":21.2536322125363}},"hovermode":"closest","barmode":"relative"},"config":{"doubleClick":"reset","showSendToCloud":false},"source":"A","attrs":{"31214f0150b9":{"x":{},"y":{},"label":{},"xend":{},"yend":{},"type":"scatter"},"31215f5aca34":{"x":{},"y":{},"label":{}},"312141914cd4":{"x":{},"y":{},"label":{}}},"cur_data":"31214f0150b9","visdat":{"31214f0150b9":["function (y) ","x"],"31215f5aca34":["function (y) ","x"],"312141914cd4":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+]
+.pull-right[
+
+The line which obtains the lowest error, has the smallest residuals. This line is chosen by the linear regression.
+
+One common way to do this in statistics to use the "Mean-Square Error" (aka `\(MSE\)`) or the "Root-Mean-Square Error" (aka `\(RMSE\)`). We compute the difference between actual and predicted, square them, average them, and the take the square root for the `\(RMSE\)`. 
+
+]
+
+---
+
+# Analysis of the Estimate
+
+Once the best line is found, each estimate of the tested equation is calculated by a software (i.e., `\(b_0, b_1, ..., b_n\)`).
+
+- `\(b_0\)` is the intercept and has no interest for hypothesis testing
+- `\(b_1, ..., b_n\)` are predictors' effect estimate and each of them is used to test an hypothesis
+
+The predictors' effect estimate `\(b_1, ..., b_n\)` are **the value of the slope of the best line between each predictor** and the outcome. 
+
+It indicates **how many units of the outcome variable increases/decreases/changes when the predictor increases by 1 unit**
+
+---
+
+# Analysis of the Estimate
+
+- If `\(b_1, ..., b_n = 0\)`, then:
+  - The regression line is horizontal (no slope)
+  - When the Predictor increases by 1 unit, the Outcome variable does not change
+  - **The null hypothesis is not rejected**
+
+- If `\(b_1, ..., b_n &gt; 0\)`, then:
+  - The regression line is positive (slope up)
+  - When the Predictor increases by 1 unit, the Outcome variable increases by `\(b\)`
+  - **The null hypothesis is rejected and the alternative hypothesis considered as plausible**
+  
+- If `\(b_1, ..., b_n &lt; 0\)`, then:
+  - The regression line is negative (slope down)
+  - When the Predictor increases by 1 unit, the Outcome variable decreases by `\(b\)`
+  - **The null hypothesis is rejected and the alternative hypothesis considered as plausible**
+
+---
+
+# Significance of Effect's Estimate
+
+The statistical significance of an effect estimate depends on the **strength of the relationship** and on the **sample size**:
+
+- An estimate of `\(b_1 = 0.02\)` can be very small but still significantly different from `\(b_1 = 0\)`
+- Whereas an estimate of `\(b_1 = 0.35\)` can be stronger but in fact not significantly different from `\(b_1 = 0\)`
+
+--
+
+The significance is the probability to obtain your results with your sample in the null hypothesis scenario:
+
+- Also called `\(p\)`-value
+- Is between 0% and 100% which corresponds to a value between 0.0 and 1.0
+
+**If the `\(p\)`-value is lower to 5% or 0.05, then the probability to obtain your results in the null hypothesis scenario is low enough to say that the null hypothesis scenario is rejected and there must be a link between the variables.**
+
+---
+
+# Estimating Regression's Coefficients
+
+As previously indicated, you will not have to calculate all the possible lines in your data to find the best fit, a software will do it for you:
+
+- JAMOVI, JASP or SPSS have a Graphic User Interface
+- R, Python or Julia are language based and have no interface
+
+&lt;centre&gt;
+
+&lt;img src="img/lm_example.png" width="60%" style="display: block; margin: auto;" /&gt;
+
+&lt;/centre&gt;
+
+---
+
+# Estimating Regression's Coefficients
+
+The output of any software is two tables:
+- Model Fit Measure Table
+- Model Coefficients Table
+
+The **Model Fit Measure** table tests the prediction **accuracy of your overall model** (all predictors taken into account).
+
+The **Model Coefficients** table provide an estimate to each predictor `\(b_1, ..., b_n\)` (as well as the intercept `\(b_0\)`). the value of the estimate is statistically tested with a `\(p\)`-value to see if it is statistically different from 0 (null hypothesis). Therefore, this table is **used to test each hypotheses** separately.
+
+---
+
+# Jamovi: Stats. Open. Now.
+
+Jamovi is a statistical spreadsheet software designed to be **easy to use**. Jamovi is a compelling alternative to costly statistical products such as SPSS, SAS and JMP to cite a few.
+
+Jamovi will always be **free and open** because Jamovi is made by the scientific community, for the scientific community.
+
+It can be downloaded from its website https://www.jamovi.org/
+
+It can also be used without installation, in a web browser, https://cloud.jamovi.org/ for **online demo** but this demo undergoes periods of downtime, and may cease functioning (without warning) at any time.
+
+**Jamovi Vocabulary:**
+
+- DV = Outcome
+- Covariate = Continuous Predictor
+- Factor = Categorical Predictor
+
+---
+class: inverse, mline, left, middle
+
+# 2. Hypothesis with Continuous Predictor
+
+---
+
+# Main Effect Example
+
+.pull-left[
+### Variables
+- Outcome = `\(js\_score\)` (from 0 to 10)
+- Predictor = `\(salary\)` (from 0 to Inf.)
+
+### Hypothesis
+
+- `\(H_a\)`: `\(js\_score\)` increases when `\(salary\)` increases  (i.e., `\(b_1&gt;0\)`)
+
+- `\(H_0\)`: `\(js\_score\)` stay the same when `\(salary\)` increases (i.e., `\(b_1=0\)`)
+
+### Equation
+
+`$$js\_score = b_{0} + b_{1}\,salary + e$$`
+]
+
+.pull-right[
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:right;"&gt; employee &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; salary &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; js_score &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 28876.89 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5.057311 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 29597.12 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 6.642440 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 29533.34 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 6.119694 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 30779.97 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 9.482198 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 5 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 29916.63 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 8.883347 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 6 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 30253.32 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 7.015606 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 7 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 29971.45 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4.633738 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 8 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 29957.13 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 7.919998 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 9 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 31368.60 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 9.028004 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 10 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 29774.23 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5.860449 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 11 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 31516.47 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 10.000000 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 12 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 28451.25 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3.617721 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 13 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 30584.61 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 6.948510 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 14 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 30123.85 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 7.429012 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 15 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 30215.94 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 7.292992 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 16 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 30379.64 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 7.765043 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 17 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 29497.68 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 6.380634 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 18 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 29666.79 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5.962925 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 19 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 28981.42 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5.607226 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 20 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 28928.21 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4.635931 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+]
+
+---
+
+# Main Effect Example
+
+.pull-left[
+&lt;img src="lecture_3_workshop_part_3_files/figure-html/unnamed-chunk-6-1.png" width="504" style="display: block; margin: auto;" /&gt;
+]
+.pull-right[
+&lt;img src="lecture_3_workshop_part_3_files/figure-html/unnamed-chunk-7-1.png" width="504" style="display: block; margin: auto;" /&gt;
+]
+
+---
+
+# Main Effect Example
+
+### In JAMOVI
+
+1. Open your file
+2. Set variables as **continuous**
+3. **Analyses** &gt; **Regression** &gt; **Linear Regression**
+4. Set `\(js\_score\)` as DV (i.e., Outcome) and `\(salary\)` as Covariates (i.e., Continuous Predictor)
+
+&lt;img src="img/jamovi_lm_main.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+---
+class: title-slide, middle
+
+## Model Fit Measure Table
+
+---
+
+# Model Fit Measure Table
+
+The **Model Fit Measure** table tests the prediction **accuracy of your overall model** (all predictors taken into account).
+
+&lt;img src="img/jamovi_mfm.png" width="40%" style="display: block; margin: auto;" /&gt;
+
+Default Columns:
+
+- The **Model** column indicate the reference of the model in case you want to compare multiple models
+- `\(R\)` is the correlation between the outcome variable and all predictors taken into account (i.e., the closer to 1 or -1 the better, however in social science models with more that 0.2 or less than -0.2 are already excellent)
+- `\(R^2\)` is the % of variance from the outcome explained by the model (e.g., `\(R^2 = 0.73\)` means the model explains 73% of the variance of the outcome variable). `\(R^2\)` is also called **Coefficient of Determination**
+
+---
+
+# Model Fit Measure Table (all values)
+
+&lt;img src="img/jamovi_mfm_full.png" width="546" style="display: block; margin: auto;" /&gt;
+
+- `\(Adjusted\,R^2\)` is a more conservative version of `\(R^2\)`, usually not reported
+- `\(AIC\)`, `\(BIC\)` and `\(RMSE\)` are useful to compare multiple models, the lower the better
+- **Overall Model F Test** is the statistical test to show that your model have significantly better predictions than a model without any predictor.
+  - `\(F\)` is the value of the statistical test comparing the results obtained with this sample using the full model with the results obtained with this sample using a model only with the intercept (i.e., `\(H_0\)`)
+  - `\(df1\)` is the degree of freedom "between group", its value corresponds to the amount of predictors in your model: `\(df1 = K\)` (this is the easy explanation, see more details page 398 of "Learning Statistics with JAMOVI")
+  - `\(df2\)` is the degree of freedom "within group", its value corresponds to the amount of observation minus number of parameters minus 1: `\(df2 = N - K - 1\)`.
+  - `\(p\)` is the p-value, i.e the probability to obtain our prediction with our sample in the null hypothesis scenario  (i.e., `\(p = P(data|H_0)\)`)
+
+---
+
+# Communicate Model Fit Measures
+
+To communicate results about a model, APA style is a good guide. Report as follow:
+
+`\(R^2 = value_{R^2}\)`, `\(F(value_{df1},value_{df2}) = value_{F}\)`, `\(p = value_{p}\)`
+
+From our example:
+
+&gt; The predictions from the model with our predictors are significantly better than the predictions from a model without predictor ( `\(R^2 = .73\)`, `\(F(1, 18) = 48.96\)`, `\(p &lt; .001\)`).
+
+--
+
+Note about p-values:
+
+- If the value in the table is `\(&lt; 0.001\)`, then write `\(p &lt; 0.001\)` in the text
+- Else write `\(p = value_p\)` (e.g., `\(p = 0.58\)` )
+- But never `\(p =&lt; 0.001\)`
+
+---
+class: title-slide, middle
+
+## Model Coefficients Table
+
+---
+
+# Model Coefficients Table
+
+The **Model Coefficients** table provide an estimate to each predictor `\(b_1, ..., b_n\)` (as well as the intercept `\(b_0\)`). the value of the estimate is statistically tested with a `\(p\)`-value to see if it is statistically different from 0 (null hypothesis).
+
+&lt;img src="img/jamovi_mc.png" width="302" style="display: block; margin: auto;" /&gt;
+
+Default Columns:
+
+- **Predictor** is the list of variables associated to parameters in your model (main and interaction) which includes the intercept
+- **Estimate** is the non-standardized relationship estimate of the best prediction line (expressed in the unit of the variable)
+- **SE** is the Standard Error and indicate how spread are the values around the estimate
+- `\(t\)` is the value of the statistical test comparing the estimate obtained with this sample with an estimate of 0 (i.e., `\(H_0\)`)
+- `\(p\)` is the p-value, i.e the probability to obtain our prediction with our sample in the null hypothesis scenario 
+
+---
+
+# More Model Coefficients
+
+&lt;img src="img/jamovi_mc_full.png" width="516" style="display: block; margin: auto;" /&gt;
+
+- **Omnibus ANOVA Test** is an alternative way to test model's coefficient but **use only for a categorical predictor with more than 2 modalities**
+- **Estimate Confidence Interval** defines the limits of the range where Estimate are still possible to be in given the sample size
+- **Standardized Estimate** indicates the strength and direction of the relationship in term of correlation
+
+--
+
+Note that in our example, because there is only one predictor:
+
+1. The Standardized Estimate is the correlation
+2. The F-test in the Model Fit Measure table is the same as the F-test in the Omnibus ANOVA Test
+3. The p-value in the Model Fit Measure table is the same as the one in the Omnibus ANOVA Test and in the Model Coefficient table
+
+---
+
+# Communicate Model Coefficients
+
+To report the test of a coefficient, use the following:
+
+`\(b = value_b\)`, **95% CI** `\([value_{lower\,CI}\)`, `\(value_{upper\,CI}]\)`, `\(t(N - K - 1) = value_t\)`, `\(p = value_{p}\)`
+
+From our example:
+
+&gt; The effect of `\(salary\)` on `\(js\_score\)` is statistically significant, therefore `\(H_0\)` can be rejected (** `\(b = 0.00\)`, 95\% CI `\([0.00\)`, `\(0.00]\)`, `\(t(18) = 7.00\)`, `\(p &lt; .001\)`**).
+
+---
+class: title-slide, middle
+
+## Live Demo
+
+---
+
+# Interaction Effect Example
+
+### Variables
+- Outcome = `\(js\_score\)` (from 0 to 10)
+- Predictor 1 = `\(salary\)` (from 0 to Inf.)
+- Predictor 2 = `\(perf\)` (from 0 to 10)
+
+### Hypotheses
+
+- `\(H_{a_{1}}\)`: `\(js\_score\)` increases when `\(salary\)` increases (i.e., `\(b_1&gt;0\)`) 
+  - `\(H_{0_{1}}\)`: `\(js\_score\)` stay the same when `\(salary\)` increases (i.e., `\(b_1=0\)`)
+
+- `\(H_{a_{2}}\)`: `\(js\_score\)` increases when `\(perf\)` increases (i.e., `\(b_2&gt;0\)`) 
+  - `\(H_{0_{2}}\)`: `\(js\_score\)` stay the same when `\(perf\)` increases (i.e., `\(b_2=0\)`)
+
+- `\(H_{a_{3}}\)`: The effect of `\(salary\)` on `\(js\_score\)` increases when `\(perf\)` increases (i.e., `\(b_3&gt;0\)`) 
+  - `\(H_{0_{3}}\)`: The effect of `\(salary\)` on `\(js\_score\)` is the same when `\(perf\)` increases (i.e., `\(b_3=0\)`)
+
+---
+
+# Interaction Effect Example
+
+### Equation
+
+`$$js\_score = b_{0} + b_{1}\,salary + b_{2}\,perf + b_{3}\,salary*perf + e$$`
+
+Note: The test of the interaction `\(b_{3}\,salary*perf\)` corresponds to the test of a new variable for which values of `\(salary\)` and values of `\(perf\)` are multiplied
+
+&lt;img src="img/meme_interaction_1.jpg" width="40%" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Interaction Effect Example
+
+### In JAMOVI
+
+1. Open your file
+2. Set variables as **continuous**
+3. **Analyses** &gt; **Regression** &gt; **Linear Regression**
+4. Set `\(js\_score\)` as DV and `\(salary\)` as well as `\(perf\)` as Covariates
+4. In the **Model Builder** option: 
+  - Select both `\(salary\)` and `\(perf\)` to bring them in the covariates at once and to obtain a third term called `\(salary*perf\)`
+
+&lt;img src="img/jamovi_lm_int.png" width="443" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Communicate the Results
+
+### Overall model:
+
+&gt; The prediction provided by the model with all predictors is significantly better than a model without predictors ( `\(R^2 = .74\)`, `\(F(3, 16) = 15.20\)`, `\(p &lt; .001\)`).
+
+### Salary Hypothesis:
+
+&gt; The effect of `\(salary\)` on `\(js\_score\)` is statistically significant, therefore `\(H_{0_{1}}\)` can be rejected ( `\(b = 0.00\)`, 95\% CI `\([0.00\)`, `\(0.00]\)`, `\(t(16) = 2.51\)`, `\(p = .023\)`).
+
+### Perf Hypothesis:
+
+&gt; The effect of `\(perf\)` on `\(js\_score\)` is not statistically significant, therefore `\(H_{0_{2}}\)` can't be rejected ( `\(b = 0.91\)`, 95\% CI `\([-8.91\)`, `\(10.72]\)`, `\(t(16) = 0.20\)`, `\(p = .847\)`).
+
+### Interaction Hypothesis:
+
+&gt; The interaction effect is not statistically significant, therefore `\(H_{0_{3}}\)` can't be rejected ( `\(b = 0.00\)`, 95\% CI `\([0.00\)`, `\(0.00]\)`, `\(t(16) = -0.18\)`, `\(p = .861\)`).
+
+---
+
+# Representing Interaction Effects
+
+### To create a figure automatically in JAMOVI
+
+- Go to Estimated Marginal Means
+- Tick Marginal Means plot
+- Select both predictor and bring them in Marginal Mean box at once
+
+&lt;img src="img/jamovi_lm_int_plot.png" width="70%" style="display: block; margin: auto;" /&gt;
+
+To plot the interaction between 2 continuous predictors, one of them has to be **transform into categorical ordinal variable** of 3 groups: **+1SD**, **Mean**, **-1SD**.
+
+---
+
+# Representing Interaction Effects
+
+In this case:
+- **+1SD** is the group of **high perf** (observations higher than avg. + 1SD)
+- **Mean** is the group of **average perf** (observations between avg. + 1SD and avg. - 1SD)
+- **-1SD**  is the group of **low perf** (observations lower than avg. - 1SD)
+
+Warning: When representing the results of the linear regression **don't use the QQ-plot instead**
+
+Note: `\(salary*perf\)` is a **two-way interaction** but interactions can three-, four-, n-way such as `\(salary*perf*gender\)` or `\(salary*perf*gender*age\)`. However the more complex the interaction, the more difficult to interpret its effect.
+
+---
+class: title-slide, middle
+
+## Live Demo
+
+---
+class: title-slide, middle
+
+## Exercise
+
+Exercise 1. Open the dataset organisation_beta.csv in JAMOVI and **reproduce the results obtained by testing**:
+
+`$$js\_score = b_{0} + b_{1}\,salary + e$$`
+
+`$$js\_score = b_{0} + b_{1}\,salary + b_{2}\,perf + b_{3}\,salary*perf + e$$`
+
+Exercise 2. **Test a model which contains**:
+`$$js\_score = b_{0} + b_{1}\,age + b_{2}\,perf + b_{3}\,age*perf + e$$`
+
+<div class="countdown" id="timer_621e53a8" style="right:0;bottom:0;" data-warnwhen="60">
+<code class="countdown-time"><span class="countdown-digits minutes">10</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+
+---
+class: inverse, mline, left, middle
+
+&lt;img class="circle" src="https://github.com/damien-dupre.png" width="250px"/&gt;
+
+# Thanks for your attention and don't hesitate to ask if you have any question!
+
+[<svg aria-hidden="true" role="img" viewBox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg> @damien_dupre](http://twitter.com/damien_dupre)  
+[<svg aria-hidden="true" role="img" viewBox="0 0 496 512" style="height:1em;width:0.97em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg> @damien-dupre](http://github.com/damien-dupre)  
+[<svg aria-hidden="true" role="img" viewBox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96 0-59.27-59.26-59.27-155.7 0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757 0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037 0 0 1-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482 0 0 1 20.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96 0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454 0 0 0 20.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037 0 0 0-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639 0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"/></svg> damien-datasci-blog.netlify.app](https://damien-datasci-blog.netlify.app)  
+[<svg aria-hidden="true" role="img" viewBox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M476 3.2L12.5 270.6c-18.1 10.4-15.8 35.6 2.2 43.2L121 358.4l287.3-253.2c5.5-4.9 13.3 2.6 8.6 8.3L176 407v80.5c0 23.6 28.5 32.9 42.5 15.8L282 426l124.6 52.2c14.2 6 30.4-2.9 33-18.2l72-432C515 7.8 493.3-6.8 476 3.2z"/></svg> damien.dupre@dcu.ie](mailto:damien.dupre@dcu.ie)
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="libs/cols_macro.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "zenburn",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

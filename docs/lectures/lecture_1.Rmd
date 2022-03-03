@@ -16,11 +16,11 @@ output:
 
 ```{r setup, include = FALSE}
 # libraries --------------------------------------------------------------------
-library(tidyverse)
+library(DiagrammeR)
+library(emo)
 library(knitr)
 library(nomnoml)
-library(emo)
-library(DiagrammeR)
+library(tidyverse)
 library(widgetframe)
 # general options --------------------------------------------------------------
 options(scipen = 999)
@@ -217,7 +217,7 @@ class: inverse, mline, center, middle
 # Big Data Everywhere!
 
 ```{r out.width='50%'}
-include_graphics("https://www.visualcapitalist.com/wp-content/uploads/2019/07/big-data-getting-bigger.jpg")
+include_graphics("https://static.techspot.com/images2/news/bigimage/2021/09/2021-09-30-image-32.jpg")
 ```
 
 ---
@@ -274,6 +274,7 @@ Without data, an organization could not successfully complete most business acti
 --
 
 ### Data Analytics
+
 - The science of using data to build models that lead to better decisions that in turn add value to individuals, companies and institutions
 - The analysis of data, typically large sets of data, by the use of mathematics, statistics, and computer software
 
