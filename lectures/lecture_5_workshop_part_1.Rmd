@@ -281,7 +281,7 @@ class: title-slide, middle
 
 ## Exercise: Descriptive Statistics
 
-Use the data file "manager_satisfaction_performance.csv" in Jamovi to:
+Use the data file `manager_satisfaction_performance.csv` from loop in Jamovi to:
 - Evaluate the reliability of the 3 scales
 - Calculate the score for each scale
 - Produce descriptive tables and figures from the latent variables according to the gender variable 

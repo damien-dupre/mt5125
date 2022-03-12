@@ -89,7 +89,7 @@ lm_1 <- lm(js_score ~ salary, data = organisation_beta) %>% apa_print
 lm_2 <- lm(js_score ~ salary*perf, data = organisation_beta) %>% apa_print
 lm_c <- lm(js_score ~ salary_c, data = organisation_beta) %>% apa_print
 lm_c2 <- organisation_beta %>% 
-  dplyr::mutate(salary_c = factor(salary_c, level = c("low", "high"))) %>% 
+  mutate(salary_c = factor(salary_c, level = c("low", "high"))) %>% 
   lm(js_score ~ salary_c, data = .) %>% apa_print
 lm_c3 <- lm(js_score ~ location, data = organisation_beta) %>% aov %>% apa_print
 
@@ -192,7 +192,6 @@ countdown(minutes = 5, warn_when = 60)
 ```
 
 ---
-
 class: inverse, mline, center, middle
 
 # 1. Hypotheses with Categorical Predictors having 2 Categories
@@ -378,7 +377,6 @@ countdown(minutes = 5, warn_when = 60)
 ```
 
 ---
-
 class: inverse, mline, center, middle
 
 # 2. Hypotheses with Categorical Predictor having 3+ Categories
@@ -576,6 +574,44 @@ $$b_{5}\,perf*location + b_{6}\,perf*salary + b_{7}\,salary*location*perf + e$$
 ```{r}
 countdown(minutes = 5, warn_when = 60)
 ```
+
+---
+class: inverse, mline, center, middle
+
+# 3. Automatic Test Selection
+
+---
+
+# Jamovi Modules
+
+Remember, there are two ways to use Jamovi:
+
+- Without installing it, from a web browser using the URL https://cloud.jamovi.org (can be deactivated at any time)
+- After installing it locally from https://www.jamovi.org/
+
+`r faa("arrow-circle-right", animate="horizontal", speed="slow", color="blue")` One of the main difference is the ability to add more modules (statistical tests and visualisations) with the version installed locally.
+
+To install new module click on the plus sign at the top right corner:
+
+```{r out.width='45%'}
+include_graphics("https://mattchoward.files.wordpress.com/2020/10/installing-modules-in-jamovi-3.png")
+```
+
+.center[All Jamovi modules are free and some are extremely interesting]
+
+---
+
+# Statkat Jamovi Module
+
+Statkat is an online support system for students who are following a course in statistics (see https://statkat.com/)
+
+They also have created a Jamovi module in which users declare their Outcome (DV) and Predictor (IV) Variables to show them which test to use
+
+```{r out.width='100%'}
+include_graphics("https://blog.jamovi.org/assets/images/statkatOptions.png")
+```
+
+`r faa("arrow-circle-right", animate="horizontal", speed="slow", color="blue")` In the last version, use **"Relationships, Prediction, and Group Comparisons"** for most cases.
 
 ---
 class: inverse, mline, left, middle

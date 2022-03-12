@@ -32,4 +32,4 @@ output:
 - #### `r fontawesome::fa(name = "coffee")` Coffee Break (15min)
 
 - #### `r fontawesome::fa(name = "user-edit")` 2.15pm - 4pm
->#### Part 4 "Qualitative Research"
+>#### Part 4 "Qualitative Statistics"
