@@ -1,0 +1,40 @@
+---
+title: "Assignment Instructions"
+subtitle: "DCU MBA 1 – MT5125 Data Analytics"
+author: "Damien Dupré"
+output: pdf_document
+params:
+  unit_selected_1: "unit_1"
+  unit_selected_2: "unit_2"
+  vari_selected_1: "vari_1"
+  vari_selected_2: "vari_2"
+---
+
+## Context
+
+You are Senior Data Strategist at Táirgí Déiríochta International, a company producing dairy products from Ireland and selling them all around the world. To perform its activities, Táirgí Déiríochta International is spread on 6 continents. The activity was booming and the company has seen an average of 11% growth over the last 5 years. However, the results of the company performance in 2021 has decreased by 20% compared to 2020. The CEO is extremely worried about this situation and asked you to investigate the problem.
+
+You have identified two business units with major issues: `r paste(params$unit_selected_1, params$unit_selected_2, sep = " and ")`. In order to investigate the `r gsub("_", " ", params$vari_selected_1)` in these business units, you asked their employees to fill out a survey made of 10 questions. Five questions are measuring their `r gsub("_", " ", params$vari_selected_1)` and five questions are measuring their `r gsub("_", " ", params$vari_selected_2)` which may explains the situation. The collected answers have been coded from 1 “Strongly Disagree” to 7 “Strongly Agree”.
+
+## Task
+
+Provide to the CEO an academic research report presenting your investigation.
+
+Your academic research report should investigate __3 hypotheses tested in the same model__. Two of these hypotheses should be main effect hypotheses and one should be an interaction effect hypothesis.
+
+This report should be __no more than 6 pages long__, including:
+
+-	A short introduction, 
+-	A short literature review with no more than 6 references which ends with your hypotheses,
+-	A method section presenting your data. Your method section should present how the hypotheses are tested with the corresponding model representation and equation,
+-	A result section including descriptive statistics and inferential statistics,
+-	A discussion and conclusion section which examines the hypotheses and their results,
+-	A reference section listing the academic papers cited in your document to support your hypotheses and discussion.
+
+## Submission
+
+1. On the MT5125 Loop page, section Assignment
+2. In a .pdf file
+3. By June 21st, 2022
+
+Note, any page after the 6th page will not be assessed (whatever it is in the appendix or in the main document). Remember that your target audience is the company CEO not a DCU lecturer. Each data attributed to students are unique and will prevent copy-paste of results from another dataset attributed to another student.
